@@ -1,7 +1,7 @@
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import MainPage from "./MainPage";
 
-const App = () => {
+const App = () => { //라우터 설정
   return (
     <div >
       <BrowserRouter>
