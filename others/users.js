@@ -19,12 +19,13 @@ router.post('/register', async (req, res) => {
 
 // 회원 정보 조회
 router.get('/', async (req, res) => {
-  try {
-    const [rows] = await db.execute('SELECT * FROM users');
-    res.json(rows);
-  } catch (err) {
-    res.status(500).json({ error: 'DB 조회 실패' });
-  }
+    try {
+        const [rows] = await db.execute('SELECT * FROM users');
+        res.json(rows);
+    } catch (err) {
+        console.error("DB 조회 중 에러 발생:", err); // 에러 로그 추가
+        res.status(500).json({ error: 'DB 조회 실패' });
+    }
 });
 
 module.exports = router;
