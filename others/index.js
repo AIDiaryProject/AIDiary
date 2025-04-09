@@ -11,3 +11,9 @@ const pool = mysql.createPool({
 });
 
 module.exports = pool;
+
+console.log("연결 정보:", {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    database: process.env.DB_DATABASE
+  });
