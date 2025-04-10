@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/users', usersRouter); // '/api/users' 경로로 라우터 설정
+app.use('/users', usersRouter); // '/users' 경로로 라우터 설정
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
