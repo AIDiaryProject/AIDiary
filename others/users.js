@@ -4,11 +4,11 @@ const db = require('./index');
 
 // 회원가입
 router.post('/register', async (req, res) => {
-  const { id, password, nickname } = req.body;
+  const { id, password, nickname, porfile } = req.body;
   try {
     const [result] = await db.execute(
-      'INSERT INTO users (id, password, nickname) VALUES (?, ?, ?)',
-      [id, password, nickname]
+      'INSERT INTO users (id, password, nickname, porfile) VALUES (?, ?, ?, ?)',
+      [id, password, nickname, porfile]
     );
     res.status(201).json({ message: '회원가입 성공', userId: result.insertId });
   } catch (err) {

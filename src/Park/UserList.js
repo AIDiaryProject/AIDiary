@@ -19,7 +19,7 @@ const UserList = () => {
       <h2>회원 목록</h2>
       <ul>
         {users.map((user) => (
-          <p>{user.id} {user.password} {user.nickname}</p>
+          <p>{user.id} {user.password} {user.nickname} {user.profile}</p>
         ))}
       </ul>
     </div>
