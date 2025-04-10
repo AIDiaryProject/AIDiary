@@ -5,6 +5,7 @@ const Register = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [nickname, setNickname] = useState('');
+  const [porfile, setPorfile] = useState(1);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,11 +14,13 @@ const Register = () => {
         id,
         password,
         nickname,
+        porfile,
       });
       alert('회원가입 성공!');
       setId('');
       setPassword('');
       setNickname('');
+      setPorfile(1);
     } catch (err) {
       console.error(err);
       alert('회원가입 실패!');
