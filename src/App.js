@@ -4,11 +4,11 @@ import Test from "./Park/Test";
 import Register from "./Park/Register";
 import UserList from "./Park/UserList";
 import Login from "./Park/Login";
-import AiDiary from "./Lee/aidiary";
-import HandDiary from "./Lee/handdiary";
-import ResultAiDiary from "./Lee/resultAidiary";
-import ResultHandDiary from "./Lee/resultHanddiary";
-import { EnvProvider } from "./Lee/envContext";
+import AiDiary from "./Lee/AiDiary";
+import HandDiary from "./Lee/Handdiary";
+import ResultAiDiary from "./Lee/ResultAidiary";
+import ResultHandDiary from "./Lee/ResultHanddiary";
+import { EnvProvider } from "./Lee/EnvContext";
 
 const App = () => { //라우터 설정
   return (

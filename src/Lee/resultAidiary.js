@@ -1,6 +1,6 @@
 import React from 'react';
 
-const resultAidiary = () => {
+const ResultAidiary = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const resultAidiary = () => {
     );
 };
 
-export default resultAidiary;
+export default ResultAidiary;

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import WeatherInfo from "./weatherInfo";
-import DustInfo from "./dustInfo";
+import WeatherInfo from "./WeatherInfo";
+import DustInfo from "./DustInfo";
 
-const aidiary = () => {
+const AiDiary = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [keywords, setKeywords] = useState([""]);
@@ -138,4 +138,4 @@ const aidiary = () => {
   );
 }
 
-export default aidiary;
+export default AiDiary;
