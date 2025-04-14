@@ -5,6 +5,7 @@ const UserList = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
+    // axios.get('http://localhost:5000/users')
     axios.get('https://aidiary.onrender.com/users')
       .then((res) => {
         setUsers(res.data);
