@@ -140,7 +140,7 @@ const AiDiary = () => {
       </button>
       {generatedDiary && (
         <div style={{ marginTop: "1rem" }}>
-          <h3>✏️ 생성된 일기 (수정 가능)</h3>
+          <h3>✏️ 생성된 일기 (수정)</h3>
           <textarea
             value={generatedDiary}
             onChange={(e) => setGeneratedDiary(e.target.value)}
