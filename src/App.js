@@ -4,6 +4,11 @@ import Test from "./Park/Test";
 import Register from "./Park/Register";
 import UserList from "./Park/UserList";
 import Login from "./Park/Login";
+import AiDiary from "./Lee/aidiary";
+import HandDiary from "./Lee/handdiary";
+import ResultAiDiary from "./Lee/resultAidiary";
+import ResultHandDiary from "./Lee/resultHanddiary";
+import { EnvProvider } from "./Lee/envContext";
 
 const App = () => { //라우터 설정
   return (
@@ -11,11 +16,14 @@ const App = () => { //라우터 설정
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/handdiary" element={<Test />} />
-          <Route path="/aidiary" element={<p>ai일기페이지</p>} />
+          <Route path="/test" element={<Test />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/UserList" element={<UserList />} />
+          <Route path="/handdiary" element={<EnvProvider><HandDiary /></EnvProvider>} />
+          <Route path="/aidiary" element={<EnvProvider><AiDiary /></EnvProvider>} />
+          <Route path="/resulthanddiary" element={<EnvProvider><ResultHandDiary /></EnvProvider>} />
+          <Route path="/resultaidiary" element={<EnvProvider><ResultAiDiary /></EnvProvider>} />
         </Routes>
       </BrowserRouter>
     </div>

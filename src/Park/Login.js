@@ -21,7 +21,7 @@ const Login = () => {
       const { token } = res.data;
       localStorage.setItem('token', token);
       alert('로그인 성공!');
-      navigate('/handdiary');
+      navigate('/test');
     } catch (err) {
       console.error('로그인 에러:', err);
       if (err.response && err.response.data && err.response.data.error) {
