@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
-const Handdiary = () => {
+const HandDiary = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -123,4 +123,4 @@ const Handdiary = () => {
   );
 };
 
-export default Handdiary;
+export default HandDiary;
