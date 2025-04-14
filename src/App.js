@@ -6,8 +6,8 @@ import UserList from "./Park/UserList";
 import Login from "./Park/Login";
 import AiDiary from "./Lee/AiDiary";
 import HandDiary from "./Lee/HandDiary";
-import ResultAiDiary from "./Lee/ResultAidiary";
-import ResultHandDiary from "./Lee/ResultHanddiary";
+import ResultAiDiary from "./Lee/ResultAiDiary";
+import ResultHandDiary from "./Lee/ResultHandDiary";
 import { EnvProvider } from "./Lee/EnvContext";
 
 const App = () => { //라우터 설정
@@ -20,10 +20,10 @@ const App = () => { //라우터 설정
           <Route path="/Register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/UserList" element={<UserList />} />
-          <Route path="/handDiary" element={<EnvProvider><HandDiary /></EnvProvider>} />
-          <Route path="/aiDiary" element={<EnvProvider><AiDiary /></EnvProvider>} />
-          <Route path="/resulthanddiary" element={<EnvProvider><ResultHandDiary /></EnvProvider>} />
-          <Route path="/resultaidiary" element={<EnvProvider><ResultAiDiary /></EnvProvider>} />
+          <Route path="/HandDiary" element={<EnvProvider><HandDiary /></EnvProvider>} />
+          <Route path="/AiDiary" element={<EnvProvider><AiDiary /></EnvProvider>} />
+          <Route path="/ResultHandDiary" element={<EnvProvider><ResultHandDiary /></EnvProvider>} />
+          <Route path="/ResultAiDiary" element={<EnvProvider><ResultAiDiary /></EnvProvider>} />
         </Routes>
       </BrowserRouter>
     </div>
