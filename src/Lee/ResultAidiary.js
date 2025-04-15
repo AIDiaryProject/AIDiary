@@ -1,13 +1,35 @@
-// ResultAidiary.js
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import WeatherInfo from "./WeatherInfo";
 import DustInfo from "./DustInfo";
+import LoginUser from "../Park/LoginUser";
+import axios from "axios";
 
 const ResultAiDiary = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { title, diary, weather, mood, date } = location.state || {};
+  const { title, content, weather, mood, date } = location.state || {};
+  const { user, login } = LoginUser();
+  const nickname = user?.nickname;
+
+  const dbSave = async() => { //title, content, wather, mood, date, comment, nickname
+    try {
+        await axios.post('https://aidiary.onrender.com/diaryDB/diarysave', {
+          title, 
+          content, 
+          weather, 
+          mood, 
+          date, 
+          comment : null, 
+          nickname
+      });
+      alert('DB저장 성공!');
+      // 초기화
+    } catch (err) {
+      console.error(err);
+      alert('DB저장 실패!');
+    }
+  };
 
   return (
     <div>
@@ -19,9 +41,10 @@ const ResultAiDiary = () => {
 
       <h3>📝 최종 일기</h3>
       <div style={{ whiteSpace: "pre-wrap", border: "1px solid #ccc", padding: "1rem", borderRadius: "8px" }}>
-        {diary}
+        {content}
       </div>
-
+      <button onClick={() => {dbSave()}}>DB제출</button>
+      <button onClick={() => {console.log('title: ', title, 'content : ', content, 'weather :', weather, 'mood :', mood, 'date :', date, 'nickname: ', nickname)}}>console.log</button>
       <WeatherInfo />
       <DustInfo />
     </div>
