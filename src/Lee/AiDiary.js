@@ -68,13 +68,16 @@ const AiDiary = () => {
   };
 
   const handleComplete = () => {
+    const now = new Date();
+    const formattedDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
     navigate("/resultaidiary", {
       state: {
         title,
-        diary: generatedDiary,
+        content: generatedDiary,
         weather: includeWeather ? userWeather : null,
         mood: includeMood ? userMood : null,
-        date: new Date().toLocaleDateString('ko-KR'),
+        // date: new Date().toLocaleDateString('ko-KR'),
+        date: formattedDate,
       }
     });
   };
