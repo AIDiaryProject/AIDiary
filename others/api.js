@@ -59,7 +59,11 @@ router.post("/chat", async (req, res) => {
 router.get("/air", async (req, res) => {
   const url = `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey=${process.env.AIRKOREA_API_KEY}&returnType=json&numOfRows=2&pageNo=1&sidoName=서울&ver=1.0`;
   console.log('미세먼지 API process.env.AIRKOREA_API_KEY 값 : ', process.env.AIRKOREA_API_KEY);
-
+  console.log("📦 응답 상태 코드:", response.status);
+  console.log("📦 응답 콘텐츠 타입:", contentType);
+  if (!response.ok) {
+    throw new Error(`공공데이터 API 응답 실패: ${response.status}`);
+  }
   try {
     const response = await fetch(url);
     const data = await response.json();

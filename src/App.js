@@ -6,8 +6,8 @@ import UserList from "./Park/UserList";
 import Login from "./Park/Login";
 import AiDiary from "./Lee/AiDiary";
 import HandDiary from "./Lee/HandDiary";
-import ResultAiDiary from "./Lee/ResultAiDiary";
-import ResultHandDiary from "./Lee/ResultHandDiary";
+import ResultAiDiary from "./Lee/ResultAidiary";
+import ResultHandDiary from "./Lee/ResultHanddiary";
 import { EnvProvider } from "./Lee/EnvContext";
 
 const App = () => { //라우터 설정
