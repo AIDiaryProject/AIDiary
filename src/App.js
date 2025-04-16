@@ -10,6 +10,7 @@ import ResultAidiary from "./Lee/ResultAidiary";
 import ResultHanddiary from "./Lee/ResultHanddiary";
 import { EnvProvider } from "./Lee/EnvContext";
 import PrivateRoute from "./PrivateRoute";
+import MypageList from "./Lee/MypageList";
 
 const App = () => { //라우터 설정
   return (
@@ -21,10 +22,11 @@ const App = () => { //라우터 설정
           <Route path="/Register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/UserList" element={<UserList />} />
-          <Route path="/HandDiary" element={<PrivateRoute><EnvProvider><HandDiary /></EnvProvider></PrivateRoute>} />
-          <Route path="/AiDiary" element={<PrivateRoute><EnvProvider><AiDiary /></EnvProvider></PrivateRoute>} />
+          <Route path="/HandDiary" element={<PrivateRoute><HandDiary /></PrivateRoute>} />
+          <Route path="/AiDiary" element={<PrivateRoute><AiDiary /></PrivateRoute>} />
           <Route path="/ResultHanddiary" element={<PrivateRoute><EnvProvider><ResultHanddiary /></EnvProvider></PrivateRoute>} />
           <Route path="/ResultAidiary" element={<PrivateRoute><EnvProvider><ResultAidiary /></EnvProvider></PrivateRoute>} />
+          <Route path="/Mypagelist" element={<PrivateRoute><MypageList /></PrivateRoute>} />
         </Routes>
       </BrowserRouter>
     </div>
