@@ -20,4 +20,15 @@ router.post('/diarysave', async (req, res) => {
     }
   });
 
+// 일기 데이터 조회
+router.get('/', async (req, res) => {
+  try {
+      const [rows] = await db.execute('SELECT * FROM diaryDB');
+      res.json(rows);
+  } catch (err) {
+      console.error("DB 조회 중 에러 발생:", err); // 에러 로그 추가
+      res.status(500).json({ error: 'DB 조회 실패' });
+  }
+});
+
   module.exports = router;
