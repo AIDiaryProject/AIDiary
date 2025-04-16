@@ -10,7 +10,9 @@
     "axios": "^1.8.4",
     "bcryptjs": "^3.0.2",
     "bootstrap": "^5.3.5",
+    "bootstrap-icons": "^1.11.3",
     "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
@@ -19,9 +21,11 @@
     "openai": "^4.93.0",
     "react": "^19.1.0",
     "react-bootstrap": "^2.10.9",
+    "react-datepicker": "^8.3.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.5.0",
     "react-scripts": "5.0.1",
+    "styled-components": "^6.1.17",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
