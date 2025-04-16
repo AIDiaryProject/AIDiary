@@ -68,13 +68,16 @@ const AiDiary = () => {
   };
 
   const handleComplete = () => {
+    const now = new Date();
+    const formattedDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
     navigate("/resultaidiary", {
       state: {
         title,
-        diary: generatedDiary,
+        content: generatedDiary,
         weather: includeWeather ? userWeather : null,
         mood: includeMood ? userMood : null,
-        date: new Date().toLocaleDateString('ko-KR'),
+        // date: new Date().toLocaleDateString('ko-KR'),
+        date: formattedDate,
       }
     });
   };
@@ -140,7 +143,7 @@ const AiDiary = () => {
       </button>
       {generatedDiary && (
         <div style={{ marginTop: "1rem" }}>
-          <h3>✏️ 생성된 일기 (수정 가능)</h3>
+          <h3>✏️ 생성된 일기 (수정)</h3>
           <textarea
             value={generatedDiary}
             onChange={(e) => setGeneratedDiary(e.target.value)}

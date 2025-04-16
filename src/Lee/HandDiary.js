@@ -37,6 +37,8 @@ const HandDiary = () => {
       if (!res.ok) throw new Error("GPT API 호출 실패");
 
       const data = await res.json();
+      const now = new Date();
+      const formattedDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
       navigate('/resulthanddiary', {
         state: {
           title,
@@ -44,7 +46,8 @@ const HandDiary = () => {
           weather: includeWeather ? weather : null,
           mood: includeMood ? mood : null,
           comment: data.reply?.content || "코멘트 응답 없음",
-          date: new Date().toLocaleDateString('ko-KR')
+          // date: new Date().toLocaleDateString('ko-KR')
+          date: formattedDate
         }
       });
     } catch (error) {
@@ -65,6 +68,7 @@ const HandDiary = () => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="제목을 입력하세요"
+        maxLength='10'
         style={{ width: '100%', marginBottom: '1rem' }}
       />
 
