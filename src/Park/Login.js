@@ -21,7 +21,8 @@ const Login = () => {
       const { token } = res.data;
       localStorage.setItem('token', token);
       alert('로그인 성공!');
-      navigate('/test');
+      navigate('/');
+      window.location.reload(); //페이지 새로고침
     } catch (err) {
       console.error('로그인 에러:', err);
       if (err.response && err.response.data && err.response.data.error) {
@@ -56,6 +57,7 @@ const Login = () => {
         </div>
         <button type="submit">로그인</button>
       </form>
+      <button onClick={() => {navigate('/register')}}>회원가입</button>
     </div>
   );
 };
