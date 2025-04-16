@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import WeatherInfo from "./WeatherInfo";
 import DustInfo from "./DustInfo";
@@ -7,21 +7,24 @@ import axios from "axios";
 
 const ResultAiDiary = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { title, content, weather, mood, date } = location.state || {};
-  const { user, login } = LoginUser();
+  const { state } = useLocation();
+  if (!state) {
+    return <p>잘못된 접근입니다.</p>;
+  }
+  const { title, content, weather, mood, comment, date } = state;
+  const { user } = LoginUser();
   const nickname = user?.nickname;
 
-  const dbSave = async() => { //title, content, wather, mood, date, comment, nickname
+  const dbSave = async () => { //title, content, wather, mood, date, comment, nickname
     try {
-        await axios.post('https://aidiary.onrender.com/diaryDB/diarysave', {
-          title, 
-          content, 
-          weather, 
-          mood, 
-          date, 
-          comment : null, 
-          nickname
+      await axios.post('https://aidiary.onrender.com/diaryDB/diarysave', {
+        title,
+        content,
+        weather,
+        mood,
+        date,
+        comment: null,
+        nickname
       });
       alert('DB저장 성공!');
       // 초기화
@@ -43,8 +46,8 @@ const ResultAiDiary = () => {
       <div style={{ whiteSpace: "pre-wrap", border: "1px solid #ccc", padding: "1rem", borderRadius: "8px" }}>
         {content}
       </div>
-      <button onClick={() => {dbSave()}}>DB제출</button>
-      <button onClick={() => {console.log('title: ', title, 'content : ', content, 'weather :', weather, 'mood :', mood, 'date :', date, 'nickname: ', nickname)}}>console.log</button>
+      <button onClick={() => { dbSave() }}>DB제출</button>
+      <button onClick={() => { console.log('title: ', title, 'content : ', content, 'weather :', weather, 'mood :', mood, 'date :', date, 'nickname: ', nickname) }}>console.log</button>
       <WeatherInfo />
       <DustInfo />
     </div>
