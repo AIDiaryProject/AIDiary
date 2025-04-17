@@ -56,6 +56,26 @@ router.get('/check-nickname', async (req, res) => {
   }
 });
 
+// 닉네임 변경 (로그인 필요)
+router.patch('/change-nickname', authMiddleware, async (req, res) => {
+  const userId = req.user.id; // authMiddleware 통해서 인증된 사용자 ID
+  const { newNickname } = req.body;
+
+  try { // 닉네임 중복 확인
+    const [existing] = await db.execute('SELECT nickname FROM users WHERE nickname = ?', [newNickname]);
+    if (existing.length > 0) {
+      return res.status(400).json({ error: '이미 사용 중인 닉네임입니다.' });
+    }
+
+    // 닉네임 변경
+    await db.execute('UPDATE users SET nickname = ? WHERE id = ?', [newNickname, userId]);
+    res.json({ message: '닉네임이 성공적으로 변경되었습니다.' });
+  } catch (err) {
+    console.error('닉네임 변경 오류:', err);
+    res.status(500).json({ error: '닉네임 변경 실패' });
+  }
+});
+
 // 로그인
 router.post('/login', async (req, res) => {
   const { id, password } = req.body;
