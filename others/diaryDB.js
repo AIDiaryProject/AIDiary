@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const db = require('./index');
-const authMiddleware = require('../authMiddleware');
 
 // DB저장
 router.post('/diarysave', async (req, res) => {
