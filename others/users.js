@@ -120,7 +120,7 @@ router.get('/', async (req, res) => {
 router.get('/me', authMiddleware, async (req, res) => {
   try {
     const userId = req.user.id;
-    const [rows] = await db.execute('SELECT id, nickname, profile FROM users WHERE id = ?', [userId]);
+    const [rows] = await db.execute('SELECT id, nickname, profile, item, point, diarydate FROM users WHERE id = ?', [userId]);
     res.json(rows[0]);
   } catch (err) {
     console.error(err);
