@@ -55,6 +55,9 @@ const MypageInfo = () => {
             아이디 : {user?.id} <br />
             닉네임 : {user?.nickname} <button onClick={() => {setNicknameModal(true)}}> 닉네임 변경 </button><br />
             프로필 : {user?.profile} <br />
+            포인트 : {user?.point} <br />
+            최근 일기 : {user?.diarydate} <br />
+            <button onClick={() => {console.log(user?.item)}}>item 배열 확인</button>
 
             {nicknameModal && <div 
                 className='modal show fade d-block'  

@@ -21,7 +21,7 @@ const UserList = () => {
       <h2>회원 목록</h2>
       <ul>
         {users.map((user) => (
-          <div>{user.id} {user.password} {user.nickname} {user.profile}</div>
+          <div>{user.id}/{user.password}/{user.nickname}/{user.profile}/{user.item}/{user.point}/{user.diarydate}</div>
         ))}
       </ul>
     </div>

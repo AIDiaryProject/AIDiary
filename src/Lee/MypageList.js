@@ -20,7 +20,8 @@ const MypageList = () => {
     const itemsPerPage = 5; // 한 페이지당 보여줄 게시물 수
 
     const { user } = LoginUser();
-    const nickname = user?.nickname; //사용자 닉네임 확인
+    const nickname = user?.nickname; //사용자 nickname 확인
+    const id = user?.id; //사용자 id 확인
 
     useEffect(() => { //사용자 닉네임과 비교해 일기 출력
         axios.get('https://aidiary.onrender.com/diaryDB')
@@ -141,7 +142,7 @@ const MypageList = () => {
                     title="검색"
                     style={{ width: "5%" }}
                 >
-                    <i class="bi bi-x"></i>
+                    <i className="bi bi-x"></i>
                 </button>
             </div>
             {/* 게시글 목록 */}

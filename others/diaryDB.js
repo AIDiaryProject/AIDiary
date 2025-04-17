@@ -4,14 +4,14 @@ const db = require('./index');
 
 // DB저장
 router.post('/diarysave', async (req, res) => {
-    const { title, content, weather, date, comment, nickname, emotionLabel, emotionScore } = req.body;
+    const { title, content, weather, date, comment, user_id, emotionLabel, emotionScore } = req.body;
 
     try {
-      console.log('요청된 title, content, weather, date, comment, nickname, emotionLabel, emotionScore 값 : \n', title, content, weather, date, comment, nickname, emotionLabel, emotionScore);
+      console.log('요청된 title, content, weather, date, comment, user_id, emotionLabel, emotionScore 값 : \n', title, content, weather, date, comment, user_id, emotionLabel, emotionScore);
   
       const [result] = await db.execute(
-        'INSERT INTO diaryDB (title, content, weather, date, comment, nickname, emotionLabel, emotionScore) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-        [title, content, weather, mood, date, comment, nickname]
+        'INSERT INTO diaryDB (title, content, weather, date, comment, user_id, emotionLabel, emotionScore) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        [title, content, weather, date, comment, user_id, emotionLabel, emotionScore]
       );
       res.status(201).json({ message: '일기 저장 성공', userId: result.insertId });
     } catch (err) {

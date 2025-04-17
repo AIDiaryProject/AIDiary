@@ -15,7 +15,6 @@ const Register = () => {
   const [passwordError, setPasswordError] = useState(''); //비밀번호 에러 메세지 출력
   const [showPassword, setShowPassword] = useState(false); //입력된 비밀번호 출력/숨기기
 
-  const [profile, setProfile] = useState(1);
 
   
   //ID 중복확인
@@ -79,7 +78,9 @@ const Register = () => {
         id,
         password,
         nickname,
-        profile,
+        profile : 1,
+        point : 0,
+        item : [1],
       });
       alert('회원가입 성공!');
       // 초기화
@@ -87,7 +88,6 @@ const Register = () => {
       setPassword('');
       setPasswordCheck('');
       setNickname('');
-      setProfile(1);
       setIsIdChecked(false);
       setIsNicknameChecked(false);
     } catch (err) {
