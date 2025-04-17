@@ -21,10 +21,11 @@ const ResultAiDiary = () => {
         title,
         content,
         weather,
-        mood,
         date,
         comment: null,
-        nickname
+        nickname,
+        emotionLabel,
+        emotionScore,
       });
       alert('DB저장 성공!');
       // 초기화

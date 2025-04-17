@@ -21,10 +21,11 @@ const ResultHanddiary = () => {
                 title,
                 content,
                 weather,
-                mood,
                 date,
                 comment,
-                nickname
+                nickname,
+                emotionLabel,
+                emotionScore,
             });
             alert('DB저장 성공!');
             // 초기화
