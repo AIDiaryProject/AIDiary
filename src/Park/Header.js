@@ -31,7 +31,7 @@ const Header = () => {
                             position: 'absolute',
                             top: '3.5rem',
                             right: 0,
-                            width:'5rem',
+                            width:'7rem',
                             backgroundColor: 'white',
                             border: '1px solid gray',
                             boxShadow: '0px 2px 5px rgba(0,0,0,0.1)',
