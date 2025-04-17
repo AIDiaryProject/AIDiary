@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const db = require('./index');
+const authMiddleware = require('../authMiddleware');
 
 // DB저장
 router.post('/diarysave', async (req, res) => {
-    const { title, content, weather, mood, date, comment, nickname } = req.body;
+    const { title, content, weather, date, comment, nickname, emotionLabel, emotionScore } = req.body;
 
     try {
-      console.log('요청된 title, content, weather, mood, date, comment, nickname 값 : \n', title, content, weather, mood, date, comment, nickname);
+      console.log('요청된 title, content, weather, date, comment, nickname 값 : \n', title, content, weather, date, comment, nickname, emotionLabel, emotionScore);
   
       const [result] = await db.execute(
-        'INSERT INTO diaryDB (title, content, weather, mood, date, comment, nickname) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        'INSERT INTO diaryDB (title, content, weather, mood, date, comment, nickname, emotionLabel, emotionScore) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         [title, content, weather, mood, date, comment, nickname]
       );
       res.status(201).json({ message: '일기 저장 성공', userId: result.insertId });
@@ -21,6 +22,7 @@ router.post('/diarysave', async (req, res) => {
   });
 
 // 일기 데이터 조회
+{/* 
 router.get('/', async (req, res) => {
   try {
       const [rows] = await db.execute('SELECT * FROM diaryDB');
@@ -30,5 +32,17 @@ router.get('/', async (req, res) => {
       res.status(500).json({ error: 'DB 조회 실패' });
   }
 });
+*/}
 
-  module.exports = router;
+router.get('/', authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user.id; // 토큰에서 추출한 사용자 ID
+    const [rows] = await db.execute('SELECT * FROM diaryDB WHERE user_id = ?', [userId]);
+    res.json(rows);
+  } catch (err) {
+    console.error("DB 조회 중 에러 발생:", err);
+    res.status(500).json({ error: 'DB 조회 실패' });
+  }
+});
+
+module.exports = router;
