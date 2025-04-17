@@ -20,17 +20,16 @@ const MypageList = () => {
     const itemsPerPage = 5; // 한 페이지당 보여줄 게시물 수
 
     const { user } = LoginUser();
-    const nickname = user?.nickname; //사용자 nickname 확인
     const id = user?.id; //사용자 id 확인
 
     useEffect(() => { //사용자 닉네임과 비교해 일기 출력
         axios.get('https://aidiary.onrender.com/diaryDB')
         .then((res) => {
-            const filteredData = res.data.filter(item => item.nickname === nickname);
+            const filteredData = res.data.filter(item => item.user_id === id);
             setData(filteredData);
         })
         console.log(data);
-    },[nickname]);
+    },[id]);
 
     const handleItemClick = (item) => {
         setSelectedItem(item);
@@ -180,7 +179,7 @@ const MypageList = () => {
                             <div className='modal-body'>
                                 <p>날짜: {selectedItem.date.slice(0,10)}</p>
                                 {selectedItem.weather && <p>날씨: {selectedItem.weather}</p>}
-                                {selectedItem.mood && <p>기분: {selectedItem.mood}</p>}
+                                <p>기분: {selectedItem.emotionLabel}</p>
                                 <p>내용:</p>
                                 <p>{selectedItem.content}</p>
                                 {selectedItem.comment && <p>코멘트: {selectedItem.comment}</p>}

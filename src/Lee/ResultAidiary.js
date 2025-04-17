@@ -40,13 +40,14 @@ const ResultAiDiary = () => {
       <h2>{title}</h2>
       <p>🗓️ {date}</p>
       {weather && <p>☀️ 날씨: {weather}</p>}
+      <p>기분: {emotionLabel}</p>
 
       <h3>📝 최종 일기</h3>
       <div style={{ whiteSpace: "pre-wrap", border: "1px solid #ccc", padding: "1rem", borderRadius: "8px" }}>
         {content}
       </div>
       <button onClick={() => { dbSave() }}>DB제출</button>
-      <button onClick={() => { console.log('title: ', title, 'content : ', content, 'weather :', 'date :', date) }}>console.log</button>
+      <button onClick={() => { console.log('title: ', title, 'content : ', content, 'weather :', weather, 'date :', date, 'user_id', user?.id, 'emotion', emotionLabel) }}>console.log</button>
       <WeatherInfo />
       <DustInfo />
     </div>

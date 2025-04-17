@@ -6,22 +6,28 @@ const HandDiary = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [includeWeather, setIncludeWeather] = useState(false);
-  const [includeMood, setIncludeMood] = useState(false);
   const [weather, setWeather] = useState('');
-  const [mood, setMood] = useState('');
+  const [userEmotionLabel, setUserEmotionLabel] = useState('보통');
+  const [userEmotionScore, setUserEmotionScore] = useState(4);
   const [loading, setLoading] = useState(false);
+
+  const emotionOptions = [
+    { id: 1, label: "기쁨" },
+    { id: 2, label: "슬픔" },
+    { id: 3, label: "화남" },
+    { id: 4, label: "보통" },
+    { id: 5, label: "피곤" },
+    { id: 6, label: "불안" },
+    { id: 7, label: "상쾌" },
+  ];
 
   const handelSubmit = async () => {
     setLoading(true);
 
-    let message = `다음은 사용자가 작성한 일기야. 공감해주고 따뜻한 코멘트를 남겨줘.\n\n제목: ${title}\n\n내용: ${content}`;
+    let message = `다음은 사용자가 작성한 일기야. 공감해주고 따뜻한 코멘트를 남겨줘.\n\n제목: ${title}\n\n 오늘 나의 기분은 ${userEmotionLabel}.\n\n내용: ${content}`;
     if (includeWeather && weather.trim()) {
       message += `\n오늘의 날씨는 ${weather}야.`;
     }
-    if (includeMood && mood.trim()) {
-      message += `\n오늘 사용자의 기분은 ${mood}야.`;
-    }
-
     try {
       const res = await fetch("https://aidiary.onrender.com/api/chat", {
         method: "POST",
@@ -44,10 +50,10 @@ const HandDiary = () => {
           title,
           content,
           weather: includeWeather ? weather : null,
-          mood: includeMood ? mood : null,
+          date: formattedDate,
+          emotionLabel: userEmotionLabel,
+          emotionScore: userEmotionScore,
           comment: data.reply?.content || "코멘트 응답 없음",
-          // date: new Date().toLocaleDateString('ko-KR')
-          date: formattedDate
         }
       });
     } catch (error) {
@@ -102,22 +108,26 @@ const HandDiary = () => {
 
       <div>
         <label>
-          <input
-            type="checkbox"
-            checked={includeMood}
-            onChange={(e) => setIncludeMood(e.target.checked)}
-          />
-          감정 포함
+          기분 선택
         </label>
-        {includeMood && (
-          <input
-            type="text"
-            value={mood}
-            onChange={(e) => setMood(e.target.value)}
-            placeholder="예: 기분이 좋아, 우울해"
-            style={{ marginLeft: '1rem' }}
-          />
-        )}
+        <div>
+          <p>오늘의 기분을 선택해 주세요:</p>
+          {emotionOptions.map((emotion) => (
+            <label key={emotion.id} style={{ display: 'block', marginBottom: '4px' }}>
+              <input
+                type="radio"
+                name="emotion"
+                value={emotion.id}
+                checked={userEmotionScore === emotion.id}
+                onChange={() => {
+                  setUserEmotionScore(emotion.id);
+                  setUserEmotionLabel(emotion.label);
+                }}
+              />
+              {emotion.label}
+            </label>
+          ))}
+        </div>
       </div>
 
       <button onClick={handelSubmit} disabled={loading} style={{ marginTop: '1rem' }}>
