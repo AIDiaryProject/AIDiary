@@ -22,35 +22,21 @@ router.post('/diarysave', async (req, res) => {
   });
 
 // 일기 데이터 조회
-{/*
 router.get('/', async (req, res) => {
   try {
       const [rows] = await db.execute('SELECT * FROM diaryDB');
       res.json(rows);
   } catch (err) {
-      console.error("DB 조회 중 에러 발생:", err); // 에러 로그 추가
+      console.error("DB 조회 중 에러 발생:", err);
       res.status(500).json({ error: 'DB 조회 실패' });
   }
 });
-*/}
 
-router.get('/', authMiddleware, async (req, res) => {
+//사용자 지정 일기 데이터 조회
+router.get('/userdiary', async (req, res) => {
   const userId = req.query.user_id;
-
   try {
-    let rows;
-
-    if (userId) {
-      // user_id가 전달된 경우: 해당 유저의 일기만 조회
-      [rows] = await db.execute(
-        'SELECT * FROM diaryDB WHERE user_id = ?', 
-        [userId]
-      );
-    } else {
-      // 전달되지 않으면 전체 일기 반환
-      [rows] = await db.execute('SELECT * FROM diaryDB');
-    }
-
+    const [rows] = await db.execute('SELECT * FROM diaryDB WHERE user_id = ?', [userId]);
     res.json(rows);
   } catch (err) {
     console.error("DB 조회 중 에러 발생:", err);
