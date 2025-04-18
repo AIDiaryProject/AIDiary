@@ -7,15 +7,15 @@ const authMiddleware = require('./authMiddleware');
 
 // 회원가입
 router.post('/register', async (req, res) => {
-  const { id, password, nickname, profile } = req.body; //사용자 요청 정보 받음
+  const { id, password, nickname, profile, item, point } = req.body; //사용자 요청 정보 받음
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10); //비밀번호 암호화, 10은 Salting Round로 내부적으로 해시 연산을 반복할 횟수(복잡도가 높을수록 보안 ↑, 성능 ↓)
-    console.log('요청된 id, password, hashedPassword, nickname, profile 값 : \n', id, password, hashedPassword, nickname, profile);
+    console.log('요청된 id, password, hashedPassword, nickname, profile, item, point 값 : \n', id, password, hashedPassword, nickname, profile, item, point);
 
     const [result] = await db.execute( //db.execute: SQL 쿼리를 실행하는 함수. db.excute는 결과값을 배열([rows, fields])로 반환하므로 [result]로 선언
-      'INSERT INTO users (id, password, nickname, profile) VALUES (?, ?, ?, ?)',
-      [id, hashedPassword, nickname, profile]
+      'INSERT INTO users (id, password, nickname, profile, item, point) VALUES (?, ?, ?, ?, ?, ?)',
+      [id, hashedPassword, nickname, profile, item, point]
     );
     res.status(201).json({ message: '회원가입 성공', userId: result.insertId }); //응답 데이터를 json 형식으로 반환. 201은 http 상태 코드(201: 요청 성공, 그 결과로 리소스 생성 및 반환)
   } catch (err) {
@@ -53,6 +53,26 @@ router.get('/check-nickname', async (req, res) => {
   } catch (err) {
     console.error('닉네임 중복 확인 에러:', err);
     res.status(500).json({ error: '서버 에러' });
+  }
+});
+
+// 닉네임 변경 (로그인 필요)
+router.patch('/change-nickname', authMiddleware, async (req, res) => {
+  const userId = req.user.id; // authMiddleware 통해서 인증된 사용자 ID
+  const { newNickname } = req.body;
+
+  try { // 닉네임 중복 확인
+    const [existing] = await db.execute('SELECT nickname FROM users WHERE nickname = ?', [newNickname]);
+    if (existing.length > 0) {
+      return res.status(400).json({ error: '이미 사용 중인 닉네임입니다.' });
+    }
+
+    // 닉네임 변경
+    await db.execute('UPDATE users SET nickname = ? WHERE id = ?', [newNickname, userId]);
+    res.json({ message: '닉네임이 성공적으로 변경되었습니다.' });
+  } catch (err) {
+    console.error('닉네임 변경 오류:', err);
+    res.status(500).json({ error: '닉네임 변경 실패' });
   }
 });
 
@@ -100,7 +120,7 @@ router.get('/', async (req, res) => {
 router.get('/me', authMiddleware, async (req, res) => {
   try {
     const userId = req.user.id;
-    const [rows] = await db.execute('SELECT id, nickname, profile FROM users WHERE id = ?', [userId]);
+    const [rows] = await db.execute('SELECT id, nickname, profile, item, point, diarydate FROM users WHERE id = ?', [userId]);
     res.json(rows[0]);
   } catch (err) {
     console.error(err);

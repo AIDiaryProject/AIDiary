@@ -2,24 +2,23 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const Register = () => {
-  const [id, setId] = useState('');
-  const [isIdChecked, setIsIdChecked] = useState(false);
-  const [idError, setIdError] = useState('');
+  const [id, setId] = useState(''); //입력된 id
+  const [isIdChecked, setIsIdChecked] = useState(false); //id 사용 가능 여부
+  const [idError, setIdError] = useState(''); //id 에러 메세지 출력
 
-  const [nickname, setNickname] = useState('');
-  const [isNicknameChecked, setIsNicknameChecked] = useState(false);
-  const [nicknameError, setNicknameError] = useState('');
+  const [nickname, setNickname] = useState(''); //입력된 닉네임
+  const [isNicknameChecked, setIsNicknameChecked] = useState(false); //닉네임 사용 가능 여부
+  const [nicknameError, setNicknameError] = useState(''); //닉네임 에러 메세지 출력
 
-  const [password, setPassword] = useState('');
-  const [passwordCheck, setPasswordCheck] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState(''); //입력된 비밀번호
+  const [passwordCheck, setPasswordCheck] = useState(''); //비밀번호 일치 여부
+  const [passwordError, setPasswordError] = useState(''); //비밀번호 에러 메세지 출력
+  const [showPassword, setShowPassword] = useState(false); //입력된 비밀번호 출력/숨기기
 
-  const [profile, setProfile] = useState(1);
 
   
-
-  const checkIdDuplicate = async () => { //https://aidiary.onrender.com
+  //ID 중복확인
+  const checkIdDuplicate = async () => {
     try {
       // const res = await axios.get(`http://localhost:5000/users/check-id?id=${id}`);
       const res = await axios.get(`https://aidiary.onrender.com/users/check-id?id=${id}`);
@@ -36,6 +35,7 @@ const Register = () => {
     }
   };
 
+  //닉네임 중복확인
   const checkNicknameDuplicate = async () => {
     try {
       // const res = await axios.get(`http://localhost:5000/users/check-nickname?nickname=${nickname}`);
@@ -53,6 +53,7 @@ const Register = () => {
     }
   };
 
+  //회원가입 완료
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -77,7 +78,9 @@ const Register = () => {
         id,
         password,
         nickname,
-        profile,
+        profile : 1,
+        point : 0,
+        item : [1],
       });
       alert('회원가입 성공!');
       // 초기화
@@ -85,7 +88,6 @@ const Register = () => {
       setPassword('');
       setPasswordCheck('');
       setNickname('');
-      setProfile(1);
       setIsIdChecked(false);
       setIsNicknameChecked(false);
     } catch (err) {

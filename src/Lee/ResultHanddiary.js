@@ -11,20 +11,20 @@ const ResultHanddiary = () => {
     if (!state) {
         return <p>잘못된 접근입니다.</p>;
     }
-    const { title, content, weather, mood, comment, date } = state;
+    const { title, content, weather, comment, date, emotionLabel, emotionScore} = state;
     const { user } = LoginUser();
-    const nickname = user?.nickname;
 
-    const dbSave = async () => { //title, content, wather, mood, date, comment, nickname
+    const dbSave = async () => {
         try {
             await axios.post('https://aidiary.onrender.com/diaryDB/diarysave', {
                 title,
                 content,
                 weather,
-                mood,
                 date,
                 comment,
-                nickname
+                user_id: user?.id,
+                emotionLabel,
+                emotionScore,
             });
             alert('DB저장 성공!');
             // 초기화
@@ -40,7 +40,6 @@ const ResultHanddiary = () => {
             <p><strong>제목:</strong> {title}</p>
             <p><strong>날짜:</strong> {date}</p>
             {weather && <p><strong>날씨:</strong> {weather}</p>}
-            {mood && <p><strong>기분:</strong> {mood}</p>}
             <p><strong>내용:</strong></p>
             <pre style={{ whiteSpace: 'pre-wrap' }}>{content}</pre>
 
@@ -49,7 +48,7 @@ const ResultHanddiary = () => {
                 <p style={{ whiteSpace: 'pre-wrap' }}>{comment}</p>
             </div>
             <button onClick={() => { dbSave() }}>DB제출</button>
-            <button onClick={() => { console.log('title: ', title, 'content : ', content, 'weather :', weather, 'mood :', mood, 'date :', date, 'nickname: ', nickname) }}>console.log</button>
+            <button onClick={() => { console.log('title: ', title, 'content : ', content, 'weather :', weather, 'date :', date) }}>console.log</button>
             <WeatherInfo />
             <DustInfo />
         </div>
