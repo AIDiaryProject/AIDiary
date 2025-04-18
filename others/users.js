@@ -13,11 +13,9 @@ router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10); //비밀번호 암호화, 10은 Salting Round로 내부적으로 해시 연산을 반복할 횟수(복잡도가 높을수록 보안 ↑, 성능 ↓)
     console.log('요청된 id, password, hashedPassword, nickname, profile, item, point 값 : \n', id, password, hashedPassword, nickname, profile, item, point);
 
-    const itemJson = JSON.stringify(item); // item 배열을 JSON 문자열로 변환, 예: [1,2,3] → "[1,2,3]"
-
     const [result] = await db.execute( //db.execute: SQL 쿼리를 실행하는 함수. db.excute는 결과값을 배열([rows, fields])로 반환하므로 [result]로 선언
       'INSERT INTO users (id, password, nickname, profile, item, point) VALUES (?, ?, ?, ?, ?, ?)',
-      [id, hashedPassword, nickname, profile, itemJson, point]
+      [id, hashedPassword, nickname, profile, item, point]
     );
     
     res.status(201).json({ message: '회원가입 성공', userId: result.insertId }); //응답 데이터를 json 형식으로 반환. 201은 http 상태 코드(201: 요청 성공, 그 결과로 리소스 생성 및 반환)
@@ -120,17 +118,47 @@ router.get('/', async (req, res) => {
 });
 
 // 프로필 변경 API
+// router.patch('/change-profile', authMiddleware, async (req, res) => {
+//   const userId = req.user.id;
+//   const { newProfile } = req.body;
+
+//   try {
+//     // 현재 사용자의 보유 아이템 가져오기
+//     const [rows] = await db.execute('SELECT item FROM users WHERE id = ?', [userId]);
+//     const userItem = rows[0]?.item || [];
+//     console.log('item 필드:', rows[0]?.item);
+
+//     // 선택한 프로필이 보유한 아이템에 포함되어 있는지 확인
+//     if (!userItem.includes(newProfile)) {
+//       return res.status(400).json({ error: '선택한 프로필은 보유한 항목이 아닙니다.' });
+//     }
+
+//     // 프로필 변경
+//     await db.execute('UPDATE users SET profile = ? WHERE id = ?', [newProfile, userId]);
+//     res.json({ message: '프로필이 성공적으로 변경되었습니다.' });
+//   } catch (err) {
+//     console.error('프로필 변경 오류:', err);
+//     console.log('item 필드:', rows[0]?.item);
+//     res.status(500).json({ error: '프로필 변경 실패' });
+//   }
+// });
+
 router.patch('/change-profile', authMiddleware, async (req, res) => {
   const userId = req.user.id;
   const { newProfile } = req.body;
 
   try {
-    // 현재 사용자의 보유 아이템 가져오기
+    // item은 이미 JSON 타입으로 저장되어 있으므로 바로 사용 가능
     const [rows] = await db.execute('SELECT item FROM users WHERE id = ?', [userId]);
-    const userItem = JSON.parse(rows[0]?.item || '[]');
-    console.log('item 필드:', rows[0]?.item);
+    const userItem = rows[0]?.item || [];
 
-    // 선택한 프로필이 보유한 아이템에 포함되어 있는지 확인
+    console.log('DB에서 읽어온 item:', userItem); // 배열 형태로 나와야 함
+
+    if (!Array.isArray(userItem)) {
+      return res.status(500).json({ error: 'DB item 필드가 배열이 아닙니다.' });
+    }
+
+    // 선택한 프로필이 보유한 아이템인지 확인
     if (!userItem.includes(newProfile)) {
       return res.status(400).json({ error: '선택한 프로필은 보유한 항목이 아닙니다.' });
     }
@@ -138,9 +166,9 @@ router.patch('/change-profile', authMiddleware, async (req, res) => {
     // 프로필 변경
     await db.execute('UPDATE users SET profile = ? WHERE id = ?', [newProfile, userId]);
     res.json({ message: '프로필이 성공적으로 변경되었습니다.' });
+
   } catch (err) {
     console.error('프로필 변경 오류:', err);
-    console.log('item 필드:', rows[0]?.item);
     res.status(500).json({ error: '프로필 변경 실패' });
   }
 });
