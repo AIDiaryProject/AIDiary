@@ -13,10 +13,13 @@ router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10); //비밀번호 암호화, 10은 Salting Round로 내부적으로 해시 연산을 반복할 횟수(복잡도가 높을수록 보안 ↑, 성능 ↓)
     console.log('요청된 id, password, hashedPassword, nickname, profile, item, point 값 : \n', id, password, hashedPassword, nickname, profile, item, point);
 
+    const itemJson = JSON.stringify(item); // item 배열을 JSON 문자열로 변환, 예: [1,2,3] → "[1,2,3]"
+
     const [result] = await db.execute( //db.execute: SQL 쿼리를 실행하는 함수. db.excute는 결과값을 배열([rows, fields])로 반환하므로 [result]로 선언
       'INSERT INTO users (id, password, nickname, profile, item, point) VALUES (?, ?, ?, ?, ?, ?)',
-      [id, hashedPassword, nickname, profile, item, point]
+      [id, hashedPassword, nickname, profile, itemJson, point]
     );
+    
     res.status(201).json({ message: '회원가입 성공', userId: result.insertId }); //응답 데이터를 json 형식으로 반환. 201은 http 상태 코드(201: 요청 성공, 그 결과로 리소스 생성 및 반환)
   } catch (err) {
     console.error('회원가입 에러', err);
@@ -137,8 +140,8 @@ router.patch('/change-profile', authMiddleware, async (req, res) => {
     res.json({ message: '프로필이 성공적으로 변경되었습니다.' });
   } catch (err) {
     console.error('프로필 변경 오류:', err);
-    res.status(500).json({ error: '프로필 변경 실패' });
     console.log('item 필드:', rows[0]?.item);
+    res.status(500).json({ error: '프로필 변경 실패' });
   }
 });
 
