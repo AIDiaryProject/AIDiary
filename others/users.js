@@ -125,6 +125,7 @@ router.patch('/change-profile', authMiddleware, async (req, res) => {
     // 현재 사용자의 보유 아이템 가져오기
     const [rows] = await db.execute('SELECT item FROM users WHERE id = ?', [userId]);
     const userItem = JSON.parse(rows[0]?.item || '[]');
+    console.log('item 필드:', rows[0]?.item);
 
     // 선택한 프로필이 보유한 아이템에 포함되어 있는지 확인
     if (!userItem.includes(newProfile)) {
@@ -137,6 +138,7 @@ router.patch('/change-profile', authMiddleware, async (req, res) => {
   } catch (err) {
     console.error('프로필 변경 오류:', err);
     res.status(500).json({ error: '프로필 변경 실패' });
+    console.log('item 필드:', rows[0]?.item);
   }
 });
 
