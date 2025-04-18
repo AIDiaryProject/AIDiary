@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import LoginUser from "./LoginUser";
+import Profile from "./Profile";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -21,7 +22,8 @@ const Header = () => {
                     }}
                     onClick={() => setShowDropdown(!showDropdown)}
                 >
-                <div style={{backgroundColor:'white', borderRadius:'50px', width:'2.5rem', height:'2.5rem', border:'1px solid black', margin:'0 0.5rem 0 0'}} />
+                {/* <div style={{backgroundColor:'white', borderRadius:'50px', width:'2.5rem', height:'2.5rem', border:'1px solid black', margin:'0 0.5rem 0 0'}} /> */}
+                    <Profile id={user?.profile} size={40}/>
                     <p>{user.nickname}</p>
                 </div>
 
