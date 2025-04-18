@@ -116,6 +116,30 @@ router.get('/', async (req, res) => {
     }
 });
 
+// 프로필 변경 API
+router.patch('/change-profile', authMiddleware, async (req, res) => {
+  const userId = req.user.id;
+  const { newProfile } = req.body;
+
+  try {
+    // 현재 사용자의 보유 아이템 가져오기
+    const [rows] = await db.execute('SELECT item FROM users WHERE id = ?', [userId]);
+    const userItem = JSON.parse(rows[0]?.item || '[]');
+
+    // 선택한 프로필이 보유한 아이템에 포함되어 있는지 확인
+    if (!userItem.includes(newProfile)) {
+      return res.status(400).json({ error: '선택한 프로필은 보유한 항목이 아닙니다.' });
+    }
+
+    // 프로필 변경
+    await db.execute('UPDATE users SET profile = ? WHERE id = ?', [newProfile, userId]);
+    res.json({ message: '프로필이 성공적으로 변경되었습니다.' });
+  } catch (err) {
+    console.error('프로필 변경 오류:', err);
+    res.status(500).json({ error: '프로필 변경 실패' });
+  }
+});
+
 // 로그인한 사용자만 접근 가능한 API
 router.get('/me', authMiddleware, async (req, res) => {
   try {
