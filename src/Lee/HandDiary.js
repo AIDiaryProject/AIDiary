@@ -12,13 +12,13 @@ const HandDiary = () => {
   const [loading, setLoading] = useState(false);
 
   const emotionOptions = [
-    { id: 1, label: "기쁨" },
+    { id: 0, label: "최악" },
+    { id: 1, label: "분노" },
     { id: 2, label: "슬픔" },
-    { id: 3, label: "화남" },
-    { id: 4, label: "보통" },
-    { id: 5, label: "피곤" },
-    { id: 6, label: "불안" },
-    { id: 7, label: "상쾌" },
+    { id: 3, label: "보통" },
+    { id: 4, label: "기쁨" },
+    { id: 5, label: "행복" },
+    { id: 6, label: "최고" },
   ];
 
   const handelSubmit = async () => {
