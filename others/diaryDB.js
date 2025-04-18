@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('./index');
+const authMiddleware = require('./authMiddleware');
 
 // DB저장
 router.post('/diarysave', async (req, res) => {
@@ -33,7 +34,7 @@ router.get('/', async (req, res) => {
 });
 */}
 
-router.get('/', async (req, res) => {
+router.get('/', authMiddleware, async (req, res) => {
   const userId = req.query.user_id;
 
   try {
