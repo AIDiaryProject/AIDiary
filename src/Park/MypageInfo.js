@@ -83,6 +83,7 @@ const MypageInfo = () => {
           });
       
           alert(response.data.message);
+          window.location.reload();
         } catch (error) {
           console.error(error);
           alert('포인트 처리 실패');
