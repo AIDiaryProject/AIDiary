@@ -16,6 +16,7 @@ const MainPage = () => {
             <button onClick={() => {navigate('/userlist')}}>회원목록</button>
             <button onClick={() => {navigate('/Mypagelist')}}>글목록</button>
             <button onClick={() => {navigate('/StatsData')}}>통계</button>
+            <button onClick={() => {navigate('/PointShop')}}>포인트샵</button>
         </div>
     );
 };

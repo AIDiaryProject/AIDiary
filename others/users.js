@@ -117,39 +117,13 @@ router.get('/', async (req, res) => {
     }
 });
 
-// 프로필 변경 API
-// router.patch('/change-profile', authMiddleware, async (req, res) => {
-//   const userId = req.user.id;
-//   const { newProfile } = req.body;
-
-//   try {
-//     // 현재 사용자의 보유 아이템 가져오기
-//     const [rows] = await db.execute('SELECT item FROM users WHERE id = ?', [userId]);
-//     const userItem = rows[0]?.item || [];
-//     console.log('item 필드:', rows[0]?.item);
-
-//     // 선택한 프로필이 보유한 아이템에 포함되어 있는지 확인
-//     if (!userItem.includes(newProfile)) {
-//       return res.status(400).json({ error: '선택한 프로필은 보유한 항목이 아닙니다.' });
-//     }
-
-//     // 프로필 변경
-//     await db.execute('UPDATE users SET profile = ? WHERE id = ?', [newProfile, userId]);
-//     res.json({ message: '프로필이 성공적으로 변경되었습니다.' });
-//   } catch (err) {
-//     console.error('프로필 변경 오류:', err);
-//     console.log('item 필드:', rows[0]?.item);
-//     res.status(500).json({ error: '프로필 변경 실패' });
-//   }
-// });
-
+// 프로필 변경
 router.patch('/change-profile', authMiddleware, async (req, res) => {
   const userId = req.user.id;
   const { newProfile } = req.body;
 
   try {
-    // item은 이미 JSON 타입으로 저장되어 있으므로 바로 사용 가능
-    const [rows] = await db.execute('SELECT item FROM users WHERE id = ?', [userId]);
+    const [rows] = await db.execute('SELECT item FROM users WHERE id = ?', [userId]); // item은 이미 JSON 타입으로 저장되어 있으므로 바로 사용 가능
     const userItem = rows[0]?.item || [];
 
     console.log('DB에서 읽어온 item:', userItem); // 배열 형태로 나와야 함
@@ -158,18 +132,76 @@ router.patch('/change-profile', authMiddleware, async (req, res) => {
       return res.status(500).json({ error: 'DB item 필드가 배열이 아닙니다.' });
     }
 
-    // 선택한 프로필이 보유한 아이템인지 확인
-    if (!userItem.includes(newProfile)) {
+    if (!userItem.includes(newProfile)) { // 선택한 프로필이 보유한 아이템인지 확인
       return res.status(400).json({ error: '선택한 프로필은 보유한 항목이 아닙니다.' });
     }
 
-    // 프로필 변경
-    await db.execute('UPDATE users SET profile = ? WHERE id = ?', [newProfile, userId]);
+    await db.execute('UPDATE users SET profile = ? WHERE id = ?', [newProfile, userId]); // 프로필 변경
     res.json({ message: '프로필이 성공적으로 변경되었습니다.' });
 
   } catch (err) {
     console.error('프로필 변경 오류:', err);
     res.status(500).json({ error: '프로필 변경 실패' });
+  }
+});
+
+// 프로필 구매
+router.post('/buy-profile', authMiddleware, async (req, res) => {
+  const userId = req.user.id;
+  const { profileId, price } = req.body;
+
+  try {
+    const [rows] = await db.execute('SELECT item, point FROM users WHERE id = ?', [userId]); // 1. 사용자 정보 조회
+    const user = rows[0];
+
+    if (!user) return res.status(404).json({ error: '사용자를 찾을 수 없습니다.' });
+
+    const itemArray = user.item || [];
+    const currentPoint = user.point;
+
+    if (itemArray.includes(profileId)) { // 2. 이미 보유 중인지 확인
+      return res.status(400).json({ error: '이미 보유 중인 프로필입니다.' });
+    }
+
+    if (currentPoint < price) { // 3. 포인트 부족 시
+      return res.status(400).json({ error: '포인트가 부족합니다.' });
+    }
+
+    const newItemArray = [...itemArray, profileId]; // 4. 새로운 item 배열 구성
+
+    await db.execute( // 5. DB 업데이트
+      'UPDATE users SET item = ?, point = ? WHERE id = ?',
+      [JSON.stringify(newItemArray), currentPoint - price, userId]
+    );
+
+    res.json({
+      message: '프로필 구매 성공',
+      newItem: newItemArray,
+      newPoint: currentPoint - price
+    });
+  } catch (err) {
+    console.error('프로필 구매 오류:', err);
+    res.status(500).json({ error: '서버 오류로 구매 실패' });
+  }
+});
+
+// 포인트 추가
+router.patch('/add-point', async (req, res) => {
+  const { userId, amount, type } = req.body;
+
+  if (!userId || typeof amount !== 'number' || amount <= 0 || !['plus', 'minus'].includes(type)) {
+    return res.status(400).json({ error: 'userId, amount, type 값을 정확히 전달해야 합니다.' });
+  }
+
+  // type에 따라 amount를 음수로 변환
+  const finalAmount = type === 'minus' ? -amount : amount;
+
+  try {
+    await db.execute('UPDATE users SET point = point + ? WHERE id = ?', [finalAmount, userId]);
+    res.json({ message: `포인트가 ${type === 'plus' ? '추가' : '차감'}되었습니다.` });
+  } catch (err) {
+    console.error('포인트 처리 오류:', err);
+    res.status(500).json({ error: '포인트 처리 실패' });
   }
 });
 
