@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import LoginUser from './LoginUser';
 import Profile from './Profile';
 import axios from 'axios';
+import ClipLoader from "react-spinners/ClipLoader";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const MypageInfo = () => {
-    const { user } = LoginUser();
+    const { user, loading } = LoginUser();
 
     const [nicknameModal, setNicknameModal] = useState(false); //닉네임 모달창
     const [profileModal, setProfileModal] = useState(false); //프로필 모달창
@@ -90,13 +91,15 @@ const MypageInfo = () => {
         }
       };
 
+      if(loading) return <ClipLoader color={"skyblue"} size={30} />
+
     return (
         <div>
             아이디 : {user?.id} <br />
             닉네임 : {user?.nickname} <button onClick={() => {setNicknameModal(true)}}> 닉네임 변경 </button><br />
             프로필 : {user?.profile} <button onClick={() => {setProfileModal(true)}}> 프로필 변경 </button><br />
             <Profile id={user?.profile} size={100}/><br />
-            포인트 : {user?.point}  <br /> 
+            보유 포인트 : {user?.point}  <br /> 
             <button onClick={() => {addPoints(user?.id, 100, 'plus')}}> 100포인트 증가 </button>
             <button onClick={() => {addPoints(user?.id, 100, 'minus')}}> 100포인트 감소 </button>
             최근 일기 : {user?.diarydate} <br />

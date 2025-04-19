@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import ClipLoader from "react-spinners/ClipLoader";
 import LoginUser from "./LoginUser";
 import Profile from "./Profile";
 
 const Header = () => {
     const navigate = useNavigate();
-    const { user, login } = LoginUser();
+    const { user, login, loading } = LoginUser();
 
     const [showDropdown, setShowDropdown] = useState(false);
 
@@ -69,7 +70,7 @@ const Header = () => {
             </div>
             
             <div style={{backgroundColor:'white', padding:'0.2rem', margin:'0 1rem 0 0'}}>
-                {login ? LoginMenu() : <button onClick={() => {navigate('/login')}}>로그인</button>}
+                {loading ? <ClipLoader color={"skyblue"} size={30} /> : (login ? LoginMenu() : <button onClick={() => {navigate('/login')}}>로그인</button>)}
             </div>
         </div>
         <hr style={{margin:'0rem'}}/>

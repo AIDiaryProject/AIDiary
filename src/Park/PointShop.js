@@ -2,9 +2,10 @@ import React from 'react';
 import LoginUser from './LoginUser';
 import Profile from './Profile';
 import axios from 'axios';
+import ClipLoader from "react-spinners/ClipLoader";
 
 const PointShop = () => { //user.profile : 사용중 / user.item : 보유중
-    const { user } = LoginUser();
+    const { user, loading } = LoginUser();
     const product = Array.from({ length: 10 }, (_, i) => i + 1); //상품 목록 배열 (1~n)
 
     // 프로필별 가격 설정
@@ -32,6 +33,8 @@ const PointShop = () => { //user.profile : 사용중 / user.item : 보유중
           alert(error.response?.data?.error || '구매 실패');
         }
       };
+
+      if(loading) return <ClipLoader color={"skyblue"} size={30} />
 
     return (
         <div>
