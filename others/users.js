@@ -117,39 +117,13 @@ router.get('/', async (req, res) => {
     }
 });
 
-// 프로필 변경 API
-// router.patch('/change-profile', authMiddleware, async (req, res) => {
-//   const userId = req.user.id;
-//   const { newProfile } = req.body;
-
-//   try {
-//     // 현재 사용자의 보유 아이템 가져오기
-//     const [rows] = await db.execute('SELECT item FROM users WHERE id = ?', [userId]);
-//     const userItem = rows[0]?.item || [];
-//     console.log('item 필드:', rows[0]?.item);
-
-//     // 선택한 프로필이 보유한 아이템에 포함되어 있는지 확인
-//     if (!userItem.includes(newProfile)) {
-//       return res.status(400).json({ error: '선택한 프로필은 보유한 항목이 아닙니다.' });
-//     }
-
-//     // 프로필 변경
-//     await db.execute('UPDATE users SET profile = ? WHERE id = ?', [newProfile, userId]);
-//     res.json({ message: '프로필이 성공적으로 변경되었습니다.' });
-//   } catch (err) {
-//     console.error('프로필 변경 오류:', err);
-//     console.log('item 필드:', rows[0]?.item);
-//     res.status(500).json({ error: '프로필 변경 실패' });
-//   }
-// });
-
+// 프로필 변경
 router.patch('/change-profile', authMiddleware, async (req, res) => {
   const userId = req.user.id;
   const { newProfile } = req.body;
 
   try {
-    // item은 이미 JSON 타입으로 저장되어 있으므로 바로 사용 가능
-    const [rows] = await db.execute('SELECT item FROM users WHERE id = ?', [userId]);
+    const [rows] = await db.execute('SELECT item FROM users WHERE id = ?', [userId]); // item은 이미 JSON 타입으로 저장되어 있으므로 바로 사용 가능
     const userItem = rows[0]?.item || [];
 
     console.log('DB에서 읽어온 item:', userItem); // 배열 형태로 나와야 함
@@ -158,18 +132,70 @@ router.patch('/change-profile', authMiddleware, async (req, res) => {
       return res.status(500).json({ error: 'DB item 필드가 배열이 아닙니다.' });
     }
 
-    // 선택한 프로필이 보유한 아이템인지 확인
-    if (!userItem.includes(newProfile)) {
+    if (!userItem.includes(newProfile)) { // 선택한 프로필이 보유한 아이템인지 확인
       return res.status(400).json({ error: '선택한 프로필은 보유한 항목이 아닙니다.' });
     }
 
-    // 프로필 변경
-    await db.execute('UPDATE users SET profile = ? WHERE id = ?', [newProfile, userId]);
+    await db.execute('UPDATE users SET profile = ? WHERE id = ?', [newProfile, userId]); // 프로필 변경
     res.json({ message: '프로필이 성공적으로 변경되었습니다.' });
 
   } catch (err) {
     console.error('프로필 변경 오류:', err);
     res.status(500).json({ error: '프로필 변경 실패' });
+  }
+});
+
+// 프로필 구매
+router.post('/buy-profile', authMiddleware, async (req, res) => {
+  const userId = req.user.id;
+  const { profileId, price } = req.body;
+
+  try {
+    const [rows] = await db.execute('SELECT item, point FROM users WHERE id = ?', [userId]);
+    const user = rows[0];
+
+    let ownedProfiles = user.item || [];
+    if (typeof ownedProfiles === 'string') {
+      ownedProfiles = JSON.parse(ownedProfiles);
+    }
+
+    if (ownedProfiles.includes(profileId)) {
+      return res.status(400).json({ error: '이미 보유한 프로필입니다.' });
+    }
+
+    if (user.point < price) {
+      return res.status(400).json({ error: '포인트가 부족합니다.' });
+    }
+
+    const updatedProfiles = [...ownedProfiles, profileId];
+    const newPoint = user.point - price;
+
+    await db.execute(
+      'UPDATE users SET item = ?, point = ? WHERE id = ?',
+      [JSON.stringify(updatedProfiles), newPoint, userId]
+    );
+
+    res.json({ message: '프로필 구매 성공', item: updatedProfiles, point: newPoint });
+  } catch (err) {
+    console.error('프로필 구매 오류:', err);
+    res.status(500).json({ error: '프로필 구매 실패' });
+  }
+});
+
+// 포인트 획득
+router.post('/add-points', async (req, res) => {
+  const { userId, points } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    user.point += points;
+    await user.save();
+
+    res.status(200).json({ message: 'Points earned successfully', newPoint: user.point });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to earn points', error });
   }
 });
 

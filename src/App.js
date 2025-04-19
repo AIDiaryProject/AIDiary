@@ -14,6 +14,7 @@ import MypageInfo from "./Park/MypageInfo";
 import MypageList from "./Lee/MypageList";
 import Header from "./Park/Header";
 import StatsData from "./Lee/StatsData";
+import PointShop from "./Park/PointShop";
 
 const App = () => { //라우터 설정
   return (
@@ -32,6 +33,7 @@ const App = () => { //라우터 설정
           <Route path="/Mypageinfo" element={<><Header /><MypageInfo /></>} />
           <Route path="/Mypagelist" element={<PrivateRoute><Header /><MypageList /></PrivateRoute>} />
           <Route path="/StatsData" element={<PrivateRoute><Header /><StatsData /></PrivateRoute>} />
+          <Route path="/PointShop" element={<PrivateRoute><Header /><PointShop /></PrivateRoute>} />
         </Routes>
       </BrowserRouter>
     </div>
