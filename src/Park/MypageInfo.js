@@ -73,6 +73,22 @@ const MypageInfo = () => {
         }
     };
 
+    //포인트 추가 및 감소
+    const addPoints = async (userId, amount, type) => {
+        try {
+          const response = await axios.patch('http://localhost:포트번호/users/add-point', {
+            userId,
+            amount,
+            type,
+          });
+      
+          alert(response.data.message);
+        } catch (error) {
+          console.error(error);
+          alert('포인트 처리 실패');
+        }
+      };
+
     return (
         <div>
             아이디 : {user?.id} <br />
@@ -80,7 +96,8 @@ const MypageInfo = () => {
             프로필 : {user?.profile} <button onClick={() => {setProfileModal(true)}}> 프로필 변경 </button><br />
             <Profile id={user?.profile} size={100}/><br />
             포인트 : {user?.point}  <br /> 
-            {/* <button onClick={() => {addPoints(user?.id, 100)}}> 100포인트 증가 </button> */}
+            <button onClick={() => {addPoints(user?.id, 100, 'plus')}}> 100포인트 증가 </button>
+            <button onClick={() => {addPoints(user?.id, 100, 'minus')}}> 100포인트 감소 </button>
             최근 일기 : {user?.diarydate} <br />
             <button onClick={() => {console.log(user?.item)}}>item 배열 확인</button>
             

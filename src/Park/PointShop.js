@@ -6,7 +6,7 @@ import axios from 'axios';
 const PointShop = () => { //user.profile : 사용중 / user.item : 보유중
     const { user } = LoginUser();
     const product = Array.from({ length: 10 }, (_, i) => i + 1); //상품 목록 배열 (1~n)
-    
+
     // 프로필별 가격 설정
     const profilePrices = {
         1: 100, 2: 150, 3: 200, 4: 250, 5: 300,
@@ -27,7 +27,7 @@ const PointShop = () => { //user.profile : 사용중 / user.item : 보유중
           });
     
           alert(`${profileId}번 프로필 구매 성공!`);
-        //   refreshUser(); // 로그인 유저 정보 갱신
+          window.location.reload();
         } catch (error) {
           alert(error.response?.data?.error || '구매 실패');
         }

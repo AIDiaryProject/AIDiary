@@ -151,8 +151,7 @@ router.post('/buy-profile', authMiddleware, async (req, res) => {
   const { profileId, price } = req.body;
 
   try {
-    // 1. 사용자 정보 조회
-    const [rows] = await db.execute('SELECT item, point FROM users WHERE id = ?', [userId]);
+    const [rows] = await db.execute('SELECT item, point FROM users WHERE id = ?', [userId]); // 1. 사용자 정보 조회
     const user = rows[0];
 
     if (!user) return res.status(404).json({ error: '사용자를 찾을 수 없습니다.' });
@@ -160,21 +159,17 @@ router.post('/buy-profile', authMiddleware, async (req, res) => {
     const itemArray = user.item || [];
     const currentPoint = user.point;
 
-    // 2. 이미 보유 중인지 확인
-    if (itemArray.includes(profileId)) {
+    if (itemArray.includes(profileId)) { // 2. 이미 보유 중인지 확인
       return res.status(400).json({ error: '이미 보유 중인 프로필입니다.' });
     }
 
-    // 3. 포인트 부족 시
-    if (currentPoint < price) {
+    if (currentPoint < price) { // 3. 포인트 부족 시
       return res.status(400).json({ error: '포인트가 부족합니다.' });
     }
 
-    // 4. 새로운 item 배열 구성
-    const newItemArray = [...itemArray, profileId];
+    const newItemArray = [...itemArray, profileId]; // 4. 새로운 item 배열 구성
 
-    // 5. DB 업데이트
-    await db.execute(
+    await db.execute( // 5. DB 업데이트
       'UPDATE users SET item = ?, point = ? WHERE id = ?',
       [JSON.stringify(newItemArray), currentPoint - price, userId]
     );
@@ -190,7 +185,25 @@ router.post('/buy-profile', authMiddleware, async (req, res) => {
   }
 });
 
+// 포인트 추가
+router.patch('/add-point', async (req, res) => {
+  const { userId, amount, type } = req.body;
 
+  if (!userId || typeof amount !== 'number' || amount <= 0 || !['plus', 'minus'].includes(type)) {
+    return res.status(400).json({ error: 'userId, amount, type 값을 정확히 전달해야 합니다.' });
+  }
+
+  // type에 따라 amount를 음수로 변환
+  const finalAmount = type === 'minus' ? -amount : amount;
+
+  try {
+    await db.execute('UPDATE users SET point = point + ? WHERE id = ?', [finalAmount, userId]);
+    res.json({ message: `포인트가 ${type === 'plus' ? '추가' : '차감'}되었습니다.` });
+  } catch (err) {
+    console.error('포인트 처리 오류:', err);
+    res.status(500).json({ error: '포인트 처리 실패' });
+  }
+});
 
 // 로그인한 사용자만 접근 가능한 API
 router.get('/me', authMiddleware, async (req, res) => {
