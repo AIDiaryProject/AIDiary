@@ -73,36 +73,14 @@ const MypageInfo = () => {
         }
     };
 
-    //테스트용 포인트 추가 함수
-    const addPoints = async (userId, amount) => {
-        try {
-          const response = await fetch('http://your-backend-url/users/add-points', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ userId, points: amount }),
-          });
-      
-          const data = await response.json();
-          if (response.ok) {
-            console.log('Point earned:', data.newPoint);
-            // 필요하면 setUserPoint(data.newPoint) 등으로 반영
-          } else {
-            console.error('Failed to earn points:', data.message);
-          }
-        } catch (error) {
-          console.error('Error while earning points:', error);
-        }
-    };
-
     return (
         <div>
             아이디 : {user?.id} <br />
             닉네임 : {user?.nickname} <button onClick={() => {setNicknameModal(true)}}> 닉네임 변경 </button><br />
             프로필 : {user?.profile} <button onClick={() => {setProfileModal(true)}}> 프로필 변경 </button><br />
             <Profile id={user?.profile} size={100}/><br />
-            포인트 : {user?.point} <button onClick={() => {addPoints(user?.id, 100)}}> 100포인트 증가 </button> <br /> 
+            포인트 : {user?.point}  <br /> 
+            {/* <button onClick={() => {addPoints(user?.id, 100)}}> 100포인트 증가 </button> */}
             최근 일기 : {user?.diarydate} <br />
             <button onClick={() => {console.log(user?.item)}}>item 배열 확인</button>
             

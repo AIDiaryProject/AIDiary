@@ -151,53 +151,46 @@ router.post('/buy-profile', authMiddleware, async (req, res) => {
   const { profileId, price } = req.body;
 
   try {
+    // 1. 사용자 정보 조회
     const [rows] = await db.execute('SELECT item, point FROM users WHERE id = ?', [userId]);
     const user = rows[0];
 
-    let ownedProfiles = user.item || [];
-    if (typeof ownedProfiles === 'string') {
-      ownedProfiles = JSON.parse(ownedProfiles);
+    if (!user) return res.status(404).json({ error: '사용자를 찾을 수 없습니다.' });
+
+    const itemArray = user.item || [];
+    const currentPoint = user.point;
+
+    // 2. 이미 보유 중인지 확인
+    if (itemArray.includes(profileId)) {
+      return res.status(400).json({ error: '이미 보유 중인 프로필입니다.' });
     }
 
-    if (ownedProfiles.includes(profileId)) {
-      return res.status(400).json({ error: '이미 보유한 프로필입니다.' });
-    }
-
-    if (user.point < price) {
+    // 3. 포인트 부족 시
+    if (currentPoint < price) {
       return res.status(400).json({ error: '포인트가 부족합니다.' });
     }
 
-    const updatedProfiles = [...ownedProfiles, profileId];
-    const newPoint = user.point - price;
+    // 4. 새로운 item 배열 구성
+    const newItemArray = [...itemArray, profileId];
 
+    // 5. DB 업데이트
     await db.execute(
       'UPDATE users SET item = ?, point = ? WHERE id = ?',
-      [JSON.stringify(updatedProfiles), newPoint, userId]
+      [JSON.stringify(newItemArray), currentPoint - price, userId]
     );
 
-    res.json({ message: '프로필 구매 성공', item: updatedProfiles, point: newPoint });
+    res.json({
+      message: '프로필 구매 성공',
+      newItem: newItemArray,
+      newPoint: currentPoint - price
+    });
   } catch (err) {
     console.error('프로필 구매 오류:', err);
-    res.status(500).json({ error: '프로필 구매 실패' });
+    res.status(500).json({ error: '서버 오류로 구매 실패' });
   }
 });
 
-// 포인트 획득
-router.post('/add-points', async (req, res) => {
-  const { userId, points } = req.body;
 
-  try {
-    const user = await User.findById(userId);
-    if (!user) return res.status(404).json({ message: 'User not found' });
-
-    user.point += points;
-    await user.save();
-
-    res.status(200).json({ message: 'Points earned successfully', newPoint: user.point });
-  } catch (error) {
-    res.status(500).json({ message: 'Failed to earn points', error });
-  }
-});
 
 // 로그인한 사용자만 접근 가능한 API
 router.get('/me', authMiddleware, async (req, res) => {

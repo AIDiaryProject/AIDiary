@@ -1,34 +1,37 @@
 import React from 'react';
 import LoginUser from './LoginUser';
 import Profile from './Profile';
+import axios from 'axios';
 
 const PointShop = () => { //user.profile : 사용중 / user.item : 보유중
     const { user } = LoginUser();
     const product = Array.from({ length: 10 }, (_, i) => i + 1); //상품 목록 배열 (1~n)
-
-    const buyProfile = async (profileId, price) => {
-        try {
-            const token = localStorage.getItem('token');
-            const res = await fetch('/api/users/buy-profile', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({ profileId, price })
-            });
     
-            const data = await res.json();
-            if (!res.ok) {
-                alert(data.error || '구매 실패');
-            } else {
-                alert('구매 성공!');
-                window.location.reload(); // 또는 상태 업데이트로 최신 정보 반영
-            }
-        } catch (err) {
-            console.error('구매 에러:', err);
-        }
+    // 프로필별 가격 설정
+    const profilePrices = {
+        1: 100, 2: 150, 3: 200, 4: 250, 5: 300,
+        6: 350, 7: 400, 8: 450, 9: 500, 10: 550
     };
+
+    const buyProfile = async (profileId) => {
+        const price = profilePrices[profileId];
+    
+        try {
+          const response = await axios.post('https://aidiary.onrender.com/users/buy-profile', {
+            profileId,
+            price
+          }, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+          });
+    
+          alert(`${profileId}번 프로필 구매 성공!`);
+        //   refreshUser(); // 로그인 유저 정보 갱신
+        } catch (error) {
+          alert(error.response?.data?.error || '구매 실패');
+        }
+      };
 
     return (
         <div>
@@ -39,7 +42,12 @@ const PointShop = () => { //user.profile : 사용중 / user.item : 보유중
                     <div>
                         <Profile id={a}/>
                         {/* <button onClick={() => {alert(`${a}번 사진 구매!`)}}> 구매 </button> */}
-                        <button onClick={() => buyProfile(a, 100)}>구매 (100P)</button>
+                        <button
+                            onClick={() => buyProfile(a)}
+                            disabled={user?.item.includes(a)}
+                        >
+                            {user?.item.includes(a) ? '보유중' : `구매 (${profilePrices[a]}P)`}
+                        </button>
                         <p style={{color:'blue', fontWeight:'bold'}}>{user?.item.includes(a) ? '보유중' : ''}</p>
                     </div>
                 )
