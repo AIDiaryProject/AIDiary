@@ -76,7 +76,7 @@ const MypageInfo = () => {
     //포인트 추가 및 감소
     const addPoints = async (userId, amount, type) => {
         try {
-          const response = await axios.patch('http://localhost:포트번호/users/add-point', {
+          const response = await axios.patch('https://aidiary.onrender.com/users/add-point', {
             userId,
             amount,
             type,
