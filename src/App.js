@@ -15,6 +15,7 @@ import MypageList from "./Lee/MypageList";
 import Header from "./Park/Header";
 import StatsData from "./Lee/StatsData";
 import PointShop from "./Park/PointShop";
+import MypageSideMenu from "./Park/MypageSideMenu";
 
 const App = () => { //라우터 설정
   return (
@@ -30,10 +31,10 @@ const App = () => { //라우터 설정
           <Route path="/AiDiary" element={<PrivateRoute><Header /><AiDiary /></PrivateRoute>} />
           <Route path="/ResultHanddiary" element={<PrivateRoute><Header /><EnvProvider><ResultHanddiary /></EnvProvider></PrivateRoute>} />
           <Route path="/ResultAidiary" element={<PrivateRoute><Header /><EnvProvider><ResultAidiary /></EnvProvider></PrivateRoute>} />
-          <Route path="/Mypageinfo" element={<><Header /><MypageInfo /></>} />
-          <Route path="/Mypagelist" element={<PrivateRoute><Header /><MypageList /></PrivateRoute>} />
-          <Route path="/StatsData" element={<PrivateRoute><Header /><StatsData /></PrivateRoute>} />
-          <Route path="/PointShop" element={<PrivateRoute><Header /><PointShop /></PrivateRoute>} />
+          <Route path="/Mypageinfo" element={<PrivateRoute><Header /><div style={{display:'flex', flexDirection:'row'}}><MypageSideMenu /><MypageInfo /></div></PrivateRoute>} />
+          <Route path="/Mypagelist" element={<PrivateRoute><Header /><div style={{display:'flex', flexDirection:'row'}}><MypageSideMenu /><MypageList /></div></PrivateRoute>} />
+          <Route path="/StatsData" element={<PrivateRoute><Header /><div style={{display:'flex', flexDirection:'row'}}><MypageSideMenu /><StatsData /></div></PrivateRoute>} />
+          <Route path="/PointShop" element={<PrivateRoute><Header /><div style={{display:'flex', flexDirection:'row'}}><MypageSideMenu /><PointShop /></div></PrivateRoute>} />
         </Routes>
       </BrowserRouter>
     </div>

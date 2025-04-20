@@ -38,8 +38,8 @@ const PointShop = () => { //user.profile : 사용중 / user.item : 보유중
 
     return (
         <div>
-            포인트샵입니다.
-            ==============
+            <h3>포인트샵</h3>
+            <p>보유 포인트 : {user?.point}</p>
             {product.map((a, index) => {
                 return( 
                     <div>
