@@ -121,7 +121,7 @@ const MypageList = () => {
     }));
 
     return (
-        <div>
+        <div style={{flex:1}}>
             <button onClick={() =>{test()}}>콘솔로그</button>
             <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={chartData}>

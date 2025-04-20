@@ -99,7 +99,7 @@ const StatsData = () => {
     const PIE_COLORS = ['#82ca9d', '#ff9999']; // 작성: 녹색, 미작성: 빨강
 
     return (
-        <div>
+        <div style={{flex:1}}>
             <button onClick={() =>{test()}}>콘솔로그</button>
             <div>
                 <p>날짜별 감정</p>
