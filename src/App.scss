@@ -1,0 +1,27 @@
+.diary-wrapper{
+  div{
+    margin-bottom: 1rem;
+  }
+  h2{
+    margin-bottom: 1rem;
+  }
+  .title-input {
+    width: 20vw;
+  }
+  .weather-form{
+    display: flex;
+    align-items: center;
+  }
+  .weather-input{
+    width: 20vw;
+    margin-left: 1rem;
+  }
+  .radio-button-group{
+    display: flex;
+    margin-right: 2rem;
+  }
+  .one-radio-button{
+    margin-right: 1rem;
+    margin-left: 1rem;
+  }
+}

@@ -8,7 +8,7 @@ const HandDiary = () => {
   const [includeWeather, setIncludeWeather] = useState(false);
   const [weather, setWeather] = useState('');
   const [userEmotionLabel, setUserEmotionLabel] = useState('보통');
-  const [userEmotionScore, setUserEmotionScore] = useState(4);
+  const [userEmotionScore, setUserEmotionScore] = useState(3);
   const [loading, setLoading] = useState(false);
 
   const emotionOptions = [
