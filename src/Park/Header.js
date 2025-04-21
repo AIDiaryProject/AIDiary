@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+// import "bootstrap-icons/font/bootstrap-icons.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import LoginUser from "./LoginUser";
 import Profile from "./Profile";
@@ -58,23 +61,59 @@ const Header = () => {
       };
 
     return (
-    <div>
-        <div style={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'space-between', backgroundColor:'skyblue'}}>
-            <div style={{margin: '0 0 0 1rem'}}>
-                <h2 style={{cursor: 'pointer'}} onClick={() => {navigate('/')}} >사이트이름</h2>
-            </div>
+    // <div>
+    //     <div style={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'space-between', backgroundColor:'skyblue'}}>
+    //         <div style={{margin: '0 0 0 1rem'}}>
+    //             <h2 style={{cursor: 'pointer'}} onClick={() => {navigate('/')}} >사이트이름</h2>
+    //         </div>
 
-            <div style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
-                <button style={{margin: '0.2rem'}} onClick={() => {navigate('/HandDiary')}}>직접 쓴 일기</button>
-                <button style={{margin: '0.2rem'}} onClick={() => {navigate('/AiDiary')}}>AI 일기</button>
-            </div>
+    //         <div style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
+    //             <button style={{margin: '0.2rem'}} onClick={() => {navigate('/HandDiary')}}>직접 쓴 일기</button>
+    //             <button style={{margin: '0.2rem'}} onClick={() => {navigate('/AiDiary')}}>AI 일기</button>
+    //         </div>
             
-            <div style={{backgroundColor:'white', padding:'0.2rem', margin:'0 1rem 0 0'}}>
-                {loading ? <ClipLoader color={"skyblue"} size={30} /> : (login ? LoginMenu() : <button onClick={() => {navigate('/login')}}>로그인</button>)}
+    //         <div style={{backgroundColor:'white', padding:'0.2rem', margin:'0 1rem 0 0'}}>
+    //             {loading ? <ClipLoader color={"skyblue"} size={30} /> : (login ? LoginMenu() : <button onClick={() => {navigate('/login')}}>로그인</button>)}
+    //         </div>
+    //     </div>
+    //     <hr style={{margin:'0rem'}}/>
+    // </div>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">사이트이름</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/HandDiary">직접 쓴 일기</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="/AiDiary">AI 일기</a>
+                </li>
+                {/* <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+                </li> */}
+                {/* <li class="nav-item">
+                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                </li> */}
+            </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
             </div>
         </div>
-        <hr style={{margin:'0rem'}}/>
-    </div>
+    </nav>
     );
 };
 
