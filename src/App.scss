@@ -1,30 +1,96 @@
 .diary-wrapper{
+  font-size: 1rem;
+
+  .create-button{
+    width: 8rem;
+    white-space: nowrap;
+    min-width: fit-content;
+  }
+
   div{
     margin-bottom: 1rem;
   }
+
   h2{
+    margin-top: 1rem;
     margin-bottom: 1rem;
   }
+
   .title-input {
     width: 20vw;
   }
+
   .weather-form{
     display: flex;
     align-items: center;
   }
+
   .weather-input{
     width: 20vw;
     margin-left: 1rem;
   }
-  .radio-button-group{
+
+  .emotion-section {
     display: flex;
-    margin-right: 2rem;
+    flex-direction: column;
+    gap: 1rem;
+  
+    .emotion-label {
+      font-weight: bold;
+      margin-bottom: 0.25rem;
+    }
+  
+    .emotion-button-group {
+      display: inline-flex;
+      flex-wrap: nowrap;
+    }
+  
+    .emotion-btn {
+      width: 10vw;
+      min-width: 64px;
+      font-size: 0.9rem;
+      padding: 0.4rem 0.8rem;
+  
+      &:hover {
+        background-color: #e9f0ff;
+        border-color: #0d6efd;
+      }
+    }
+
   }
-  .one-radio-button{
-    margin-right: 1rem;
-    margin-left: 1rem;
+
+  .keyword-group{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+    .keyword-input{
+      width: 20vw;
+    }
+
+    .keyword-delete{
+      display: flex;
+      flex-direction: row;
+    }
+
+    .keyword-input{
+      margin-right: 1rem;
+    }
+  }
+
+  .create-diary-group{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+
+    .create-diary-textarea{
+      width: 100%;
+      margin-bottom: 1rem;
+      resize: vertical;
+    }
   }
 }
+
 .column-center-container { //column 가운데 정렬 컨테이너
   display: flex;
   flex-direction: column;

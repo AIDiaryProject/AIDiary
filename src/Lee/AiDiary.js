@@ -109,6 +109,7 @@ const AiDiary = () => {
           value={title}
           onChange={handleTitleChange}
           placeholder="제목을 입력하세요"
+          disabled={loading || isGenerated}
         />
       </div>
 
@@ -120,6 +121,7 @@ const AiDiary = () => {
             id="checkDefault"
             checked={includeWeather}
             onChange={(e) => setIncludeWeather(e.target.checked)}
+            disabled={loading || isGenerated}
           />
           날씨 포함
         </label>
@@ -131,17 +133,18 @@ const AiDiary = () => {
             placeholder="예: 맑음, 흐림"
             value={userWeather}
             onChange={(e) => setUserWeather(e.target.value)}
+            disabled={loading || isGenerated}
           />
         )}
       </div>
 
-      <div>
+      <div className="emotion-section">
+        <span>오늘 나의 기분은?</span>
         <div
-          className="btn-group" 
+          className="btn-group emotion-button-group"
           role="group" 
           aria-label="Basic radio toggle button group"
-        >
-          <span>오늘의 기분을 선택해 주세요: </span>
+        >  
           {emotionOptions.map((emotion) => (
             <>
               <input
@@ -155,9 +158,10 @@ const AiDiary = () => {
                   setUserEmotionScore(emotion.id);
                   setUserEmotionLabel(emotion.label);
                 }}
+                disabled={loading || isGenerated}
               />
               <label 
-                className="btn btn-outline-primary" 
+                className="btn btn-outline-primary emotion-btn" 
                 htmlFor={`radio-${emotion.id}`}
               >
                 {emotion.label}
@@ -167,14 +171,15 @@ const AiDiary = () => {
         </div>
       </div>
 
-      <div>
+      <div className="keyword-group">
         {keywords.map((keyword, index) => (
-          <div key={index}>
+          <div key={index} className="keyword-delete">
             <input
-              className="form-control"
+              className="form-control keyword-input"
               value={keyword}
               onChange={(e) => handleKeywordChange(index, e.target.value)}
               placeholder={`키워드 ${index + 1}`}
+              disabled={loading || isGenerated}
             />
             <button
               type="button"
@@ -189,7 +194,7 @@ const AiDiary = () => {
         {keywords.length < 5 && (
           <button
             type="button"
-            className="btn btn-primary"
+            className="btn btn-primary create-button"
             onClick={addKeywordInput}
             disabled={loading || isGenerated}
           >
@@ -201,7 +206,7 @@ const AiDiary = () => {
       <div>
         <button 
           type="button" 
-          class="btn btn-primary"
+          class="btn btn-primary create-button"
           onClick={handelSubmit} 
           disabled={loading || isGenerated}
         >
@@ -209,12 +214,12 @@ const AiDiary = () => {
         </button>
       </div>
 
-      <div>
+      <div className="create-diary-group">
         {generatedDiary && (
           <div>
             <h2>✏️ 생성된 일기 (수정)</h2>
             <textarea
-              className="form-control" 
+              className="form-control create-diary-textarea" 
               id="exampleFormControlTextarea1"
               value={generatedDiary}
               onChange={(e) => setGeneratedDiary(e.target.value)}
@@ -223,10 +228,10 @@ const AiDiary = () => {
             />
             <button 
               type="button" 
-              class="btn btn-primary"
+              class="btn btn-primary create-button"
               onClick={handleComplete}
             >
-              수정완료
+              수정 완료!
             </button>
           </div>
         )}
