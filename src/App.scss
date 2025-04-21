@@ -1,0 +1,103 @@
+.column-center-container { //column 가운데 정렬 컨테이너
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.row-center-container { //row 가운데 정렬 컨테이너
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container { //Header의 사용자 정보
+  padding: 0.2rem;
+  // border: 1px solid black;
+  width: 10rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+
+.header-dropdown { //헤더 사용자 정보 클릭 시 드롭다운 메뉴 디자인
+  position: absolute;
+  top: 3rem;
+  right: 0;
+  width:20rem;
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+  padding: 1rem 0.7rem 0.3rem 0.7rem;
+  z-index: 10;
+}
+
+.header-dropdown-nickname { //드롭다운 메뉴 닉네임
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0 0 0 0.7rem;
+  color: blue;
+}
+
+.header-dropdown-point { //드롭다운 포인트 정보
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 1.5rem 0 1rem 0;
+  cursor: pointer;
+}
+
+.header-dropdown-text { //드롭다운 메뉴 텍스트
+  font-size: 1rem;
+  margin: 0 0 0 0.5rem;
+  font-weight: bold;
+}
+
+.header-dropdown-menu { //드롭다운 메뉴 버튼
+  text-align: center;
+  margin: 0.7rem 0 0.7rem 0;
+  font-weight: bold;
+  cursor: pointer;
+  color: darkslategray;
+  &:hover {
+    color: steelblue; // 원하는 색상으로 변경
+  }
+}
+
+@media (max-width: 991px) {
+  .login-container {
+    justify-content: center;
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .header-dropdown {
+    position: relative !important; // 작은 화면에선 absolute 대신
+    top: auto;
+    right: auto;
+    width: 100%;
+    margin-top: 0.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  .header-dropdown-point {
+    justify-content: flex-start;
+    padding-left: 0.5rem;
+  }
+
+  .header-dropdown-menu {
+    text-align: left;
+    padding-left: 0.5rem;
+  }
+
+  .header-dropdown-nickname {
+    margin: 0 0 0 0.5rem;
+    font-size: 1.1rem;
+  }
+}
