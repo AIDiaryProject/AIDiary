@@ -77,10 +77,10 @@ const Header = () => {
         window.location.reload(); //페이지 새로고침
       };
 
-    return (
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    return ( //navbar navbar-expand-lg bg-body-tertiary
+    <nav class="navbar navbar-expand-lg" style={{backgroundColor:'#cdb4db'}}>
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">사이트이름</a>
+            <a class="navbar-brand" href="/" style={{color:'#75472f', fontWeight:'900'}}>사이트이름</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -88,7 +88,7 @@ const Header = () => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                     <li className="nav-item">
-                    <a className="nav-link" href="/HandDiary">직접 쓴 일기</a>
+                    <a className="nav-link" href="/HandDiary" style={{color:'white', backgroundColor:'#75472f', fontWeight:'900', borderRadius:'10px'}}>직접 쓴 일기</a>
                     </li>
                     <li className="nav-item">
                     <a className="nav-link" href="/AiDiary">AI 일기</a>

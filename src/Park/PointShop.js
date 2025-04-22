@@ -37,8 +37,8 @@ const PointShop = () => { //user.profile : 사용중 / user.item : 보유중
       if(loading) return <ClipLoader color={"skyblue"} size={30} />
 
     return (
-        <div>
-            <h3>포인트샵</h3>
+        <div style={{backgroundColor:'#F5F7FA', width:'100%'}}>
+            <h3 style={{color:'#ba9378', fontWeight:'bold'}}>포인트샵</h3>
             <p>보유 포인트 : {user?.point}</p>
             {product.map((a, index) => {
                 return( 
@@ -48,10 +48,11 @@ const PointShop = () => { //user.profile : 사용중 / user.item : 보유중
                         <button
                             onClick={() => buyProfile(a)}
                             disabled={user?.item.includes(a)}
+                            style={{backgroundColor:'#ffd768', border:'0', padding:'1rem', borderRadius:'10px', fontWeight:'bold', color:'#5d576b'}}
                         >
-                            {user?.item.includes(a) ? '보유중' : `구매 (${profilePrices[a]}P)`}
+                          {user?.item.includes(a) ? '보유중' : `구매 (${profilePrices[a]}P)`}
                         </button>
-                        <p style={{color:'blue', fontWeight:'bold'}}>{user?.item.includes(a) ? '보유중' : ''}</p>
+                        <p style={{color:'#1f93ff', fontWeight:'bold'}}>{user?.item.includes(a) ? '보유중' : ''}</p>
                     </div>
                 )
             })}
