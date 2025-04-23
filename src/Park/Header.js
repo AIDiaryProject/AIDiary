@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -8,14 +8,16 @@ import LoginUser from "./LoginUser";
 import Profile from "./Profile";
 import '../App.scss';
 
-
 const Header = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+
     const { user, login, loading } = LoginUser();
 
     const [showDropdown, setShowDropdown] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 991);
-    // const isMobile = window.innerWidth <= 991;
+    
+    const currentPath = location.pathname;
 
     useEffect(() => {
         const handleResize = () => {
@@ -78,7 +80,7 @@ const Header = () => {
       };
 
     return ( //navbar navbar-expand-lg bg-body-tertiary
-    <nav class="navbar navbar-expand-lg" style={{backgroundColor:'#cdb4db'}}>
+    <nav class="navbar navbar-expand-lg header-style">
         <div class="container-fluid">
             <a class="navbar-brand" href="/" style={{color:'#75472f', fontWeight:'900'}}>사이트이름</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,10 +90,12 @@ const Header = () => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                     <li className="nav-item">
-                    <a className="nav-link" href="/HandDiary" style={{color:'white', backgroundColor:'#75472f', fontWeight:'900', borderRadius:'10px'}}>직접 쓴 일기</a>
+                    <a className={`nav-link header-top-button ${currentPath==='/HandDiary' ? 'active-link' : ''}`} 
+                    style={currentPath === '/HandDiary' ? { pointerEvents: 'none' } : {}} href="/HandDiary">직접 쓴 일기</a>
                     </li>
                     <li className="nav-item">
-                    <a className="nav-link" href="/AiDiary">AI 일기</a>
+                    <a className={`nav-link header-top-button ${currentPath==='/AiDiary' ? 'active-link' : ''}`} 
+                    style={currentPath === '/AiDiary' ? { pointerEvents: 'none' } : {}} href="/AiDiary">AI 일기</a>
                     </li>
 
                     {login && (
@@ -108,7 +112,7 @@ const Header = () => {
                     login ? (
                     <div className="d-none d-lg-block">{LoginMenu()}</div>
                     ) : (
-                    <a className="nav-link" href="/login">로그인</a>
+                    <a className="nav-link header-top-button" href="/login">로그인</a>
                     )
                 )}
             </div>

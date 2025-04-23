@@ -13,7 +13,6 @@ $배경색 : #F5F7FA; //배경 색상
 $진회색 : #5d576b; //버튼 글씨색
 $노랑색 : #ffd768; //버튼 배경색
 
-
 // 공통 ==============================================================
 .column-center-container { //column 가운데 정렬 컨테이너
   display: flex;
@@ -124,6 +123,31 @@ $노랑색 : #ffd768; //버튼 배경색
 }
 
 // Header.js ==============================================================
+  .header-style {
+    background-color: #cdb4db;
+    height: 4rem;
+  }
+
+  .header-top-button { //직접 쓴 일기, AI 일기 버튼
+    color: $진회색;
+    font-weight: bold !important;
+    margin: 0 0.5rem 0 0.5rem;
+    
+    &:hover {
+      color: black;
+    }
+    &.active-link {
+      background-color: $갈색;
+      color: white;
+      border-radius: 10px;
+
+      &:hover {
+       color:white;
+       background-color: $연갈색; 
+      }
+    }
+  }
+
   .login-container { //Header의 사용자 정보
   padding: 0.2rem;
   // border: 1px solid black;
@@ -177,7 +201,7 @@ $노랑색 : #ffd768; //버튼 배경색
   cursor: pointer;
   color: darkslategray;
   &:hover {
-    color: steelblue; // 원하는 색상으로 변경
+    color: steelblue;
   }
 }
 
@@ -211,5 +235,49 @@ $노랑색 : #ffd768; //버튼 배경색
   .header-dropdown-nickname {
     margin: 0 0 0 0.5rem;
     font-size: 1.1rem;
+  }
+}
+
+// MypageSideMenu.js ==============================================================
+.sidemenu {
+  &__profile-box {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    margin: 0 0.5rem;
+  }
+
+  &__nickname {
+    margin: 0;
+  }
+
+  &__menu-box {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  &__menu-item {
+    cursor: pointer;
+    border-top: 1px solid black;
+    width: 100%;
+    text-align: center;
+    padding: 0.7rem;
+
+    &:last-child {
+      border-bottom: 1px solid black;
+    }
+
+    &:hover {
+      background-color: #f2f2f2;
+    }
   }
 }
