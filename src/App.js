@@ -21,7 +21,7 @@ const App = () => { //라우터 설정
 
   const Layout = ({ children }) => { //공통 레이아웃
     return (
-      <div style={{ padding: '1rem 10%' }}>
+      <div style={{ padding: '1rem 25%' }}>
         {children}
       </div>
     );
@@ -76,7 +76,9 @@ const App = () => { //라우터 설정
           <ProtectedPage>
             <div style={{ display: 'flex', flexDirection: 'row' }}>
               <MypageSideMenu />
+              <EnvProvider>
               <MypageList />
+              </EnvProvider>
             </div>
           </ProtectedPage>
         } />
