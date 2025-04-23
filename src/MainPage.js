@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginUser from './Park/LoginUser';
+import './App.scss'
 
 const MainPage = () => {
     const navigate = useNavigate();
