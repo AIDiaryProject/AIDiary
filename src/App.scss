@@ -1,3 +1,19 @@
+// 공통 ==============================================================
+.column-center-container { //column 가운데 정렬 컨테이너
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.row-center-container { //row 가운데 정렬 컨테이너
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+// AiDiary.js ==============================================================
 .diary-wrapper{
   font-size: 1rem;
 
@@ -91,20 +107,7 @@
   }
 }
 
-.column-center-container { //column 가운데 정렬 컨테이너
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.row-center-container { //row 가운데 정렬 컨테이너
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
+// Header.js ==============================================================
 .login-container { //Header의 사용자 정보
   padding: 0.2rem;
   // border: 1px solid black;
