@@ -57,7 +57,7 @@ const AiDiary = () => {
         },
         body: JSON.stringify({
           message,
-          diary: diaryContext
+          prompt: diaryContext
         })
       });
       if (!response.ok) {
