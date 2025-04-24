@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../App.scss';
 
 const AiDiary = () => {
   const navigate = useNavigate();
@@ -9,7 +11,7 @@ const AiDiary = () => {
   const [includeWeather, setIncludeWeather] = useState(false);
   const [userWeather, setUserWeather] = useState('');
   const [userEmotionLabel, setUserEmotionLabel] = useState('보통');
-  const [userEmotionScore, setUserEmotionScore] = useState(4);
+  const [userEmotionScore, setUserEmotionScore] = useState(3);
   const [generatedDiary, setGeneratedDiary] = useState("");
   const [isGenerated, setIsGenerated] = useState(false);
 
@@ -55,7 +57,7 @@ const AiDiary = () => {
         },
         body: JSON.stringify({
           message,
-          diary: diaryContext
+          prompt: diaryContext
         })
       });
       if (!response.ok) {
@@ -89,83 +91,151 @@ const AiDiary = () => {
     });
   };
 
+  const removeKeyword = (indexToRemove) => {
+    const updatedKeywords = keywords.filter((_, idx) => idx !== indexToRemove);
+    setKeywords(updatedKeywords);
+  };
+
   return (
-    <div>
-      <button onClick={() => { navigate('/') }}>홈화면</button>
+    <div className="diary-wrapper">
       <h2>키워드를 기반으로 일기 자동 생성</h2>
-      <input
-        value={title}
-        onChange={handleTitleChange}
-        placeholder="제목을 입력하세요"
-      />
-      <br />
+
       <div>
-        <label>
+        <label htmlFor="basic-url" class="form-label">제목</label>
+        <input
+          type="text" 
+          className="form-control title-input"
+          aria-describedby="basic-addon1"
+          value={title}
+          onChange={handleTitleChange}
+          placeholder="제목을 입력하세요"
+          disabled={loading || isGenerated}
+        />
+      </div>
+
+      <div className="form-check weather-form">
+        <label className="form-check-label" htmlFor="checkDefault">
           <input
+            className="form-check-input"
             type="checkbox"
+            id="checkDefault"
             checked={includeWeather}
             onChange={(e) => setIncludeWeather(e.target.checked)}
+            disabled={loading || isGenerated}
           />
           날씨 포함
         </label>
         {includeWeather && (
           <input
             type="text"
+            className="form-control weather-input"
+            aria-describedby="basic-addon1"
             placeholder="예: 맑음, 흐림"
             value={userWeather}
             onChange={(e) => setUserWeather(e.target.value)}
+            disabled={loading || isGenerated}
           />
         )}
       </div>
-      <div>
-        <label>
-          기분 선택
-        </label>
-        <div>
-          <p>오늘의 기분을 선택해 주세요:</p>
+
+      <div className="emotion-section">
+        <span>오늘 나의 기분은?</span>
+        <div
+          className="btn-group emotion-button-group"
+          role="group" 
+          aria-label="Basic radio toggle button group"
+        >  
           {emotionOptions.map((emotion) => (
-            <label key={emotion.id} style={{ display: 'block', marginBottom: '4px' }}>
+            <>
               <input
-                type="radio"
-                name="emotion"
-                value={emotion.id}
+                className="btn-check" 
+                type="radio" 
+                name="btnradio"
+                autoComplete="off"
+                id={`radio-${emotion.id}`}
                 checked={userEmotionScore === emotion.id}
                 onChange={() => {
                   setUserEmotionScore(emotion.id);
                   setUserEmotionLabel(emotion.label);
                 }}
+                disabled={loading || isGenerated}
               />
-              {emotion.label}
-            </label>
+              <label 
+                className="btn btn-outline-primary emotion-btn" 
+                htmlFor={`radio-${emotion.id}`}
+              >
+                {emotion.label}
+              </label>
+            </>
           ))}
         </div>
       </div>
-      {keywords.map((keyword, index) => (
-        <input
-          key={index}
-          value={keyword}
-          onChange={(e) => handleKeywordChange(index, e.target.value)}
-          placeholder={`키워드 ${index + 1}`}
-        />
-      ))}
-      {keywords.length < 5 && <button onClick={addKeywordInput}>키워드 추가</button>}
-      <br />
-      <button onClick={handelSubmit} disabled={loading || isGenerated}>
-        {loading ? "생성 중..." : isGenerated ? "생성 완료!" : "일기 생성"}
-      </button>
-      {generatedDiary && (
-        <div style={{ marginTop: "1rem" }}>
-          <h3>✏️ 생성된 일기 (수정)</h3>
-          <textarea
-            value={generatedDiary}
-            onChange={(e) => setGeneratedDiary(e.target.value)}
-            rows={15}
-            cols={80}
-            style={{ width: "100%" }}
-          />
-          <button onClick={handleComplete}>✅ 완료</button>
-        </div>
-      )}
+
+      <div className="keyword-group">
+        {keywords.map((keyword, index) => (
+          <div key={index} className="keyword-delete">
+            <input
+              className="form-control keyword-input"
+              value={keyword}
+              onChange={(e) => handleKeywordChange(index, e.target.value)}
+              placeholder={`키워드 ${index + 1}`}
+              disabled={loading || isGenerated}
+            />
+            <button
+              type="button"
+              className="btn btn-danger btn-sm"
+              onClick={() => removeKeyword(index)}
+              disabled={loading || isGenerated}
+            >
+              삭제
+            </button>
+          </div>
+        ))}
+        {keywords.length < 5 && (
+          <button
+            type="button"
+            className="btn btn-primary create-button"
+            onClick={addKeywordInput}
+            disabled={loading || isGenerated}
+          >
+            키워드 추가
+          </button>
+        )}
+      </div>
+
+      <div>
+        <button 
+          type="button" 
+          class="btn btn-primary create-button"
+          onClick={handelSubmit} 
+          disabled={loading || isGenerated}
+        >
+          {loading ? "생성 중..." : isGenerated ? "생성 완료!" : "일기 생성"}
+        </button>
+      </div>
+
+      <div className="create-diary-group">
+        {generatedDiary && (
+          <div>
+            <h2>✏️ 생성된 일기 (수정)</h2>
+            <textarea
+              className="form-control create-diary-textarea" 
+              id="exampleFormControlTextarea1"
+              value={generatedDiary}
+              onChange={(e) => setGeneratedDiary(e.target.value)}
+              rows={15}
+              cols={80}
+            />
+            <button 
+              type="button" 
+              class="btn btn-primary create-button"
+              onClick={handleComplete}
+            >
+              수정 완료!
+            </button>
+          </div>
+        )}
+      </div>   
     </div>
   );
 }

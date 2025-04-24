@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import LoginUser from '../Park/LoginUser';
+import Characters from "./Characters";
 
 const HandDiary = () => {
   const navigate = useNavigate();
@@ -8,8 +10,12 @@ const HandDiary = () => {
   const [includeWeather, setIncludeWeather] = useState(false);
   const [weather, setWeather] = useState('');
   const [userEmotionLabel, setUserEmotionLabel] = useState('보통');
-  const [userEmotionScore, setUserEmotionScore] = useState(4);
+  const [userEmotionScore, setUserEmotionScore] = useState(3);
   const [loading, setLoading] = useState(false);
+  const [Character, setCharacter] = useState("");
+  const [trait, setTrait] = useState("");
+
+  const { user } = LoginUser();
 
   const emotionOptions = [
     { id: 0, label: "최악" },
@@ -21,8 +27,18 @@ const HandDiary = () => {
     { id: 6, label: "최고" },
   ];
 
+  useEffect(() => {
+    if (!user) return;
+    const selectedCharacter = Characters.find(c => c?.number === user.profile);
+    setCharacter(selectedCharacter?.name);
+    setTrait(selectedCharacter.trait);
+  }, [user]);
+
   const handelSubmit = async () => {
     setLoading(true);
+
+    const selectedCharacter = Characters.find(c => c.number === user?.profile);
+    const prompt = selectedCharacter?.prompt || "너는 다정하고 따뜻한 친구야. 위로와 응원을 담아 일기에 코멘트를 남겨줘.";
 
     let message = `다음은 사용자가 작성한 일기야. 공감해주고 따뜻한 코멘트를 남겨줘.\n\n제목: ${title}\n\n 오늘 나의 기분은 ${userEmotionLabel}.\n\n내용: ${content}`;
     if (includeWeather && weather.trim()) {
@@ -36,7 +52,7 @@ const HandDiary = () => {
         },
         body: JSON.stringify({
           message,
-          diary: "너는 다정하고 따뜻한 코멘트를 남겨주는 일기 친구야. 일기를 쓴 사람에게 응원이나 위로가 담긴 말을 해줘."
+          prompt,
         })
       });
 
@@ -129,10 +145,20 @@ const HandDiary = () => {
           ))}
         </div>
       </div>
-
-      <button onClick={handelSubmit} disabled={loading} style={{ marginTop: '1rem' }}>
-        {loading ? "GPT 응답 중..." : "GPT 코멘트 받기"}
-      </button>
+      <div>
+        <p>
+          현재선택된 친구는? {Character}
+        </p>
+        <p>
+          {Character}의 성격은? {trait}
+        </p>
+        <p>
+          <a href="/MypageInfo">프로필 변경하러 가기</a>
+        </p>
+        <button onClick={handelSubmit} disabled={loading} style={{ marginTop: '1rem' }}>
+          {loading ? "GPT 응답 중..." : "GPT 코멘트 받기"}
+        </button>
+      </div>
     </div>
   );
 };

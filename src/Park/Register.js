@@ -80,7 +80,7 @@ const Register = () => {
         nickname,
         profile : 1,
         point : 0,
-        item : [1],
+        item : [1,2,3],
       });
       alert('회원가입 성공!');
       // 초기화

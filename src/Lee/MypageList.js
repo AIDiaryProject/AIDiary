@@ -6,7 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-
+import '../App.scss';
 
 const MypageList = () => {
     const [data, setData] = useState([]); //일기데이터 저장
@@ -47,27 +47,29 @@ const MypageList = () => {
         String(date.getDate()).padStart(2, '0');
     };
       
-    const DateFilteredData = data.filter(item => {
+    const DateFilteredData = data
+    .filter(item => {
         const matchesDate = !startDate || formatYMD(startDate) === item.date.slice(0, 10);
 
         // 검색어 필터
         const term = searchTerm.toLowerCase();
         const title = item.title.toLowerCase();
         const content = item.content.toLowerCase();
-      
+    
         let matchesSearch = true;
         if (term) {
-          if (searchType === "title") {
+        if (searchType === "title") {
             matchesSearch = title.includes(term);
-          } else if (searchType === "content") {
+        } else if (searchType === "content") {
             matchesSearch = content.includes(term);
-          } else if (searchType === "both") {
+        } else if (searchType === "both") {
             matchesSearch = title.includes(term) || content.includes(term);
-          }
         }
-      
+        }
+    
         return matchesDate && matchesSearch;
-    });
+    })
+    .sort((a, b) => new Date(b.date) - new Date(a.date)); //최근 날짜 순 정렬
 
     
     useEffect(() => { //검색시 페이지 1로 초기화
@@ -121,7 +123,7 @@ const MypageList = () => {
     }));
 
     return (
-        <div>
+        <div style={{flex:1}}>
             <button onClick={() =>{test()}}>콘솔로그</button>
             <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={chartData}>
@@ -220,14 +222,18 @@ const MypageList = () => {
             {/* 게시글 모달 */}
             {showModal && selectedItem && (
                 <div 
-                    className='modal show fade d-block'  
+                    className='modal-overlay'  
                     tabIndex='-1'
                     style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+                    onClick={handleClose}
                 >
-                    <div className='modal-dialog'>
+                    <div 
+                        className='modal-dialog custom-modal-size'
+                        onClick={(e) => e.stopPropagation()}
+                    >
                         <div className='modal-content'>
                             <div className='modal-header'>
-                                <h5 className='modal-title'>{selectedItem.title}</h5>
+                                <p><h2 className='modal-title'>제목: {selectedItem.title}</h2></p>
                                 <button 
                                     type="button" 
                                     className="btn-close" 
@@ -237,12 +243,20 @@ const MypageList = () => {
                                 />
                             </div>
                             <div className='modal-body'>
-                                <p>날짜: {selectedItem.date.slice(0,10)}</p>
-                                {selectedItem.weather && <p>날씨: {selectedItem.weather}</p>}
-                                <p>기분: {selectedItem.emotionLabel}</p>
-                                <p>내용:</p>
-                                <p>{selectedItem.content}</p>
-                                {selectedItem.comment && <p>코멘트: {selectedItem.comment}</p>}
+                                <p><h3>날짜: {selectedItem.date.slice(0,10)}</h3></p>
+                                {selectedItem.weather && <p><h4>날씨: {selectedItem.weather}</h4></p>}
+                                <p><h3>기분: {selectedItem.emotionLabel}</h3></p>
+                                <p><h3>내용:</h3></p>
+                                <p>
+                                    {selectedItem.content.split('\n').map((line, index) => (
+                                        <span key={index}>
+                                        {line}
+                                        <br />
+                                        </span>
+                                    ))}
+                                </p>
+                                {selectedItem.comment && <h4>코멘트: {selectedItem.comment}</h4>}
+
                             </div>
                         </div>
                     </div>
