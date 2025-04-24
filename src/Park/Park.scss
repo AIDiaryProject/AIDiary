@@ -15,147 +15,21 @@ $노랑색 : #ffd768; //버튼 배경색
 
 // 공통 ==============================================================
 .column-center-container { //column 가운데 정렬 컨테이너
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.row-center-container { //row 가운데 정렬 컨테이너
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-// AiDiary.js ==============================================================
-.diary-wrapper{
-  font-size: 1rem;
-
-  .create-button{
-    width: 8rem;
-    white-space: nowrap;
-    min-width: fit-content;
-  }
-
-  div{
-    margin-bottom: 1rem;
-  }
-
-  h2{
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .title-input {
-    width: 20vw;
-  }
-
-  .weather-form{
     display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
   }
-
-  .weather-input{
-    width: 20vw;
-    margin-left: 1rem;
-  }
-
-  .emotion-section {
+  
+  .row-center-container { //row 가운데 정렬 컨테이너
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  
-    .emotion-label {
-      font-weight: bold;
-      margin-bottom: 0.25rem;
-    }
-  
-    .emotion-button-group {
-      display: inline-flex;
-      flex-wrap: nowrap;
-    }
-  
-    .emotion-btn {
-      width: 10vw;
-      min-width: 64px;
-      font-size: 0.9rem;
-      padding: 0.4rem 0.8rem;
-  
-      &:hover {
-        background-color: #e9f0ff;
-        border-color: #0d6efd;
-      }
-    }
-
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
-
-  .keyword-group{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    
-    .keyword-input{
-      width: 20vw;
-    }
-
-    .keyword-delete{
-      display: flex;
-      flex-direction: row;
-    }
-
-    .keyword-input{
-      margin-right: 1rem;
-    }
-  }
-
-  .create-diary-group{
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-
-    .create-diary-textarea{
-      width: 100%;
-      margin-bottom: 1rem;
-      resize: vertical;
-    }
-  }
-}
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1050;
-  padding: 5vh 15vw;
-}
-
-.custom-modal-size {
-  width: 100%;
-  height: auto;
-  max-width: none;
-  max-height: 80%;
-  background-color: white;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.modal-content {
-  padding: 2rem;
-  overflow-y: auto;
-  max-height: 100%
-}
 
 // Header.js ==============================================================
-  .header-style {
+.header-style {
     background-color: $연보라;
     height: 4rem;
   }

@@ -3,7 +3,8 @@ import Profile from './Profile';
 import LoginUser from './LoginUser';
 import { useNavigate } from 'react-router-dom';
 import ClipLoader from "react-spinners/ClipLoader";
-import '../App.scss';
+// import '../App.scss';
+import './Park.scss';
 
 const MypageSideMenu = () => {
     const { user, loading } = LoginUser();

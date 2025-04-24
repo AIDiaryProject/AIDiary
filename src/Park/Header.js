@@ -6,7 +6,8 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import LoginUser from "./LoginUser";
 import Profile from "./Profile";
-import '../App.scss';
+// import '../App.scss';
+import './Park.scss'
 
 const Header = () => {
     const navigate = useNavigate();
