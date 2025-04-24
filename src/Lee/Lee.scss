@@ -5,48 +5,71 @@ $강조글씨 : 1.2rem;
 $일반글씨 : 1rem;
 $참고글씨 : 0.8rem;
 
-$연보라 : #cdb4db; //헤더 색상
+$연보라 : #cdb4db; //헤더 색상, 버튼2 선택색
 $갈색 : #75472f; //제목 색상(부엉이 색상)
 $연갈색 : #ba9378; //소제목 색상
 $배경색 : #F5F7FA; //배경 색상
 
-$진회색 : #5d576b; //버튼 글씨색
-$노랑색 : #ffd768; //버튼 배경색
+$진회색 : #5d576b; //버튼1 글씨색
+$노랑색 : #ffd768; //버튼1 배경색
 
-// AiDiary.js ==============================================================
+$분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
+
+// Diary.js ==============================================================
 .diary-wrapper{
-  font-size: 1rem;
-
-  .create-button{
-    width: 8rem;
-    white-space: nowrap;
-    min-width: fit-content;
-  }
-
   div{
-    margin-bottom: 1rem;
+    margin: 0 0 1rem;
   }
 
   h2{
-    margin-top: 1rem;
+    font-size: $소제목;
+    margin: 0 0 1rem;
+  }
+
+  .diary-title-label{
+    font-size: $소소제목;
+  }
+
+  .diary-text{
+    font-size: $일반글씨;
+  }
+  .diary-input-weather{
+    width: 20rem;
+    margin: 0 1rem;
+  }
+
+  .diary-input-delete{
+    width: 20rem;
+    margin-right: 1rem;
+  }
+
+  .diary-input{
+    width: 20rem;
+    margin-right: 1rem;
     margin-bottom: 1rem;
   }
 
-  .title-input {
-    width: 20vw;
-  }
-
-  .weather-form{
+  .flex-div{
     display: flex;
     align-items: center;
   }
 
-  .weather-input{
-    width: 20vw;
-    margin-left: 1rem;
+  .diary-button{
+    width: 8rem;
+    white-space: nowrap;
+    min-width: fit-content;
+    background-color: $노랑색;
+    color: $진회색;
+    border-color: $배경색;
+    font-weight: bold;
+    
+    &:hover {
+      border-color: $배경색;
+      color: white;
+    }
   }
 
-  .emotion-section {
+  .emotion-div {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -55,55 +78,39 @@ $노랑색 : #ffd768; //버튼 배경색
       font-weight: bold;
       margin-bottom: 0.25rem;
     }
-  
     .emotion-button-group {
       display: inline-flex;
       flex-wrap: nowrap;
-    }
-  
-    .emotion-btn {
-      width: 10vw;
-      min-width: 64px;
-      font-size: 0.9rem;
-      padding: 0.4rem 0.8rem;
-  
-      &:hover {
-        background-color: #e9f0ff;
-        border-color: #0d6efd;
+
+      .btn-check:checked + .emotion-label {
+        background-color: $분홍색;
+        border-color: $배경색;
+      }
+    
+      .btn-check:disabled + .emotion-label {
+        opacity: 0.6;
+        pointer-events: none;
       }
     }
-
-  }
-
-  .keyword-group{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    
-    .keyword-input{
-      width: 20vw;
-    }
-
-    .keyword-delete{
-      display: flex;
-      flex-direction: row;
-    }
-
-    .keyword-input{
-      margin-right: 1rem;
+  
+    .emotion-label {
+      background-color: $연보라;
+      color: black;
+      border-color: $배경색;
+      
+      &:hover {
+        background-color: $연보라;
+        border-color: $배경색;
+        color: white;
+      }
     }
   }
 
-  .create-diary-group{
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-
-    .create-diary-textarea{
-      width: 100%;
-      margin-bottom: 1rem;
-      resize: vertical;
-    }
+  .diary-text-area {
+    margin: 0 0 1rem;
+    width: 100%;
+    font-size: $일반글씨;
+    resize: vertical;
   }
 }
 
@@ -137,4 +144,88 @@ $노랑색 : #ffd768; //버튼 배경색
   padding: 2rem;
   overflow-y: auto;
   max-height: 100%
+}
+
+// Result.js ==============================================================
+.result-wrapper {
+  margin: 2rem;
+
+  .content-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .main-content {
+    flex: 2;
+    min-width: 33vw;
+    max-width: 100vw;
+
+    h1{
+      font-size: $소제목;
+    }
+
+    h2{
+      font-size: $소소제목;
+    }
+
+    p{
+      font-size: $일반글씨;
+    }
+
+    .diary-content {
+      white-space: pre-wrap;
+      border: 1px solid #ccc;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .result-button{
+      width: 8rem;
+      white-space: nowrap;
+      min-width: fit-content;
+      background-color: $노랑색;
+      color: $진회색;
+      border-color: $배경색;
+      font-weight: bold;
+      
+      &:hover {
+        border-color: $배경색;
+        color: white;
+      }
+    }
+  }
+
+  .side-content {
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+    align-self: center;
+    white-space: nowrap;
+  }
+}
+
+// Info.js ==============================================================
+.info-wrapper{
+  border: 1px solid #ccc; // ✅ 회색 테두리 추가
+  border-radius: 8px;     // ✅ 모서리 둥글게
+  padding: 1rem;          // ✅ 안쪽 여백
+  margin-bottom: 1rem;    // ✅ 컴포넌트 간 간격
+  max-width: 24rem;
+  min-width: 24rem;
+  
+  h1{
+    font-size: $소소제목;
+  }
+
+  p{
+    font-size: $일반글씨;
+  }
+
+  .info-select{
+    margin: 0 0.5rem;
+  }
 }

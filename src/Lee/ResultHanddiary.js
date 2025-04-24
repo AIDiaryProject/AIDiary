@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useLocation  } from "react-router-dom";
 import WeatherInfo from "./WeatherInfo";
 import DustInfo from "./DustInfo";
 import LoginUser from "../Park/LoginUser";
 import axios from "axios";
+import { useEnv } from "./EnvContext";
 
 const ResultHanddiary = () => {
     const navigate = useNavigate();
+    const { weather : weahterInfo, air } = useEnv();
+    const isLoading = !weahterInfo || !air;
+    const [saving, setSaving] = useState(false);
     const { state } = useLocation();
     if (!state) {
         return <p>잘못된 접근입니다.</p>;
@@ -34,23 +38,40 @@ const ResultHanddiary = () => {
         }
     };
     return (
-        <div>
-            <button onClick={() => navigate("/")}>홈으로</button>
-            <h2>📘 작성한 일기</h2>
-            <p><strong>제목:</strong> {title}</p>
-            <p><strong>날짜:</strong> {date}</p>
-            {weather && <p><strong>날씨:</strong> {weather}</p>}
-            <p><strong>내용:</strong></p>
-            <pre style={{ whiteSpace: 'pre-wrap' }}>{content}</pre>
+        <div className='result-wrapper'>
+            <div className="content-container">
+                <div className='main-content'>
+                    <h1><strong>제목:</strong> {title}</h1>
+                    <p><strong>날짜:</strong> {date}</p>
+                    {weather && <p><strong>날씨:</strong> {weather}</p>}
+                    <p><strong>내용:</strong></p>
+                    <pre style={{ whiteSpace: 'pre-wrap' }}>{content}</pre>
 
-            <div style={{ marginTop: '2rem', padding: '1rem', border: '1px solid #ccc', borderRadius: '8px' }}>
-                <h3>GPT의 코멘트 💬</h3>
-                <p style={{ whiteSpace: 'pre-wrap' }}>{comment}</p>
+                    <div style={{ marginTop: '2rem', padding: '1rem', border: '1px solid #ccc', borderRadius: '8px' }}>
+                        <h1>GPT의 코멘트 💬</h1>
+                        <p style={{ whiteSpace: 'pre-wrap' }}>{comment}</p>
+                    </div>
+                    <button 
+                        type="button" 
+                        class="btn result-button"
+                        onClick={dbSave}
+                        disabled={saving}
+                    >
+                        {saving ? "DB 저장 중..." : "저장하기"}
+                    </button>
+                    {/* <button onClick={() => { console.log('title: ', title, 'content : ', content, 'weather :', weather, 'date :', date) }}>console.log</button> */}
+                </div>
+                <div className="side-content">
+                    {isLoading ? (
+                        <p className="loading-text">🔄 날씨 및 미세먼지 정보를 불러오는 중...</p>
+                        ) : (
+                        <>
+                            <WeatherInfo />
+                            <DustInfo />
+                        </>
+                        )}
+                </div>
             </div>
-            <button onClick={() => { dbSave() }}>DB제출</button>
-            <button onClick={() => { console.log('title: ', title, 'content : ', content, 'weather :', weather, 'date :', date) }}>console.log</button>
-            <WeatherInfo />
-            <DustInfo />
         </div>
     );
 };
