@@ -156,7 +156,7 @@ $노랑색 : #ffd768; //버튼 배경색
 
 // Header.js ==============================================================
   .header-style {
-    background-color: #cdb4db;
+    background-color: $연보라;
     height: 4rem;
   }
 
@@ -197,7 +197,7 @@ $노랑색 : #ffd768; //버튼 배경색
   right: 0;
   width:20rem;
   background-color: white;
-  border: 1px solid gray;
+  border: 1px solid $진회색;
   border-radius: 10px;
   box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
   padding: 1rem 0.7rem 0.3rem 0.7rem;
@@ -205,10 +205,10 @@ $노랑색 : #ffd768; //버튼 배경색
 }
 
 .header-dropdown-nickname { //드롭다운 메뉴 닉네임
-  font-size: 1.2rem;
+  font-size: $강조글씨;
   font-weight: bold;
   margin: 0 0 0 0.7rem;
-  color: blue;
+  color: $갈색;
 }
 
 .header-dropdown-point { //드롭다운 포인트 정보
@@ -221,7 +221,6 @@ $노랑색 : #ffd768; //버튼 배경색
 }
 
 .header-dropdown-text { //드롭다운 메뉴 텍스트
-  font-size: 1rem;
   margin: 0 0 0 0.5rem;
   font-weight: bold;
 }
@@ -233,7 +232,8 @@ $노랑색 : #ffd768; //버튼 배경색
   cursor: pointer;
   color: darkslategray;
   &:hover {
-    color: steelblue;
+    color: $연갈색;
+    // color: steelblue;
   }
 }
 
@@ -262,11 +262,6 @@ $노랑색 : #ffd768; //버튼 배경색
   .header-dropdown-menu {
     text-align: left;
     padding-left: 0.5rem;
-  }
-
-  .header-dropdown-nickname {
-    margin: 0 0 0 0.5rem;
-    font-size: 1.1rem;
   }
 }
 
