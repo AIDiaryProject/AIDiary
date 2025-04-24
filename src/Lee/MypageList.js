@@ -237,7 +237,6 @@ const MypageList = () => {
                                 <button 
                                     type="button" 
                                     className="btn-close" 
-                                    data-bs-dismiss="modal" 
                                     aria-label="Close" 
                                     onClick={handleClose}
                                 />

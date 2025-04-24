@@ -101,11 +101,10 @@ const AiDiary = () => {
       <h2>키워드를 기반으로 일기 자동 생성</h2>
 
       <div>
-        <label htmlFor="basic-url" class="form-label">제목</label>
+        <label htmlFor="basic-url" className="form-label diary-title-label">제목</label>
         <input
           type="text" 
-          className="form-control title-input"
-          aria-describedby="basic-addon1"
+          className="form-control diary-input"
           value={title}
           onChange={handleTitleChange}
           placeholder="제목을 입력하세요"
@@ -113,8 +112,8 @@ const AiDiary = () => {
         />
       </div>
 
-      <div className="form-check weather-form">
-        <label className="form-check-label" htmlFor="checkDefault">
+      <div className="form-check flex-div">
+        <label className="form-check-label diary-text" htmlFor="checkDefault">
           <input
             className="form-check-input"
             type="checkbox"
@@ -128,7 +127,7 @@ const AiDiary = () => {
         {includeWeather && (
           <input
             type="text"
-            className="form-control weather-input"
+            className="form-control diary-input-weather"
             aria-describedby="basic-addon1"
             placeholder="예: 맑음, 흐림"
             value={userWeather}
@@ -138,8 +137,8 @@ const AiDiary = () => {
         )}
       </div>
 
-      <div className="emotion-section">
-        <span>오늘 나의 기분은?</span>
+      <div className="emotion-div">
+        <label className="diary-text">오늘 나의 기분은?</label>
         <div
           className="btn-group emotion-button-group"
           role="group" 
@@ -148,7 +147,7 @@ const AiDiary = () => {
           {emotionOptions.map((emotion) => (
             <>
               <input
-                className="btn-check" 
+                className="btn-check"
                 type="radio" 
                 name="btnradio"
                 autoComplete="off"
@@ -161,7 +160,7 @@ const AiDiary = () => {
                 disabled={loading || isGenerated}
               />
               <label 
-                className="btn btn-outline-primary emotion-btn" 
+                className="btn emotion-label"
                 htmlFor={`radio-${emotion.id}`}
               >
                 {emotion.label}
@@ -171,11 +170,11 @@ const AiDiary = () => {
         </div>
       </div>
 
-      <div className="keyword-group">
+      <div>
         {keywords.map((keyword, index) => (
-          <div key={index} className="keyword-delete">
+          <div key={index} className="flex-div">
             <input
-              className="form-control keyword-input"
+              className="form-control diary-input-delete"
               value={keyword}
               onChange={(e) => handleKeywordChange(index, e.target.value)}
               placeholder={`키워드 ${index + 1}`}
@@ -194,7 +193,7 @@ const AiDiary = () => {
         {keywords.length < 5 && (
           <button
             type="button"
-            className="btn btn-primary create-button"
+            className="btn diary-button"
             onClick={addKeywordInput}
             disabled={loading || isGenerated}
           >
@@ -206,7 +205,7 @@ const AiDiary = () => {
       <div>
         <button 
           type="button" 
-          class="btn btn-primary create-button"
+          class="btn diary-button"
           onClick={handelSubmit} 
           disabled={loading || isGenerated}
         >
@@ -214,12 +213,12 @@ const AiDiary = () => {
         </button>
       </div>
 
-      <div className="create-diary-group">
+      <div>
         {generatedDiary && (
           <div>
             <h2>✏️ 생성된 일기 (수정)</h2>
             <textarea
-              className="form-control create-diary-textarea" 
+              className="form-control diary-text-area" 
               id="exampleFormControlTextarea1"
               value={generatedDiary}
               onChange={(e) => setGeneratedDiary(e.target.value)}
@@ -228,7 +227,7 @@ const AiDiary = () => {
             />
             <button 
               type="button" 
-              class="btn btn-primary create-button"
+              class="btn diary-button"
               onClick={handleComplete}
             >
               수정 완료!

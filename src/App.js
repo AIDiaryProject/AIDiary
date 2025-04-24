@@ -61,7 +61,7 @@ const App = () => { //라우터 설정
         <Route path="/aidiary" element={<ProtectedPage><AiDiary /></ProtectedPage>} />
         <Route path="/resulthanddiary" element={<ProtectedPage><EnvProvider><ResultHanddiary /></EnvProvider></ProtectedPage>} />
         <Route path="/resultaidiary" element={<ProtectedPage><EnvProvider><ResultAidiary /></EnvProvider></ProtectedPage>} />
-
+                
         {/* 마이페이지 */}
         <Route path="/mypageinfo" element={
           <ProtectedPage>
