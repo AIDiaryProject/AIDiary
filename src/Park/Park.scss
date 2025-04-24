@@ -5,13 +5,15 @@ $강조글씨 : 1.2rem;
 $일반글씨 : 1rem;
 $참고글씨 : 0.8rem;
 
-$연보라 : #cdb4db; //헤더 색상
+$연보라 : #cdb4db; //헤더 색상, 버튼2 선택색
 $갈색 : #75472f; //제목 색상(부엉이 색상)
 $연갈색 : #ba9378; //소제목 색상
 $배경색 : #F5F7FA; //배경 색상
 
-$진회색 : #5d576b; //버튼 글씨색
-$노랑색 : #ffd768; //버튼 배경색
+$진회색 : #5d576b; //버튼1 글씨색
+$노랑색 : #ffd768; //버튼1 배경색
+
+$분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 
 // 공통 ==============================================================
 .column-center-container { //column 가운데 정렬 컨테이너
@@ -140,25 +142,68 @@ $노랑색 : #ffd768; //버튼 배경색
 }
 
 // MypageSideMenu.js ==============================================================
+.side-title {
+  font-size: $소소제목;
+  color: $연갈색;
+  font-weight: bold;
+}
+
 .sidemenu {
   &__profile-box {
-    border: 1px solid black;
+    border: 1px solid $진회색;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 5rem;
-    margin: 0 0.5rem;
+    padding: 2.5rem 2.5rem 1rem 2.5rem;
+    margin: 0 1rem 0 0;
+
+    background: linear-gradient(
+    to bottom,
+    $연갈색 0%,
+    $연갈색 25%,
+    white 25%,
+    white 100%
+  );
   }
 
   &__nickname {
+    margin: 1rem 0 0 0;
+    font-size: $소소제목;
+    font-weight: bold;
+    color: $갈색;
+  }
+
+  &__id {
+    line-height: 1.2;
+    color: $진회색;
+    size: $참고글씨;
+    margin: 0.2rem 0 1rem 0;
+  }
+
+  &__point-shop {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &__point-text {
+    padding-left: 0.5rem;
     margin: 0;
+    font-weight: bold;
+    color: $진회색;
+  }
+
+  &__point-logo {
+    color: $진회색;
   }
 
   &__menu-box {
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    margin: 0.5rem;
+    border-left: 1px solid $진회색;
+    border-right: 1px solid $진회색;
+    margin: 0.5rem 1rem 0 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -168,17 +213,134 @@ $노랑색 : #ffd768; //버튼 배경색
 
   &__menu-item {
     cursor: pointer;
-    border-top: 1px solid black;
+    border-top: 1px solid $진회색;
     width: 100%;
     text-align: center;
     padding: 0.7rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    color: $진회색;
+    background-color: white;
 
     &:last-child {
-      border-bottom: 1px solid black;
+      border-bottom: 1px solid $진회색;
     }
 
     &:hover {
-      background-color: #f2f2f2;
+      color: black;
     }
   }
+
+  &__arrow {
+    margin: 0rem;
+    font-weight: bold;
+  }
+}
+
+// MypageInfo.js ==============================================================
+.info {
+  margin: 2rem 1rem;
+  width: 100%;
+
+  &__title {
+    font-size: $소제목;
+    font-weight: bold;
+    color: $연갈색;
+    margin-bottom: 1rem;
+  }
+
+  &__card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 0.7rem;
+    // width: 100%;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 1rem 0;
+
+    &__label {
+      font-weight: bold;
+      width: 12rem;
+    }
+
+    &__value {
+      color: $진회색;
+      width: 15rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      &__profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        &__name {
+          margin: 0.2rem 0 0 0;
+          font-weight: bold;
+        }
+      }
+    }
+
+    &__space {
+      flex: 1;
+      // width: 100%;
+    }
+
+    &__change-button {
+      background-color: $노랑색;
+      color: $진회색;
+      font-weight: bold;
+      // font-size: $참고글씨;
+      border-radius: 5px;
+      border: 0px solid;
+      margin: 0 0 0 0.5rem;
+      padding: 0.2rem 0.8rem;
+      width: 4rem;
+      height: 1.8rem;
+
+      &:hover {
+        background-color: $연갈색;
+        color: white;
+      }
+    }
+  }
+
+  // &__profile {
+  //   background-color: yellow;
+  //   width: 10rem;
+  // }
+
+  // .modal-content {
+  //   border-radius: 16px;
+  //   padding: 1rem;
+  // }
+
+  // .modal-title {
+  //   font-weight: bold;
+  // }
+
+  // input {
+  //   padding: 0.5rem;
+  //   border-radius: 8px;
+  //   border: 1px solid #ccc;
+  //   margin-bottom: 0.5rem;
+  // }
+
+  // button {
+  //   margin: 0.5rem;
+  //   border-radius: 8px;
+  //   padding: 0.4rem 0.8rem;
+  //   font-size: 0.9rem;
+  // }
 }

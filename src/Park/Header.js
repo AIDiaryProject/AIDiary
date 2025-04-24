@@ -59,7 +59,7 @@ const Header = () => {
 
                         <div className="header-dropdown-point" onClick={() => navigate('/PointShop')}> 
                             <i class="bi bi-p-circle-fill fs-5" />
-                            <p className="header-dropdown-text">보유 포인트 : {user?.point}</p>
+                            <p className="header-dropdown-text">보유 포인트 : {user?.point}P</p>
                         </div>
 
                         <div> 

@@ -21,7 +21,7 @@ const App = () => { //라우터 설정
 
   const Layout = ({ children }) => { //공통 레이아웃
     return (
-      <div style={{ padding: '1rem 25%' }}>
+      <div style={{ padding: '1rem 25%', backgroundColor:'#F5F7FA' }}>
         {children}
       </div>
     );

@@ -91,19 +91,64 @@ const MypageInfo = () => {
         }
       };
 
+      //캐릭터명 출력
+      const charactersName = (character) => {
+        const nameList = {
+            1: '루미',
+            2: '루모',
+            3: '토리',
+            4: '노아',
+            5: '세로',
+            6: '리오',
+            7: '솜이',
+            8: '다온',
+            9: '펠리'
+        };
+
+        return nameList[character] || ' ';
+      }
+
       if(loading) return <ClipLoader color={"skyblue"} size={30} />
 
     return (
-        <div>
-            아이디 : {user?.id} <br />
-            닉네임 : {user?.nickname} <button onClick={() => {setNicknameModal(true)}}> 닉네임 변경 </button><br />
-            프로필 : {user?.profile} <button onClick={() => {setProfileModal(true)}}> 프로필 변경 </button><br />
-            <Profile id={user?.profile} size={100}/><br />
-            보유 포인트 : {user?.point}  <br /> 
-            <button onClick={() => {addPoints(user?.id, 100, 'plus')}}> 100포인트 증가 </button>
-            <button onClick={() => {addPoints(user?.id, 100, 'minus')}}> 100포인트 감소 </button>
-            최근 일기 : {user?.diarydate} <br />
-            <button onClick={() => {console.log(user?.item)}}>item 배열 확인</button>
+        <div className='info'>
+            <h1 className='info__title'>회원 정보</h1>
+            
+            <div className="info__card">
+                <div className="info__row">
+                    <div className="info__row__label">아이디</div>
+                    <div className="info__row__value">{user?.id}</div>
+                    <div className='info__row__space'/>
+                </div>
+                <div className="info__row">
+                    <div className="info__row__label">닉네임</div>
+                    <div className="info__row__value">
+                    {user?.nickname}
+                    <button className="info__row__change-button" onClick={() => setNicknameModal(true)}>변경</button>
+                    </div>
+                    <div className='info__row__space'/>
+                </div>
+                <div className="info__row">
+                    <div className="info__row__label">일기 친구</div>
+                    <div className="info__row__value">
+                    <div className='info__row__value__profile'>
+                        <Profile id={user?.profile} size={60} />
+                        <p className='info__row__value__profile__name'>{charactersName(user?.profile)}</p>
+                    </div>
+                    <button className="info__row__change-button" onClick={() => setProfileModal(true)}>변경</button>
+                    </div>
+                    <div className='info__row__space'/>
+                </div>
+                <div className="info__row">
+                    <div className="info__row__label">보유 포인트</div>
+                    <div className="info__row__value">
+                    {user?.point}P
+                    <button className="btn btn-sm btn-outline-success" style={{margin:'0rem 0.5rem'}} onClick={() => addPoints(user?.id, 100, 'plus')}>+100</button>
+                    <button className="btn btn-sm btn-outline-danger" onClick={() => addPoints(user?.id, 100, 'minus')}>-100</button>
+                    </div>
+                    <div className='info__row__space'/>
+                </div>
+            </div>
             
             {/* 닉네임 모달창 */}
             {nicknameModal && <div 
