@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../App.scss';
+import './Lee.scss';
 
 const AiDiary = () => {
   const navigate = useNavigate();
