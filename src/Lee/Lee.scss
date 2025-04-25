@@ -241,7 +241,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
   }
 }
 
-// CheckDiary.js ==============================================================
+// CheckDiary.js CheckDiaryGuard.js ==============================================
 .header-top-button { //직접 쓴 일기, AI 일기 버튼
   color: $진회색;
   font-weight: bold !important;
@@ -260,6 +260,21 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
      background-color: $연갈색; 
     }
   }
+}
+
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #75472f;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 1rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 // StatsData.js, MypageList.js =================================================

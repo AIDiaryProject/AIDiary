@@ -98,10 +98,9 @@ const Header = () => {
                     style={currentPath === '/HandDiary' ? { pointerEvents: 'none' } : {}} href="/HandDiary">직접 쓴 일기</a> */}
                     <CheckDiary
                         to="/HandDiary"
-                        loadingTarget={loadingTarget}
-                        setLoadingTarget={setLoadingTarget}
+                        className={`nav-link header-top-button ${currentPath === "/HandDiary" ? 'active-link' : ''}`}
                     >
-                        직접 일기
+                        손 일기
                     </CheckDiary>
                     </li>
                     <li className="nav-item">
@@ -109,8 +108,7 @@ const Header = () => {
                     style={currentPath === '/AiDiary' ? { pointerEvents: 'none' } : {}} href="/AiDiary">AI 일기</a> */}
                     <CheckDiary
                         to="/AiDiary"
-                        loadingTarget={loadingTarget}
-                        setLoadingTarget={setLoadingTarget}
+                        className={`nav-link header-top-button ${currentPath === "/AiDiary" ? 'active-link' : ''}`}
                     >
                         AI 일기
                     </CheckDiary>

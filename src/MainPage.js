@@ -10,22 +10,8 @@ const MainPage = () => {
 
     return (
         <div>
-            <CheckDiary
-            to="/handdiary"
-            loadingTarget={loadingTarget}
-            setLoadingTarget={setLoadingTarget}
-            >
-            직접 일기
-            </CheckDiary>
-            <CheckDiary
-            to="/aidiary"
-            loadingTarget={loadingTarget}
-            setLoadingTarget={setLoadingTarget}
-            >
-            AI 일기
-            </CheckDiary>
-            <button onClick={() => {navigate('/handdiary')}}>직접일기(Test.js)</button>
-            <button onClick={() => {navigate('/aidiary')}}>AI일기</button>
+            <CheckDiary to="/HandDiary">손 일기</CheckDiary>
+            <CheckDiary to="/AiDiary">AI 일기</CheckDiary>
             <button onClick={() => {navigate('/register')}}>회원가입</button>
             <button onClick={() => {navigate('/login')}}>로그인</button>
             <button onClick={() => {navigate('/userlist')}}>회원목록</button>
