@@ -17,6 +17,7 @@ import StatsData from "./Lee/StatsData";
 import PointShop from "./Park/PointShop";
 import MypageSideMenu from "./Park/MypageSideMenu";
 import { DiaryProvider } from "./Lee/DiaryContext";
+import CheckDiaryGuard from "./Lee/CheckDiaryGuard";
 
 const App = () => { //라우터 설정
 
@@ -60,8 +61,8 @@ const App = () => { //라우터 설정
         <Route path="/test" element={<Test />} />
 
         {/* 로그인 필수 컴포넌트 */}
-        <Route path="/handdiary" element={<ProtectedPage><HandDiary /></ProtectedPage>} />
-        <Route path="/aidiary" element={<ProtectedPage><AiDiary /></ProtectedPage>} />
+        <Route path="/handdiary" element={<ProtectedPage><CheckDiaryGuard><HandDiary /></CheckDiaryGuard></ProtectedPage>} />
+        <Route path="/aidiary" element={<ProtectedPage><CheckDiaryGuard><AiDiary /></CheckDiaryGuard></ProtectedPage>} />
         <Route path="/resulthanddiary" element={<ProtectedPage><EnvProvider><ResultHanddiary /></EnvProvider></ProtectedPage>} />
         <Route path="/resultaidiary" element={<ProtectedPage><EnvProvider><ResultAidiary /></EnvProvider></ProtectedPage>} />
                 

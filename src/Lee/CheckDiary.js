@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDiaryContext } from './DiaryContext';
 import LoginUser from '../Park/LoginUser';
@@ -11,6 +11,7 @@ const CheckDiary = ({ to, children, className, disabled, loadingTarget, setLoadi
   const { user } = LoginUser();
 
   const isMyButtonLoading = loadingTarget === to;
+
 
   const handleClick = async (e) => {
     e.preventDefault();
