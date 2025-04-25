@@ -15,11 +15,12 @@ const ResultHanddiary = () => {
     if (!state) {
         return <p>잘못된 접근입니다.</p>;
     }
-    const { title, content, weather, comment, date, emotionLabel, emotionScore} = state;
+    const { title, content, weather, comment, date, emotionLabel, emotionScore, Character} = state;
     const { user } = LoginUser();
 
     const dbSave = async () => {
         try {
+            setSaving(true);
             await axios.post('https://aidiary.onrender.com/diaryDB/diarysave', {
                 title,
                 content,
@@ -31,10 +32,12 @@ const ResultHanddiary = () => {
                 emotionScore,
             });
             alert('DB저장 성공!');
-            // 초기화
+            navigate("/Mypagelist", { state: { refresh: true } });
         } catch (err) {
             console.error(err);
             alert('DB저장 실패!');
+        } finally {
+            setSaving(false);
         }
     };
     return (
@@ -45,10 +48,10 @@ const ResultHanddiary = () => {
                     <p><strong>날짜:</strong> {date}</p>
                     {weather && <p><strong>날씨:</strong> {weather}</p>}
                     <p><strong>내용:</strong></p>
-                    <pre style={{ whiteSpace: 'pre-wrap' }}>{content}</pre>
+                    <p style={{ whiteSpace: 'pre-wrap' }}>{content}</p>
 
                     <div style={{ marginTop: '2rem', padding: '1rem', border: '1px solid #ccc', borderRadius: '8px' }}>
-                        <h1>GPT의 코멘트 💬</h1>
+                        <h1>{Character}의 코멘트 💬</h1>
                         <p style={{ whiteSpace: 'pre-wrap' }}>{comment}</p>
                     </div>
                     <button 

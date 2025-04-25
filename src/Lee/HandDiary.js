@@ -35,7 +35,17 @@ const HandDiary = () => {
     setTrait(selectedCharacter.trait);
   }, [user]);
 
-  const handelSubmit = async () => {
+  const handleSubmit = async () => {
+    if (!title.trim()) {
+      alert("제목을 입력해 주세요!");
+      return;
+    }
+  
+    if (!content.trim()) {
+      alert("내용을 입력해 주세요!");
+      return;
+    }
+  
     setLoading(true);
 
     const selectedCharacter = Characters.find(c => c.number === user?.profile);
@@ -71,6 +81,7 @@ const HandDiary = () => {
           emotionLabel: userEmotionLabel,
           emotionScore: userEmotionScore,
           comment: data.reply?.content || "코멘트 응답 없음",
+          Character,
         }
       });
       setIsGenerated(true);
@@ -183,7 +194,7 @@ const HandDiary = () => {
           </button>
         </p>
         <button
-          onClick={handelSubmit} 
+          onClick={handleSubmit} 
           disabled={loading || isGenerated} 
           type="button"
           className="btn btn-primary diary-button"

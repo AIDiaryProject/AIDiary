@@ -8,6 +8,7 @@ import LoginUser from "./LoginUser";
 import Profile from "./Profile";
 // import '../App.scss';
 import './Park.scss'
+import CheckDiary from '../Lee/CheckDiary';
 
 const Header = () => {
     const navigate = useNavigate();
@@ -78,7 +79,9 @@ const Header = () => {
         localStorage.removeItem('token');
         alert('로그아웃되었습니다.');
         window.location.reload(); //페이지 새로고침
-      };
+    };
+
+    const [loadingTarget, setLoadingTarget] = useState(null);
 
     return ( //navbar navbar-expand-lg bg-body-tertiary
     <nav class="navbar navbar-expand-lg header-style">
@@ -91,12 +94,26 @@ const Header = () => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                     <li className="nav-item">
-                    <a className={`nav-link header-top-button ${currentPath==='/HandDiary' ? 'active-link' : ''}`} 
-                    style={currentPath === '/HandDiary' ? { pointerEvents: 'none' } : {}} href="/HandDiary">직접 쓴 일기</a>
+                    {/* <a className={`nav-link header-top-button ${currentPath==='/HandDiary' ? 'active-link' : ''}`} 
+                    style={currentPath === '/HandDiary' ? { pointerEvents: 'none' } : {}} href="/HandDiary">직접 쓴 일기</a> */}
+                    <CheckDiary
+                        to="/HandDiary"
+                        loadingTarget={loadingTarget}
+                        setLoadingTarget={setLoadingTarget}
+                    >
+                        직접 일기
+                    </CheckDiary>
                     </li>
                     <li className="nav-item">
-                    <a className={`nav-link header-top-button ${currentPath==='/AiDiary' ? 'active-link' : ''}`} 
-                    style={currentPath === '/AiDiary' ? { pointerEvents: 'none' } : {}} href="/AiDiary">AI 일기</a>
+                    {/* <a className={`nav-link header-top-button ${currentPath==='/AiDiary' ? 'active-link' : ''}`} 
+                    style={currentPath === '/AiDiary' ? { pointerEvents: 'none' } : {}} href="/AiDiary">AI 일기</a> */}
+                    <CheckDiary
+                        to="/AiDiary"
+                        loadingTarget={loadingTarget}
+                        setLoadingTarget={setLoadingTarget}
+                    >
+                        AI 일기
+                    </CheckDiary>
                     </li>
 
                     {login && (

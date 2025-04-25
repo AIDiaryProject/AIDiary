@@ -34,7 +34,7 @@ const ResultAiDiary = () => {
         emotionScore,
       });
       alert('DB저장 성공!');
-      navigate("/Mypagelist");
+      navigate("/Mypagelist", { state: { refresh: true } });
     } catch (err) {
       console.error(err);
       alert('DB저장 실패!');

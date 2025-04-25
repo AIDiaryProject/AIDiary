@@ -42,6 +42,17 @@ const AiDiary = () => {
   };
 
   const handelSubmit = async () => {
+    if (!title.trim()) {
+      alert("제목을 입력해 주세요!");
+      return;
+    }
+  
+    const filledKeywords = keywords.filter(k => k.trim() !== "");
+    if (filledKeywords.length === 0) {
+      alert("키워드를 한 개 이상 입력해 주세요!");
+      return;
+    }
+
     setLoading(true);
     let message = `제목은 "${title}"이고, 다음 키워드를 바탕으로 일기를 작성해줘: 오늘 나의 기분은 ${userEmotionLabel}. ${keywords.filter(k => k.trim()).join(", ")}.`;
     if (includeWeather && userWeather.trim()) {

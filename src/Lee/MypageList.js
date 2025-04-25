@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import LoginUser from "../Park/LoginUser";
-import axios from 'axios';
+import { useLocation } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import './Lee.scss';
+import { useDiaryContext } from "../Lee/DiaryContext";
 
 const MypageList = () => {
-    const [data, setData] = useState([]); //일기데이터 저장
+    const { diaryList, refresh } = useDiaryContext();
     const [selectedItem, setSelectedItem] = useState(null); //모달 보여줄 항목
     const [showModal, setShowModal] = useState(false); //모달 상태
     const [startDate, setStartDate] = useState(null); //datepicker
@@ -20,18 +19,6 @@ const MypageList = () => {
 
     const [currentPage, setCurrentPage] = useState(1); //페이지
     const itemsPerPage = 5; // 한 페이지당 보여줄 게시물 수
-
-    const { user } = LoginUser();
-    const id = user?.id; //사용자 id 확인
-
-    useEffect(() => { //사용자 닉네임과 비교해 일기 출력
-        axios.get('https://aidiary.onrender.com/diaryDB')
-        .then((res) => {
-            const filteredData = res.data.filter(item => item.user_id === id);
-            setData(filteredData);
-        })
-        console.log(data);
-    },[id]);
 
     const handleItemClick = (item) => {
         setSelectedItem(item);
@@ -47,7 +34,7 @@ const MypageList = () => {
         String(date.getDate()).padStart(2, '0');
     };
       
-    const DateFilteredData = data
+    const DateFilteredData = diaryList
     .filter(item => {
         const matchesDate = !startDate || formatYMD(startDate) === item.date.slice(0, 10);
 
@@ -82,66 +69,13 @@ const MypageList = () => {
     const totalPages = Math.ceil(DateFilteredData.length / itemsPerPage); //전체 페이지 계산
     const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1); //페이지 번호 생성
 
-    const test = () => {
-        const scores = data.map(item => item.emotionScore);
-        const label = data.map(item => item.emotionLabel);
-        const date = data.map(item => item.date.slice(0,10));
-        const chartData = label.map((labelItem, index) => ({
-            date: date[index],
-            name: labelItem,
-            value: scores[index]
-        }))
-        const getDayName = (dateStr) => {
-            const days = ['일', '월', '화', '수', '목', '금', '토'];
-            const day = new Date(dateStr).getDay(); // 0 ~ 6
-            return days[day];
-        };
-        const weekdayCounts = {};
-        data.forEach(item => {
-        const dayName = getDayName(item.date.slice(0, 10)); // '2025-04-18' → '금'
-        weekdayCounts[dayName] = (weekdayCounts[dayName] || 0) + 1;
-        });
-        // BarChart용 데이터로 변환
-        const weekdayChartData = Object.entries(weekdayCounts).map(([day, count]) => ({
-        name: day,
-        value: count
-        }));
-        console.log(label);        
-        console.log(scores);
-        console.log(chartData);
-        console.log(date);
-        console.log(weekdayChartData);
-    };
-
-    const scores = data.map(item => item.emotionScore);
-    const label = data.map(item => item.emotionLabel);
-    const date = data.map(item => item.date.slice(0,10));
-    const chartData = label.map((labelItem, index) => ({
-        date: date[index],
-        name: labelItem,
-        value: scores[index]
-    }));
+    const { state } = useLocation();
+    useEffect(() => {
+        if (state?.refresh) refresh(); // diaryList를 강제 갱신
+      }, [state]);
 
     return (
         <div style={{flex:1}}>
-            <button onClick={() =>{test()}}>콘솔로그</button>
-            <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis domain={[0, 1]} />
-                    <Tooltip
-                    formatter={(value, name, props) => [`감정 점수: ${value}`, `감정: ${props.payload.name}`]}
-                    labelFormatter={(label) => `날짜: ${label}`}
-                    />
-                    <Line
-                    type="monotone"
-                    dataKey="value"
-                    stroke="#8884d8"
-                    activeDot={{ r: 8 }}
-                    />
-                </LineChart>
-            </ResponsiveContainer>
             {/* 날짜 검색 */}
             <DatePicker
                 selected={startDate}

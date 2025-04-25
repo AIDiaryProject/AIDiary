@@ -99,9 +99,9 @@ const StatsData = () => {
     const PIE_COLORS = ['#82ca9d', '#ff9999']; // 작성: 녹색, 미작성: 빨강
 
     return (
-        <div style={{flex:1}}>
-            <button onClick={() =>{test()}}>콘솔로그</button>
-            <div>
+        <div className='info'>
+            <h1 className='info__title'>통계</h1>
+            <div className='info__card'>
                 <p>날짜별 감정</p>
                 <ResponsiveContainer width="100%" height={300}>
                     <LineChart data={chartData}>

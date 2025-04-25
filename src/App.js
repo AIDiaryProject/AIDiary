@@ -16,6 +16,7 @@ import Header from "./Park/Header";
 import StatsData from "./Lee/StatsData";
 import PointShop from "./Park/PointShop";
 import MypageSideMenu from "./Park/MypageSideMenu";
+import { DiaryProvider } from "./Lee/DiaryContext";
 
 const App = () => { //라우터 설정
 
@@ -30,18 +31,20 @@ const App = () => { //라우터 설정
   const ProtectedPage = ({ children }) => { //로그인 필요 페이지 레이아웃
     return (
       <PrivateRoute>
+        <DiaryProvider>
         <Header />
         <Layout>{children}</Layout>
+        </DiaryProvider>
       </PrivateRoute>
     );
   };
 
   const PublicPage = ({ children }) => { //로그인 불필요 페이지 레이아웃
     return (
-      <>
+      <DiaryProvider>
         <Header />
         <Layout>{children}</Layout>
-      </>
+      </DiaryProvider>
     );
   };
 
@@ -77,7 +80,9 @@ const App = () => { //라우터 설정
             <div style={{ display: 'flex', flexDirection: 'row' }}>
               <MypageSideMenu />
               <EnvProvider>
+              <DiaryProvider>
               <MypageList />
+              </DiaryProvider>
               </EnvProvider>
             </div>
           </ProtectedPage>
