@@ -17,6 +17,11 @@ const MypageInfo = () => {
 
     //닉네임 중복확인
     const checkNicknameDuplicate = async () => {
+        if(nicknameError!='') {
+            alert('사용할 수 없는 형식의 닉네임입니다.');
+            return 0;
+        }
+
         try {
         // const res = await axios.get(`http://localhost:5000/users/check-nickname?nickname=${nickname}`);
         const res = await axios.get(`https://aidiary.onrender.com/users/check-nickname?nickname=${changeNickname}`);
@@ -150,26 +155,26 @@ const MypageInfo = () => {
                 </div>
             </div>
             
-            {/* 닉네임 모달창 */}
+            {/* 닉네임 모달창 modal-heade*/}
             {nicknameModal && <div 
                 className='modal show fade d-block'  
                 tabIndex='-1'
                 style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
             >
-                <div className='modal-dialog'>
+                <div className='modal-dialog modal-dialog-centered'>
                     <div className='modal-content'>
-                        <div className='modal-header' style={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'space-between', borderBottom:'1px solid black'}}>
-                            <p></p>
-                            <h5 className='modal-title'>닉네임 변경</h5>
-                            <button onClick={() => {setNicknameModal(false)}} style={{border:'0px solid black', fontWeight:'bold', fontSize:'1.2rem', margin:'0 0 0.5rem 0'}}>X</button>
+                        <div className='modal-header info__modal-header'>
+                            <button className='info__hidden'>X</button>
+                            <h5 className='modal-title info__modal-title'>닉네임 변경</h5>
+                            <button className='info__modal-close' onClick={() => {setNicknameModal(false)}}>X</button>
                         </div>
-                        <div className='modal-body' style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
-                            <p>현재 닉네임 : {user?.nickname}</p>
-                            <p>변경 닉네임 : {changeNickname} </p>
-                            <p style={{margin:0, color:'red', fontSize:'0.7rem'}}>{nicknameError}<br/></p>
+                        <div className='modal-body info__modal-content'>
+                            <p className='info__description-nickname'>현재 닉네임</p>
+                            <p className='info__now-nickname'>{user?.nickname}</p>
                             <input 
                             type="text"
                             placeholder="변경할 닉네임 입력"
+                            className='info__input-nickname'
                             onChange={(e) => {
                                 const value = e.target.value;
                                 const specialCharRegex  = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
@@ -182,9 +187,22 @@ const MypageInfo = () => {
                                 }
                               }}
                             />
+                            <p className='info__nickname-error'>{nicknameError}<br/></p>
 
-                            <button onClick={checkNicknameDuplicate} disabled={changeNickname.length < 1 ? 'disable' : ''}>닉네임 중복확인</button>
-                            <button onClick={changeNicknameHandler} disabled={isNicknameChecked ? '' : 'disable'}>변경하기</button>
+                            <div> 
+                                <button 
+                                className='info__modal-button-nickname'
+                                onClick={checkNicknameDuplicate} 
+                                disabled={changeNickname.length < 1 ? 'disable' : ''}>
+                                    닉네임 중복확인
+                                </button>
+                                <button 
+                                className='info__modal-button-nickname'
+                                onClick={changeNicknameHandler} 
+                                disabled={isNicknameChecked ? '' : 'disable'}>
+                                    변경하기
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -196,25 +214,36 @@ const MypageInfo = () => {
                 tabIndex='-1'
                 style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
             >
-                <div className='modal-dialog'>
+                <div className='modal-dialog modal-dialog-centered'>
                     <div className='modal-content'>
-                        <div className='modal-header' style={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'space-between', borderBottom:'1px solid black'}}>
-                            <p></p>
-                            <h5 className='modal-title'>프로필 변경</h5>
-                            <button onClick={() => {setProfileModal(false)}} style={{border:'0px solid black', fontWeight:'bold', fontSize:'1.2rem', margin:'0 0 0.5rem 0'}}>X</button>
+                        <div className='modal-header info__modal-header'>
+                        <button className='info__hidden'>X</button>
+                            <h5 className='modal-title info__modal-title'>당신의 친구</h5>
+                            <button className='info__modal-close' onClick={() => {setProfileModal(false)}}>X</button>
                         </div>
-                        <div className='modal-body' style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
-                            <div>
-                                <h5>보유 프로필</h5>
-                                <div style={{ display: 'flex', gap: '1rem' }}>
-                                    {user?.item?.map((profileId) => (
-                                        <div key={profileId} style={{ cursor: 'pointer', textAlign: 'center' }} onClick={() => handleProfileChange(profileId)}>
-                                            <Profile id={profileId} size={80} />
-                                            {user.profile === profileId && <span>(사용중)</span>}
-                                        </div>
-                                    ))}
+                        <div className='modal-body info__modal-content'>
+                            <div className="info__profile__container">
+                            {user?.item?.map((profileId) => {
+                                const isCurrent = user.profile === profileId;
+
+                                return (
+                                <div key={profileId} className="info__profile__item">
+                                    <Profile 
+                                    id={profileId} 
+                                    size={80} 
+                                    />
+                                    <button 
+                                    className="info__modal-button-profile" 
+                                    onClick={() => handleProfileChange(profileId)} 
+                                    disabled={isCurrent}
+                                    >
+                                    {isCurrent ? '동행 중' : '함께하기'}
+                                    </button>
                                 </div>
+                                );
+                            })}
                             </div>
+
                         </div>
                     </div>
                 </div>
