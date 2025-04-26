@@ -1,6 +1,7 @@
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import MainPage from "./MainPage";
 import Test from "./Park/Test";
+import Auth from "./Park/Auth";
 import Register from "./Park/Register";
 import UserList from "./Park/UserList";
 import Login from "./Park/Login";
@@ -55,6 +56,7 @@ const App = () => { //라우터 설정
       <Routes>
         {/* 로그인 불필요 컴포넌트 */}
         <Route path="/" element={<PublicPage><MainPage /></PublicPage>} />
+        <Route path="/auth" element={<PublicPage><Auth /></PublicPage>} />
         <Route path="/register" element={<PublicPage><Register /></PublicPage>} />
         <Route path="/login" element={<PublicPage><Login /></PublicPage>} />
         <Route path="/userlist" element={<UserList />} />

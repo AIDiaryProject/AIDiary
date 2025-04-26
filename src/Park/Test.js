@@ -1,62 +1,62 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Login from './Login';
+import Register from './Register';
+import "./Park.scss";
 
 const Test = () => {
-  const [user, setUser] = useState(null); // 사용자 정보 저장
-  const [loading, setLoading] = useState(true); // 로딩 상태
-  const navigate = useNavigate();
+  const [isActive, setIsActive] = useState(false); //로그인, 회원가입 전환 토글
 
-  const getUserInfo = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        throw new Error('로그인되지 않음');
-      }
-
-      // const res = await axios.get('http://localhost:5000/users/me', {
-      const res = await axios.get('https://aidiary.onrender.com/users/me', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      setUser(res.data);
-    } catch (err) {
-      console.error('사용자 정보 요청 실패:', err);
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
+  const toggle = () => {
+    setIsActive((prev) => !prev);
   };
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    alert('로그아웃되었습니다.');
-    navigate('/login');
-  };
-
-  useEffect(() => {
-    getUserInfo();
-  }, []);
-
-  if (loading) return <p>로딩 중...</p>;
 
   return (
-    <div style={{ padding: 20 }}>
-      {user ? (
-        <>
-          <h2>로그인 상태입니다!</h2>
-          <p>아이디: {user.id}</p>
-          <p>닉네임: {user.nickname}</p>
-          <button onClick={handleLogout}>로그아웃</button>
-        </>
-      ) : (
-        <>
-          <h2>로그인되지 않았습니다.</h2>
-          <button onClick={() => navigate('/login')}>로그인하러 가기</button>
-        </>
-      )}
+    <div className="auth-wrapper">
+      <section className={`auth ${isActive ? "auth-active" : ""}`}>
+        {/* 좌측, 회원가입 */}
+        <div className="auth__left">
+          <img src="//unsplash.it/600" alt="" />
+          <div className="auth__form auth__form-signup">
+            {/* <h1 className="auth__form-title">회원가입</h1> */}
+            {/* <form>
+              <input type="text" placeholder="아이디" />
+              <input type="text" placeholder="닉네임" />
+              <input type="password" placeholder="비밀번호" />
+              <input type="password" placeholder="비밀번호 확인" />
+              <input type="submit" value="회원가입" />
+            </form> */}
+            <Register />
+            <p>
+              이미 계정이 있으신가요?
+              <a href="#login" onClick={toggle}>
+                로그인
+              </a>
+            </p>
+          </div>
+        </div>
+
+        {/* 우측, 로그인 */}
+        <div className="auth__right">
+          <img src="//unsplash.it/600" alt="" />
+          <div className="auth__form auth__form-signin">
+            {/* <h1>로그인</h1> */}
+            {/* <form>
+              <input type="text" placeholder="아이디" />
+              <input type="password" placeholder="비밀번호" />
+              <input type="submit" value="로그인" />
+            </form> */}
+            <Login />
+            <p>
+              혹시 계정이 없으신가요?
+              <a href="#register" onClick={toggle}>
+                회원가입
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

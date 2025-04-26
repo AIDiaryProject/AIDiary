@@ -4,6 +4,7 @@ import Profile from './Profile';
 import axios from 'axios';
 import ClipLoader from "react-spinners/ClipLoader";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Characters from '../Lee/Characters';
 
 const MypageInfo = () => {
     const { user, loading } = LoginUser();
@@ -96,23 +97,6 @@ const MypageInfo = () => {
         }
       };
 
-      //캐릭터명 출력
-      const charactersName = (character) => {
-        const nameList = {
-            1: '루미',
-            2: '루모',
-            3: '토리',
-            4: '노아',
-            5: '세로',
-            6: '리오',
-            7: '솜이',
-            8: '다온',
-            9: '펠리'
-        };
-
-        return nameList[character] || ' ';
-      }
-
       if(loading) return <ClipLoader color={"skyblue"} size={30} />
 
     return (
@@ -138,7 +122,7 @@ const MypageInfo = () => {
                     <div className="info__row__value">
                     <div className='info__row__value__profile'>
                         <Profile id={user?.profile} size={60} />
-                        <p className='info__row__value__profile__name'>{charactersName(user?.profile)}</p>
+                        <p className='info__row__value__profile__name'>{Characters.find(c => c?.number === user?.profile)?.name}</p>
                     </div>
                     <button className="info__row__change-button" onClick={() => setProfileModal(true)}>변경</button>
                     </div>

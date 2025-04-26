@@ -9,7 +9,7 @@ const MypageSideMenu = () => {
     const { user, loading } = LoginUser();
     const navigate = useNavigate();
 
-    return ( //<i class="bi bi-android fs-5"/>
+    return (
         <div>
             <h1 className='side-title'>마이페이지</h1>
             <div className="sidemenu">

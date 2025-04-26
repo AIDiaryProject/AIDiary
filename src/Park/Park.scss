@@ -113,7 +113,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
   }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 991px) { //반응형 디자인, 부트스트랩 nav bar에 맞춤
   .login-container {
     justify-content: center;
     width: 100%;
@@ -142,13 +142,13 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 }
 
 // MypageSideMenu.js ==============================================================
-.side-title {
+.side-title { //좌측 상단 마이페이지 출력
   font-size: $소소제목;
   color: $연갈색;
   font-weight: bold;
 }
 
-.sidemenu {
+.sidemenu { //사이드메뉴 최외곽
   &__profile-box {
     border: 1px solid $진회색;
     display: flex;
@@ -167,21 +167,21 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
   );
   }
 
-  &__nickname {
+  &__nickname { //닉네임 출력
     margin: 1rem 0 0 0;
     font-size: $소소제목;
     font-weight: bold;
     color: $갈색;
   }
 
-  &__id {
+  &__id { //닉네임 아래 아이디 출력
     line-height: 1.2;
     color: $진회색;
     size: $참고글씨;
     margin: 0.2rem 0 1rem 0;
   }
 
-  &__point-shop {
+  &__point-shop { //로고, 보유 포인트 div
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -189,18 +189,18 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     width: 100%;
   }
 
-  &__point-text {
+  &__point-text { //nP 숫자 출력
     padding-left: 0.5rem;
     margin: 0;
     font-weight: bold;
     color: $진회색;
   }
 
-  &__point-logo {
+  &__point-logo { //P 로고
     color: $진회색;
   }
 
-  &__menu-box {
+  &__menu-box { //하단 메뉴 외곽 박스
     border-left: 1px solid $진회색;
     border-right: 1px solid $진회색;
     margin: 0.5rem 1rem 0 0;
@@ -211,7 +211,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     padding: 0;
   }
 
-  &__menu-item {
+  &__menu-item { //각 메뉴
     cursor: pointer;
     border-top: 1px solid $진회색;
     width: 100%;
@@ -241,18 +241,18 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 }
 
 // MypageInfo.js ==============================================================
-.info {
+.info { //회원정보 최외곽
   margin: 2rem 1rem;
   width: 100%;
 
-  &__title {
+  &__title { //연갈색 소제목
     font-size: $소제목;
     font-weight: bold;
     color: $연갈색;
     margin-bottom: 1rem;
   }
 
-  &__card {
+  &__card { //흰바탕, 외곽선
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -260,44 +260,44 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     // width: 100%;
   }
 
-  &__row {
+  &__row { //각각 행
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #ddd;
     padding: 1rem 0;
 
-    &__label {
+    &__label { //행 제목
       font-weight: bold;
       width: 12rem;
     }
 
-    &__value {
+    &__value { //행 내용
       color: $진회색;
       width: 15rem;
       display: flex;
       flex-direction: row;
       align-items: center;
 
-      &__profile {
+      &__profile { //프로필 사진 및 프로필명 div
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
 
-        &__name {
+        &__name { //프로필명 텍스트
           margin: 0.2rem 0 0 0;
           font-weight: bold;
         }
       }
     }
 
-    &__space {
+    &__space { //행별 좌우 균형 맞추기
       flex: 1;
       // width: 100%;
     }
 
-    &__change-button {
+    &__change-button { //변경 버튼
       background-color: $노랑색;
       color: $진회색;
       font-weight: bold;
@@ -316,7 +316,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     }
   }
 
-  &__modal-header {
+  &__modal-header { //모달창 제목 div
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -326,19 +326,19 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     padding: 0.3rem 0;
   }
 
-  &__modal-content {
+  &__modal-content { //모달창 내용 div
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  &__modal-title {
+  &__modal-title { //모달창 제목 텍스트
     font-size: $소소제목;
     font-weight: bold;
     color: $갈색;
   }
 
-  &__modal-close {
+  &__modal-close { //모달창 닫기 버튼
     border: 0px solid black;
     font-weight: bold;
     font-size: 1.2rem;
@@ -346,7 +346,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     background-color: white;
   }
 
-  &__hidden {
+  &__hidden { //헤더 좌우 균형 맞추기
     color: white;
     border: 0px solid;
     background-color: white;
@@ -356,21 +356,21 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     }
   }
 
-  &__description-nickname {
+  &__description-nickname { //'현재 닉네임' 텍스트
     font-size: $참고글씨;
     font-weight: bold;
     color: $진회색;
     margin: 0;
   }
 
-  &__now-nickname {
+  &__now-nickname { //현재 닉네임
     font-size: $강조글씨;
     font-weight: bold;
     margin: 0;
     color: $연갈색;
   }
 
-  &__input-nickname {
+  &__input-nickname { //닉네임 input
     width: 65%;
     margin: 1rem 0 0 0;
     padding: 10px 14px;
@@ -392,13 +392,13 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     }
   }
 
-  &__nickname-error { //margin:0, color:'red', fontSize:'0.7rem'
+  &__nickname-error { //nickname error시 텍스트
     margin: 0;
     color: red;
     font-size: $참고글씨;
   }
 
-  &__modal-button-nickname {
+  &__modal-button-nickname { //닉네임 모달창 버튼
     background-color: $노랑색;
     color: $진회색;
     font-weight: bold;
@@ -419,8 +419,8 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     }
   }
 
-  &__profile {
-    &__container {
+  &__profile { //모달창 프로필 사진 출력
+    &__container { //div
       display: flex;
       flex-wrap: wrap;
       gap: 1rem 1rem;
@@ -429,7 +429,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
       max-width: 100%;
     }
   
-    &__item {
+    &__item { //프로필 사진, 버튼이 1세트
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -437,7 +437,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     }
   }
 
-  &__modal-button-profile {
+  &__modal-button-profile { //프로필 모달창 버튼
     background-color: $노랑색;
     color: $진회색;
     font-weight: bold;
@@ -461,18 +461,18 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 }
 
 // PointShop.js ==============================================================
-.shop {
+.shop { //샵 최외곽
   margin: 2rem 1rem;
   width: 100%;
 
-  &__title {
+  &__title { //연갈색 소제목
     font-size: $소제목;
     font-weight: bold;
     color: $연갈색;
     margin-bottom: 1rem;
   }
 
-  &__point {
+  &__point { //보유 포인트 출력 div
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -483,18 +483,18 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     border-bottom: 1px solid #ddd;
   }
 
-  &__point-text {
+  &__point-text { //보유 포인트 텍스트
     padding-left: 0.5rem;
     margin: 0;
     font-weight: bold;
     color: $진회색;
   }
 
-  &__point-logo {
+  &__point-logo { //P 로고
     color: $진회색;
   }
 
-  &__button {
+  &__button { //구매 버튼
     background-color: $노랑색;
     color: $진회색;
     font-weight: bold;
@@ -516,16 +516,16 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     }
   }
 
-  &__grid {
+  &__grid { //카드 그리드 설정
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
     justify-content: center;
   }
 
-  &__card {
+  &__card { //각 카드 디자인
     width: 180px;
-    border: 1px solid #eee;
+    border: 1px solid white;
     box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     border-radius: 15px;
     transition: transform 0.2s;
@@ -537,16 +537,16 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
       box-shadow: 0 6px 15px rgba(0,0,0,0.12);
     }
 
-    .card-body {
+    .card-body { //카드 내부 패딩
       padding: 1rem;
     }
 
-    .card-title {
+    .card-title { //카드 이름
       font-size: $강조글씨;
       font-weight: bold;
     }
 
-    .card-text {
+    .card-text { //카드 타입
       font-size: $참고글씨;
       color: $진회색;
       font-weight: bold;
@@ -554,7 +554,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     }
   }
 
-  &__modal-header {
+  &__modal-header { //모달창 헤더 div
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -564,20 +564,20 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     padding: 0.3rem 0;
   }
 
-  &__modal-content {
+  &__modal-content { //모달창 내용 div
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
 
-  &__modal-title {
+  &__modal-title { //모달창 헤더 텍스트
     font-size: $소소제목;
     font-weight: bold;
     color: $갈색;
   }
 
-  &__modal-close {
+  &__modal-close { //모달창 닫기 버튼
     border: 0px solid black;
     font-weight: bold;
     font-size: 1.2rem;
@@ -585,7 +585,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     background-color: white;
   }
 
-  &__modal-hidden {
+  &__modal-hidden { //모달창 헤더 좌우 균형
     color: white;
     border: 0px solid;
     background-color: white;
@@ -595,25 +595,285 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     }
   }
 
-  &__modal-name {
+  &__modal-name { //모달창 프로필 이름
     font-size: $강조글씨;
     font-weight: bold;
     color: $갈색;
     margin: 0.5rem 0 0 0;
   }
 
-  &__modal-type {
+  &__modal-type { //모달창 프로필 타입
     color: $연갈색;
     font-size: $참고글씨;
     font-weight: bold;
     margin: 0 0 0.5rem 0;
   }
 
-  &__modal-description {
+  &__modal-description { //모달창 프로필 설명
     font-size: $참고글씨;
     font-weight: bold;
     color: $진회색;
     margin: 0;
     text-align: center;
+  }
+}
+
+// Auth.js ==============================================================
+.auth-wrapper { //최외곽
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 6rem); // 화면 전체 높이 기준 정렬
+}
+
+.auth { //로그인, 회원가입 카드
+  width: 800px;
+  height: 400px;
+  display: flex;
+  overflow: hidden;
+  border-radius: 10px;
+
+  &-active { //로그인, 회원가입 창 전환
+    .auth__left {
+      transform: translateY(-400px);
+    }
+    .auth__right {
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 820px) { //820 이하 : 그림 none, 전환 변경
+    width: 400px;
+    flex-direction: column;
+
+    .auth__img {
+      display: none;
+    }
+
+    .auth__left {
+      transform: translateY(400px);
+    }
+
+    &-active {
+      .auth__left {
+        transform: translateY(0);
+      }
+      .auth__right {
+        transform: translateY(-800px);
+      }
+    }
+  }
+
+  &__left,
+  &__right { //로그인 및 회원가입 입력창
+    width: 400px;
+    height: 800px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    transition: 1s;
+  }
+
+  &__right { //우측(로그인)창만 추가 조정
+    transform: translateY(-400px);
+  }
+
+  &__content { //로그인 및 회원가입 입력창 내용
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  &__text {
+    color: $진회색;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  &__login-link {
+    color: $연갈색;
+    margin-left: 0.5rem;
+  }
+
+  &__register-link {
+    color: $갈색;
+    margin-left: 0.5rem;
+  }
+
+}
+
+// Login.js ==============================================================
+.login { //회원가입
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1rem 0 1rem;
+
+  &__title { //회원가입 텍스트 출력
+    font-size: $소제목;
+    font-weight: bold;
+    color: $갈색;
+    margin: 0.2rem 0 2rem 0;
+  }
+
+  &__item-div { //행 디자인
+    width: 100%;
+    padding: 0;
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__input { //로그인 input
+    width: calc(100% - 7rem);
+    margin: 0;
+    padding: 5px 7px;
+    font-size: 16px;
+    border: 1.5px solid $갈색;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    color: $연갈색;
+    font-weight: bold;
+  
+    &::placeholder {
+      color: $갈색;
+    }
+  
+    &:focus {
+      border-color: $연갈색;
+      box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
+      color: $연갈색;
+      font-weight: bold;
+    }
+  }
+
+  &__button { //로그인 버튼
+    background-color: $갈색;
+    font-size: $강조글씨;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 0px solid;
+    margin: 0.5rem 0;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $연갈색;
+      color: white;
+    }
+
+    &:disabled {
+      background-color: #ddd;
+      color: #888;
+      cursor: default;
+    }
+  }
+}
+
+// Register.js ==============================================================
+.register { //회원가입
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1rem 0 1rem;
+
+  &__title { //회원가입 텍스트 출력
+    font-size: $소제목;
+    font-weight: bold;
+    color: $연갈색;
+    margin: 0.2rem 0 1rem 0;
+  }
+
+  &__item-div { //행 디자인
+    width: 90%;
+    padding: 0;
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__button { //중복확인 버튼
+    background-color: $연갈색;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 0px solid;
+    margin: 0 0 0 0.5rem;
+    padding: 0.2rem 0.8rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $갈색;
+      color: white;
+    }
+
+    &:disabled {
+      background-color: #ddd;
+      color: #888;
+      cursor: default;
+    }
+  }
+
+  &__input { //회원가입 input
+    width: calc(100% - 7rem);
+    margin: 0;
+    padding: 5px 7px;
+    font-size: 16px;
+    border: 1.5px solid $연갈색;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    margin-left: 0.3rem;
+    color: $갈색;
+    font-weight: bold;
+  
+    &::placeholder {
+      color: $연갈색;
+    }
+  
+    &:focus {
+      border-color: $갈색;
+      box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
+      color: $갈색;
+      font-weight: bold;
+    }
+  }
+
+  &__error-text { //회원가입 에러 텍스트
+    margin: 0;
+    color: red;
+    font-size: $참고글씨;
+    width: 88%;
+  }
+
+  &__submit { //가입 버튼
+    background-color: $연갈색;
+    font-size: $강조글씨;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 0px solid;
+    margin: 0.5rem 0;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $갈색;
+      color: white;
+    }
+
+    &:disabled {
+      background-color: #ddd;
+      color: #888;
+      cursor: default;
+    }
   }
 }

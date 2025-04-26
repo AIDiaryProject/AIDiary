@@ -14,8 +14,6 @@ const Register = () => {
   const [passwordCheck, setPasswordCheck] = useState(''); //비밀번호 일치 여부
   const [passwordError, setPasswordError] = useState(''); //비밀번호 에러 메세지 출력
   const [showPassword, setShowPassword] = useState(false); //입력된 비밀번호 출력/숨기기
-
-
   
   //ID 중복확인
   const checkIdDuplicate = async () => {
@@ -72,6 +70,11 @@ const Register = () => {
       return;
     };
 
+    if (password.length < 1) {
+      alert('입력된 비밀번호가 없습니다..\n비밀번호를 입력해주세요.');
+      return;
+    };
+
     try {
       // await axios.post('http://localhost:5000/users/register', {
         await axios.post('https://aidiary.onrender.com/users/register', {
@@ -97,88 +100,88 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>회원가입</h2>
-      <p>입력된 비밀번호 : {password}</p>
-      <input //아이디 입력란
-        type="text"
-        placeholder="아이디"
-        value={id}
-        // onChange={(e) => {
-        //   setId(e.target.value);
-        //   setIsIdChecked(false); // 값 변경 시 중복확인 다시 필요
-        // }}
-        onChange={(e) => {
-          const value = e.target.value;
-          const regex = /^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/; //정규식
-          if (regex.test(value)) { //regex.test(문자열) : regex라는 정규식 패턴에 맞는 문자열인지 test()가 검사. 참인 경우 true, 거짓인 경우 fasle 반환
-            setId(value);
-            setIsIdChecked(false);
-            setIdError(' ');
-          } else {
-            setIdError('id는 영어, 일부 특수문자만 사용 가능합니다.');
-          }
-        }}
-      />
-      <button type="button" onClick={checkIdDuplicate} disabled={id.length < 1 ? 'disable' : ''}>아이디 중복확인</button>
-      <br />
-      <p style={{margin:0, color:'red', fontSize:'0.7rem'}}>{idError}<br/></p>
+    <form onSubmit={handleSubmit} className='register'>
+      <h1 className='register__title'>회원가입</h1>
+      <div className='register__item-div'>
+        <input //아이디 입력란
+          type="text"
+          placeholder="아이디"
+          value={id}
+          className='register__input'
+          onChange={(e) => {
+            const value = e.target.value;
+            const regex = /^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/; //정규식
+            if (regex.test(value)) { //regex.test(문자열) : regex라는 정규식 패턴에 맞는 문자열인지 test()가 검사. 참인 경우 true, 거짓인 경우 fasle 반환
+              setId(value);
+              setIsIdChecked(false);
+              setIdError(' ');
+            } else {
+              setIdError('id는 영어, 일부 특수문자만 사용 가능합니다.');
+            }
+          }}
+        />
+        <button className='register__button' type="button" onClick={checkIdDuplicate} disabled={id.length < 1 ? 'disable' : ''}>중복확인</button>
+      </div>
+      <p className='register__error-text'>{idError}</p>
 
-      <input //비밀번호 입력란
-        type={showPassword ? "text" : "password"}
-        placeholder="비밀번호"
-        value={password}
-        // onChange={(e) => setPassword(e.target.value)}
-        onChange={(e) => {
-          const value = e.target.value;
-          const regex = /^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/; //정규식
-          if (regex.test(value)) { //regex.test(문자열) : regex라는 정규식 패턴에 맞는 문자열인지 test()가 검사. 참인 경우 true, 거짓인 경우 fasle 반환
-            setPassword(value);
-            setPasswordError('');
-          } else {
-            setPasswordError('비밀번호는 영어, 숫자, 일부 특수문자만 사용 가능합니다.');
-          }
-        }}
-      />
-      <button
-        type="button"
-        onClick={() => setShowPassword((prev) => !prev)}
-      >{showPassword ? "숨기기" : "보기"}</button>
-      <br />
-      <p style={{margin:0, color:'red', fontSize:'0.7rem'}}>{passwordError}<br/></p>
+      <div className='register__item-div'>
+        <input //비밀번호 입력란
+          type={showPassword ? "text" : "password"}
+          placeholder="비밀번호"
+          value={password}
+          className='register__input'
+          onChange={(e) => {
+            const value = e.target.value;
+            const regex = /^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/; //정규식
+            if (regex.test(value)) { //regex.test(문자열) : regex라는 정규식 패턴에 맞는 문자열인지 test()가 검사. 참인 경우 true, 거짓인 경우 fasle 반환
+              setPassword(value);
+              setPasswordError('');
+            } else {
+              setPasswordError('비밀번호는 영어, 숫자, 일부 특수문자만 사용 가능합니다.');
+            }
+          }}
+        />
+        <button
+          type="button"
+          onClick={() => setShowPassword((prev) => !prev)}
+          className='register__button'
+        >{showPassword ? <i class="bi bi-eye-fill" /> : <i class="bi bi-eye-slash-fill" />}</button>
+      </div>
+      <p className='register__error-text'>{passwordError}</p>
 
-      <input //비밀번호 확인란
-        type="password"
-        placeholder="비밀번호 확인"
-        value={passwordCheck}
-        onChange={(e) => setPasswordCheck(e.target.value)}
-      /><br /><br />
+      <div className='register__item-div'>
+        <input //비밀번호 확인란
+          type="password"
+          placeholder="비밀번호 확인"
+          value={passwordCheck}
+          onChange={(e) => setPasswordCheck(e.target.value)}
+          className='register__input'
+        />
+      </div>
 
-      <input //닉네임 입력란
-        type="text"
-        placeholder="닉네임"
-        value={nickname}
-        // onChange={(e) => {
-        //   setNickname(e.target.value);
-        //   setIsNicknameChecked(false); // 값 변경 시 중복확인 다시 필요
-        // }}
-        onChange={(e) => {
-          const value = e.target.value;
-          const specialCharRegex  = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
-          if (!specialCharRegex.test(value) || value=='') {
-            setNickname(value);
-            setIsNicknameChecked(false);
-            setNicknameError('');
-          } else {
-            setNicknameError('닉네임은 한글, 영어, 숫자만 사용 가능합니다.');
-          }
-        }}
-      />
-      <button type="button" onClick={checkNicknameDuplicate} disabled={nickname.length < 1 ? 'disable' : ''}>닉네임 중복확인</button>
-      <br />
-      <p style={{margin:0, color:'red', fontSize:'0.7rem'}}>{nicknameError}<br/></p>
+      <div className='register__item-div'>
+        <input //닉네임 입력란
+          type="text"
+          placeholder="닉네임"
+          value={nickname}
+          className='register__input'
+          onChange={(e) => {
+            const value = e.target.value;
+            const specialCharRegex  = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+            if (!specialCharRegex.test(value) || value=='') {
+              setNickname(value);
+              setIsNicknameChecked(false);
+              setNicknameError('');
+            } else {
+              setNicknameError('닉네임은 한글, 영어, 숫자만 사용 가능합니다.');
+            }
+          }}
+        />
+        <button className='register__button' type="button" onClick={checkNicknameDuplicate} disabled={nickname.length < 1 ? 'disable' : ''}>중복확인</button>
+      </div>
+      <p className='register__error-text'>{nicknameError}</p>
 
-      <button type="submit">가입하기</button>
+      <button className='register__submit' type="submit">가입하기</button>
     </form>
   );
 };

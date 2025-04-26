@@ -128,7 +128,7 @@ const Header = () => {
                     login ? (
                     <div className="d-none d-lg-block">{LoginMenu()}</div>
                     ) : (
-                    <a className="nav-link header-top-button" href="/login">로그인</a>
+                    <a className="nav-link header-top-button" href="/auth">로그인</a>
                     )
                 )}
             </div>
