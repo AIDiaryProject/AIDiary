@@ -117,24 +117,3 @@ const PointShop = () => { //user.profile : 사용중 / user.item : 보유중
 };
 
 export default PointShop;
-
-        // <div className='shop'>
-        //     <h3 className='shop__title'>포인트샵</h3>
-        //     <p>보유 포인트 : {user?.point}</p>
-        //     {product.map((a, index) => {
-        //         return( 
-        //             <div>
-        //                 <Profile id={a}/>
-        //                 {/* <button onClick={() => {alert(`${a}번 사진 구매!`)}}> 구매 </button> */}
-        //                 <button
-        //                     onClick={() => buyProfile(a)}
-        //                     disabled={user?.item.includes(a)}
-        //                     style={{backgroundColor:'#ffd768', border:'0', padding:'1rem', borderRadius:'10px', fontWeight:'bold', color:'#5d576b'}}
-        //                 >
-        //                   {user?.item.includes(a) ? '보유중' : `구매 (${profilePrices[a]}P)`}
-        //                 </button>
-        //                 <p style={{color:'#1f93ff', fontWeight:'bold'}}>{user?.item.includes(a) ? '보유중' : ''}</p>
-        //             </div>
-        //         )
-        //     })}
-        // </div>
