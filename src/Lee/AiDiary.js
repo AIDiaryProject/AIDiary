@@ -35,12 +35,6 @@ const AiDiary = () => {
     setKeywords(newKeywords);
   };
 
-  const addKeywordInput = () => {
-    if (keywords.length < 5) {
-      setKeywords([...keywords, ""]);
-    }
-  };
-
   const handelSubmit = async () => {
     if (!title.trim()) {
       alert("제목을 입력해 주세요!");
@@ -107,10 +101,17 @@ const AiDiary = () => {
     setKeywords(updatedKeywords);
   };
 
+
+  const addKeywordInputAfter = (index) => {
+    const newKeywords = [...keywords];
+    newKeywords.splice(index + 1, 0, ""); // index 바로 다음에 추가
+    setKeywords(newKeywords);
+  };
+  
   return (
     <div className="diary-wrapper">
       <h2>키워드를 기반으로 일기 자동 생성</h2>
-
+      <hr/>
       <div>
         <label htmlFor="basic-url" className="form-label diary-title-label">제목</label>
         <input
@@ -185,33 +186,42 @@ const AiDiary = () => {
         {keywords.map((keyword, index) => (
           <div key={index} className="flex-div">
             <input
-              className="form-control diary-input-delete"
+              className="form-control diary-input-keyword"
               value={keyword}
               onChange={(e) => handleKeywordChange(index, e.target.value)}
               placeholder={`키워드 ${index + 1}`}
               disabled={loading || isGenerated}
             />
-            <button
-              type="button"
-              className="btn btn-danger btn-sm"
-              onClick={() => removeKeyword(index)}
-              disabled={loading || isGenerated}
-            >
-              삭제
-            </button>
+            
+            {/* 버튼 그룹 */}
+            <div className="button-group">
+              {/* 삭제 버튼은 2번째부터 항상 표시 */}
+              {keywords.length > 1 && (
+                <button
+                  type="button"
+                  className="btn btn-danger btn-sm"
+                  onClick={() => removeKeyword(index)}
+                  disabled={loading || isGenerated}
+                >
+                  삭제
+                </button>
+              )}
+
+              {/* 추가 버튼은 "마지막 키워드"에만 표시 (단, 최대 5개까지만) */}
+              {index === keywords.length - 1 && keywords.length < 5 && (
+                <button
+                  type="button"
+                  className="btn btn-primary btn-sm"
+                  onClick={() => addKeywordInputAfter(index)}
+                  disabled={loading || isGenerated}
+                >
+                  추가
+                </button>
+              )}
+            </div>
           </div>
         ))}
-        {keywords.length < 5 && (
-          <button
-            type="button"
-            className="btn diary-button"
-            onClick={addKeywordInput}
-            disabled={loading || isGenerated}
-          >
-            키워드 추가
-          </button>
-        )}
-      </div>
+      </div>   
 
       <div>
         <button 

@@ -101,8 +101,9 @@ const StatsData = () => {
     return (
         <div className='info'>
             <h1 className='info__title'>통계</h1>
+            <hr/>
+            <p>날짜별 감정</p>
             <div className='info__card'>
-                <p>날짜별 감정</p>
                 <ResponsiveContainer width="100%" height={300}>
                     <LineChart data={chartData}>
                         <CartesianGrid strokeDasharray="3 3" />
@@ -131,8 +132,9 @@ const StatsData = () => {
                     </LineChart>
                 </ResponsiveContainer>
             </div>
-            <div>
-                <p>감정별 빈도수</p>
+            <hr/>
+            <p>감정별 빈도수</p>
+            <div className='info__card'>
                 <ResponsiveContainer width="100%" height={300}>
                     <PieChart>
                         <Pie
@@ -151,8 +153,9 @@ const StatsData = () => {
                     </PieChart>
                 </ResponsiveContainer>
             </div>
-            <div>
-                <p>요일별 작성 빈도</p>
+            <hr/>
+            <p>요일별 작성 빈도</p>
+            <div className='info__card'>
                 <ResponsiveContainer width="100%" height={300}>
                     <BarChart data={weekdayData}>
                         <CartesianGrid strokeDasharray="3 3" />
@@ -165,8 +168,9 @@ const StatsData = () => {
                     </BarChart>
                 </ResponsiveContainer>
             </div>
-            <div>
-                <p>작성율</p>
+            <hr/>
+            <p>작성율</p>
+            <div className='info__card'>
                 <ResponsiveContainer width="100%" height={300}>
                     <PieChart>
                         <Pie

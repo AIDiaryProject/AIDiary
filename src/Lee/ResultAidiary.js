@@ -43,6 +43,31 @@ const ResultAiDiary = () => {
     }
   };
 
+  const addPoints = async (userId, amount, type) => {
+    try {
+      const response = await axios.patch('https://aidiary.onrender.com/users/add-point', {
+        userId,
+        amount,
+        type,
+      });
+  
+      alert(response.data.message);
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+      alert('포인트 처리 실패');
+    }
+  };
+
+  const handleSaveAndAddPoints = async () => {
+    try {
+      await dbSave(); // DB 저장 먼저
+      await addPoints(user?.id, 100, 'plus'); // DB 저장 성공했을 때만 포인트 추가
+    } catch (error) {
+      console.error("저장 또는 포인트 추가 중 에러 발생:", error);
+    }
+  };
+
   return (
     <div className="result-wrapper">
       <div className="content-container">
@@ -58,7 +83,7 @@ const ResultAiDiary = () => {
           <button 
             type="button" 
             class="btn result-button"
-            onClick={dbSave}
+            onClick={handleSaveAndAddPoints}
             disabled={saving}
           >
             {saving ? "DB 저장 중..." : "저장하기"}

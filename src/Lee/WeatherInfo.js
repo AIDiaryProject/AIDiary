@@ -89,7 +89,7 @@ const WeatherInfo = () => {
         <p>🔄 불러오는 중...</p>
       ) : weather && (
         <div>
-          <h1>{formatTimeLabel(selectedTime)} ({weather.source})</h1>
+          <h2>{formatTimeLabel(selectedTime)} ({weather.source})</h2>
           {uniqueItems.map((item, idx) => (
             <p key={idx}>
               <strong>{getKoreanLabel(item.category)}</strong>:{" "}

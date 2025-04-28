@@ -18,7 +18,7 @@ const MypageList = () => {
     const [searchType, setSearchType] = useState("title"); //제목, 내용, 제목+내용
 
     const [currentPage, setCurrentPage] = useState(1); //페이지
-    const itemsPerPage = 5; // 한 페이지당 보여줄 게시물 수
+    const itemsPerPage = 10; // 한 페이지당 보여줄 게시물 수
 
     const handleItemClick = (item) => {
         setSelectedItem(item);
@@ -75,7 +75,9 @@ const MypageList = () => {
       }, [state]);
 
     return (
-        <div style={{flex:1}}>
+        <div className='info'>
+            <h1 className='info__title'>일기 목록</h1>
+            <hr/>
             {/* 날짜 검색 */}
             <DatePicker
                 selected={startDate}
@@ -148,47 +150,54 @@ const MypageList = () => {
                         className='list-group-item list-group-item-action'
                         onClick={() => handleItemClick(item)}    
                     >
-                        <h3>{item.title}</h3>
-                        <p>{item.date.slice(0,10)}</p>
+                        <div className='list-each'>
+                            <h1>{item.title}</h1>
+                            <p>{item.date.slice(0,10)}</p>
+                        </div>
                     </li>
                 ))}
             </ul>
             {/* 게시글 모달 */}
             {showModal && selectedItem && (
-                <div 
-                    className='modal-overlay'  
-                    tabIndex='-1'
-                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
-                    onClick={handleClose}
-                >
+                <div className='modal-wrapper'>
                     <div 
-                        className='modal-dialog custom-modal-size'
-                        onClick={(e) => e.stopPropagation()}
+                        className='modal-overlay'
+                        tabIndex='-1'
+                        style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+                        onClick={handleClose}
                     >
-                        <div className='modal-content'>
-                            <div className='modal-header'>
-                                <p><h2 className='modal-title'>제목: {selectedItem.title}</h2></p>
-                                <button 
-                                    type="button" 
-                                    className="btn-close" 
-                                    aria-label="Close" 
-                                    onClick={handleClose}
-                                />
-                            </div>
-                            <div className='modal-body'>
-                                <p><h3>날짜: {selectedItem.date.slice(0,10)}</h3></p>
-                                {selectedItem.weather && <p><h4>날씨: {selectedItem.weather}</h4></p>}
-                                <p><h3>기분: {selectedItem.emotionLabel}</h3></p>
-                                <p><h3>내용:</h3></p>
-                                <p>
-                                    {selectedItem.content.split('\n').map((line, index) => (
-                                        <span key={index}>
-                                        {line}
-                                        <br />
-                                        </span>
-                                    ))}
-                                </p>
-                                {selectedItem.comment && <h4>코멘트: {selectedItem.comment}</h4>}
+                        <div 
+                            className='modal-dialog custom-modal-size'
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div className='modal-content'>
+                                <div className='modal-header'>
+                                    <h1 className='modal-title'>{selectedItem.title}</h1>
+                                    <button 
+                                        type="button" 
+                                        className="btn-close" 
+                                        aria-label="Close" 
+                                        onClick={handleClose}
+                                    />
+                                </div>
+                                <div className="modal-body">
+                                    <div className="modal-diary">
+                                        <h2>{selectedItem.date.slice(0,10)}</h2>
+                                        {selectedItem.weather && <h2>날씨 {selectedItem.weather}</h2>}
+                                        <h2>기분: {selectedItem.emotionLabel}</h2>
+                                        {selectedItem.content.split('\n').map((line, index) => (
+                                            <h2 key={index}>
+                                                {line}
+                                            </h2>
+                                        ))}
+                                    </div>
+
+                                    {selectedItem.comment && (
+                                        <div className="modal-comment">
+                                            <h2>코멘트: {selectedItem.comment}</h2>
+                                        </div>
+                                    )}
+                                </div>
 
                             </div>
                         </div>

@@ -99,8 +99,9 @@ const HandDiary = () => {
 
   return (
     <div className="diary-wrapper">
-      <h2>✍️ 직접 일기 쓰기</h2>
-      <label htmlFor="basic-url" className="form-label diary-title-label">제목</label>
+      <h2>직접 일기 쓰기</h2>
+      <hr/>
+      <label htmlFor="basic-url" className="form-label">제목</label>
       <input
         type="text"
         value={title}
