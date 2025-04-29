@@ -50,7 +50,7 @@ const WeatherInfo = () => {
     return labels[category] || category;
   };
 
-  const formatTimeLabel = (time) => `${time.slice(0, 2)}시 날씨 정보`;
+  const formatTimeLabel = (time) => `${time.slice(0, 2)}시 날씨`;
 
   const filtered = {};
   weather?.items
@@ -70,6 +70,7 @@ const WeatherInfo = () => {
   return (
     <div className='info-wrapper'>
       <p>
+        <h2>{formatTimeLabel(selectedTime)}</h2>
         <label htmlFor="time">날씨 시간 선택:</label>
         <select
           id="time"
@@ -89,10 +90,10 @@ const WeatherInfo = () => {
         <p>🔄 불러오는 중...</p>
       ) : weather && (
         <div>
-          <h2>{formatTimeLabel(selectedTime)} ({weather.source})</h2>
+          
           {uniqueItems.map((item, idx) => (
             <p key={idx}>
-              <strong>{getKoreanLabel(item.category)}</strong>:{" "}
+              {getKoreanLabel(item.category)}:{" "}
               {getWeatherDescription(item.category, item.obsrValue || item.fcstValue)}
             </p>
           ))}

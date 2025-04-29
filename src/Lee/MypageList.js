@@ -72,7 +72,29 @@ const MypageList = () => {
     const { state } = useLocation();
     useEffect(() => {
         if (state?.refresh) refresh(); // diaryList를 강제 갱신
-      }, [state]);
+    }, [state]);
+
+
+    // 현재 선택된 아이템의 인덱스 찾기
+    const getSelectedItemIndex = () => {
+        return pagedData.findIndex(item => item === selectedItem);
+    };
+    
+    // 이전 아이템 보기
+    const handlePrev = () => {
+        const currentIndex = getSelectedItemIndex();
+        if (currentIndex > 0) {
+        setSelectedItem(pagedData[currentIndex - 1]);
+        }
+    };
+    
+    // 다음 아이템 보기
+    const handleNext = () => {
+        const currentIndex = getSelectedItemIndex();
+        if (currentIndex < pagedData.length - 1) {
+        setSelectedItem(pagedData[currentIndex + 1]);
+        }
+    };
 
     return (
         <div className='info'>
@@ -161,6 +183,79 @@ const MypageList = () => {
             {showModal && selectedItem && (
                 <div className='modal-wrapper'>
                     <div 
+                    className='modal-overlay'
+                    tabIndex='-1'
+                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+                    onClick={handleClose}
+                    >
+                    <div 
+                        className='modal-dialog custom-modal-size'
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className='modal-content'>
+                        <div className='modal-header'>
+                            <h1 className='modal-title'>{selectedItem.title}</h1>
+                            <button 
+                            type="button" 
+                            className="btn-close" 
+                            aria-label="Close" 
+                            onClick={handleClose}
+                            />
+                        </div>
+
+                        <div className="modal-body">
+                            <div className="modal-diary">
+                            <h2>{selectedItem.date.slice(0,10)}</h2>
+                            {selectedItem.weather && <h2>날씨: {selectedItem.weather}</h2>}
+                            <h2>기분: {selectedItem.emotionLabel}</h2>
+                            {selectedItem.content.split('\n').map((line, index) => (
+                                <h2 key={index}>
+                                {line}
+                                </h2>
+                            ))}
+                            </div>
+
+                            {selectedItem.comment && (
+                            <div className="modal-comment">
+                                <h2>코멘트: {selectedItem.comment}</h2>
+                            </div>
+                            )}
+                        </div>
+
+                        {/* 🔥 추가된 부분: 모달 Footer (이전/다음/현재표시) */}
+                        <div className='modal-footer d-flex justify-content-between align-items-center'>
+                            <button 
+                            className='btn btn-secondary' 
+                            onClick={handlePrev}
+                            disabled={getSelectedItemIndex() === 0}
+                            >
+                            이전 일기
+                            </button>
+
+                            {/* 현재 인덱스 / 전체 */}
+                            <div>
+                            {getSelectedItemIndex() + 1} / {pagedData.length}
+                            </div>
+
+                            <button 
+                            className='btn btn-secondary' 
+                            onClick={handleNext}
+                            disabled={getSelectedItemIndex() === pagedData.length - 1}
+                            >
+                            다음 일기
+                            </button>
+                        </div>
+
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            )}
+
+            {/* 
+            {showModal && selectedItem && (
+                <div className='modal-wrapper'>
+                    <div 
                         className='modal-overlay'
                         tabIndex='-1'
                         style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
@@ -204,6 +299,10 @@ const MypageList = () => {
                     </div>
                 </div>
             )}
+            */}
+
+            
+
             {/* 페이지 버튼 */}
             <nav className="mt-3">
                 <ul className="pagination justify-content-center">

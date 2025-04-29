@@ -5,6 +5,7 @@ import DustInfo from "./DustInfo";
 import LoginUser from "../Park/LoginUser";
 import axios from "axios";
 import { useEnv } from "./EnvContext";
+import Profile from "../Park/Profile";
 
 const ResultAiDiary = () => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const ResultAiDiary = () => {
     return <p>잘못된 접근입니다.</p>;
   };
 
-  const { title, content, weather, date, emotionLabel, emotionScore } = state;
+  const { title, content, weather, date, emotionLabel, emotionScore, number } = state;
   const { user } = LoginUser();
 
   const dbSave = async () => {
@@ -33,11 +34,11 @@ const ResultAiDiary = () => {
         emotionLabel,
         emotionScore,
       });
-      alert('DB저장 성공!');
+      alert('마법일기가 마음숲에 저장 되었어요!');
       navigate("/Mypagelist", { state: { refresh: true } });
     } catch (err) {
       console.error(err);
-      alert('DB저장 실패!');
+      alert('마법일기를 마음숲에 저장하는데 실패 했어요...');
     } finally {
       setSaving(false);
     }
@@ -55,7 +56,7 @@ const ResultAiDiary = () => {
       window.location.reload();
     } catch (error) {
       console.error(error);
-      alert('포인트 처리 실패');
+      alert('열매 처리 실패');
     }
   };
 
@@ -64,7 +65,7 @@ const ResultAiDiary = () => {
       await dbSave(); // DB 저장 먼저
       await addPoints(user?.id, 100, 'plus'); // DB 저장 성공했을 때만 포인트 추가
     } catch (error) {
-      console.error("저장 또는 포인트 추가 중 에러 발생:", error);
+      console.error("저장 또는 열매 추가 중 에러 발생:", error);
     }
   };
 
@@ -76,7 +77,7 @@ const ResultAiDiary = () => {
           <p>🗓️ {date}</p>
           {weather && <p>☀️ 날씨: {weather}</p>}
           <p>기분: {emotionLabel}</p>
-          <h2>📝 최종 일기</h2>
+          <h2><Profile id={number} size={60} />최종 마법 일기</h2>
           <div className="diary-content">
             {content}
           </div>
@@ -86,7 +87,7 @@ const ResultAiDiary = () => {
             onClick={handleSaveAndAddPoints}
             disabled={saving}
           >
-            {saving ? "DB 저장 중..." : "저장하기"}
+            {saving ? "일기 저장 중..." : "일기 저장"}
           </button>
           {/* <button onClick={() => { console.log('title: ', title, 'content : ', content, 'weather :', weather, 'date :', date, 'user_id', user?.id, 'emotion', emotionLabel) }}>console.log</button> */}
         </div>

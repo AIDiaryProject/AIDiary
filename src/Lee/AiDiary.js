@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Lee.scss';
+import LoginUser from '../Park/LoginUser';
+import Characters from "./Characters";
+import Profile from "../Park/Profile";
 
 const AiDiary = () => {
   const navigate = useNavigate();
@@ -14,6 +17,10 @@ const AiDiary = () => {
   const [userEmotionScore, setUserEmotionScore] = useState(3);
   const [generatedDiary, setGeneratedDiary] = useState("");
   const [isGenerated, setIsGenerated] = useState(false);
+  const [Character, setCharacter] = useState("");
+  const [number, setNumber] = useState("");
+
+  const { user } = LoginUser();
 
   const emotionOptions = [
     { id: 0, label: "최악" },
@@ -24,6 +31,13 @@ const AiDiary = () => {
     { id: 5, label: "행복" },
     { id: 6, label: "최고" },
   ];
+
+  useEffect(() => {
+    if (!user) return;
+    const selectedCharacter = Characters.find(c => c?.number === user.profile);
+    setCharacter(selectedCharacter?.name);
+    setNumber(selectedCharacter.number);
+  }, [user]);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -92,6 +106,7 @@ const AiDiary = () => {
         date: formattedDate,
         emotionLabel: userEmotionLabel,
         emotionScore: userEmotionScore,
+        number,
       }
     });
   };
@@ -110,7 +125,7 @@ const AiDiary = () => {
   
   return (
     <div className="diary-wrapper">
-      <h2>키워드를 기반으로 일기 자동 생성</h2>
+      <h2>숲의 마법으로 작성하는 나의 일기</h2>
       <hr/>
       <div>
         <label htmlFor="basic-url" className="form-label diary-title-label">제목</label>
@@ -189,7 +204,7 @@ const AiDiary = () => {
               className="form-control diary-input-keyword"
               value={keyword}
               onChange={(e) => handleKeywordChange(index, e.target.value)}
-              placeholder={`키워드 ${index + 1}`}
+              placeholder={`주문 키워드 ${index + 1}`}
               disabled={loading || isGenerated}
             />
             
@@ -230,14 +245,15 @@ const AiDiary = () => {
           onClick={handelSubmit} 
           disabled={loading || isGenerated}
         >
-          {loading ? "생성 중..." : isGenerated ? "생성 완료!" : "일기 생성"}
+          {loading ? "생성 중..." : isGenerated ? "생성 완료!" : "마법 일기 생성"}
         </button>
       </div>
 
       <div>
         {generatedDiary && (
           <div>
-            <h2>✏️ 생성된 일기 (수정)</h2>
+            <h2><Profile id={number} size={60} />{Character}의 마법 일기</h2>
+            <p>마법일기를 최종적으로 수정 가능해요</p>
             <textarea
               className="form-control diary-text-area" 
               id="exampleFormControlTextarea1"
@@ -251,7 +267,7 @@ const AiDiary = () => {
               class="btn diary-button"
               onClick={handleComplete}
             >
-              수정 완료!
+               작성 완료
             </button>
           </div>
         )}

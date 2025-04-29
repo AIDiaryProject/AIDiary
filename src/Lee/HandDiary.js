@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import LoginUser from '../Park/LoginUser';
 import Characters from "./Characters";
+import Profile from "../Park/Profile";
 
 const HandDiary = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const HandDiary = () => {
   const [loading, setLoading] = useState(false);
   const [Character, setCharacter] = useState("");
   const [trait, setTrait] = useState("");
+  const [number, setNumber] = useState("");
   const [isGenerated, setIsGenerated] = useState(false);
 
   const { user } = LoginUser();
@@ -33,6 +35,7 @@ const HandDiary = () => {
     const selectedCharacter = Characters.find(c => c?.number === user.profile);
     setCharacter(selectedCharacter?.name);
     setTrait(selectedCharacter.trait);
+    setNumber(selectedCharacter.number);
   }, [user]);
 
   const handleSubmit = async () => {
@@ -82,6 +85,7 @@ const HandDiary = () => {
           emotionScore: userEmotionScore,
           comment: data.reply?.content || "코멘트 응답 없음",
           Character,
+          number,
         }
       });
       setIsGenerated(true);
@@ -99,7 +103,7 @@ const HandDiary = () => {
 
   return (
     <div className="diary-wrapper">
-      <h2>직접 일기 쓰기</h2>
+      <h2>자유롭게 작성하는 나의 일기</h2>
       <hr/>
       <label htmlFor="basic-url" className="form-label">제목</label>
       <input
@@ -178,29 +182,28 @@ const HandDiary = () => {
       </div>
 
       <div>
-        <p className="diary-text">
-          현재선택된 친구는? {Character}
-        </p>
-        <p className="diary-text">
-          {Character}의 성격은? {trait}
-        </p>
-        <p className="diary-text">
-          <button
-            onClick={changeProfile} 
-            disabled={loading || isGenerated} 
-            type="button"
-            className="btn btn-primary diary-button"
-          >
-            프로필 변경하러 가기
-          </button>
-        </p>
+        <p style={{display:'flex',justifyContent:'center', alignItems:'center'}}>코멘트를 달아 줄 친구예요</p>
+        <div style={{display:"flex", alignItems:'center' }}>  
+          <Profile id={number} size={110} />
+          <p className="diary-text">
+            {Character}의 성격:<br/>{trait}<br/>
+            <button
+              onClick={changeProfile} 
+              disabled={loading || isGenerated} 
+              type="button"
+              className="btn btn-primary diary-button"
+            >
+              동행 친구 선택하러 가기
+            </button>
+          </p>
+        </div>
         <button
           onClick={handleSubmit} 
           disabled={loading || isGenerated} 
           type="button"
           className="btn btn-primary diary-button"
         >
-          {loading ? "GPT 응답 중..." : "GPT 코멘트 받기"}
+          {loading ? "친구의 코멘트를 기다리는 중..." : "친구의 코멘트 받기"}
         </button>
       </div>
     </div>

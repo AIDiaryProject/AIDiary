@@ -5,17 +5,19 @@ import DustInfo from "./DustInfo";
 import LoginUser from "../Park/LoginUser";
 import axios from "axios";
 import { useEnv } from "./EnvContext";
+import Profile from "../Park/Profile";
 
 const ResultHanddiary = () => {
     const navigate = useNavigate();
     const { weather : weahterInfo, air } = useEnv();
     const isLoading = !weahterInfo || !air;
     const [saving, setSaving] = useState(false);
+
     const { state } = useLocation();
     if (!state) {
         return <p>잘못된 접근입니다.</p>;
     }
-    const { title, content, weather, comment, date, emotionLabel, emotionScore, Character} = state;
+    const { title, content, weather, comment, date, emotionLabel, emotionScore, Character, number} = state;
     const { user } = LoginUser();
 
     const dbSave = async () => {
@@ -31,11 +33,11 @@ const ResultHanddiary = () => {
                 emotionLabel,
                 emotionScore,
             });
-            alert('DB저장 성공!');
+            alert('자유일기가 마음숲에 저장 되었어요!');
             navigate("/Mypagelist", { state: { refresh: true } });
         } catch (err) {
             console.error(err);
-            alert('DB저장 실패!');
+            alert('자유일기를 마음숲에 저장하는데 실패 했어요...');
         } finally {
             setSaving(false);
         }
@@ -77,7 +79,7 @@ const ResultHanddiary = () => {
                     <p style={{ whiteSpace: 'pre-wrap' }}>{content}</p>
 
                     <div style={{ marginTop: '2rem', padding: '1rem', border: '1px solid #ccc', borderRadius: '8px' }}>
-                        <h1>{Character}의 코멘트 💬</h1>
+                        <h1><Profile id={number} size={60} />{Character}의 코멘트</h1>
                         <p style={{ whiteSpace: 'pre-wrap' }}>{comment}</p>
                     </div>
                     <button 
@@ -86,7 +88,7 @@ const ResultHanddiary = () => {
                         onClick={handleSaveAndAddPoints}
                         disabled={saving}
                     >
-                        {saving ? "DB 저장 중..." : "저장하기"}
+                        {saving ? "일기 저장 중..." : "일기 저장"}
                     </button>
                     {/* <button onClick={() => { console.log('title: ', title, 'content : ', content, 'weather :', weather, 'date :', date) }}>console.log</button> */}
                 </div>
