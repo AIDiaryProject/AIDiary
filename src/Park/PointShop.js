@@ -33,7 +33,8 @@ const PointShop = () => { //user.profile : 사용중 / user.item : 보유중
             }
           });
     
-          alert(`${profileId}번 프로필 구매 성공!`);
+          // alert(`${profileId}번 프로필 구매 성공!`);  {Characters.find(c => c?.number === profileId)?.name}
+          alert(`${Characters.find(c => c?.number === profileId)?.name}와 아는 사이가 되었습니다.`);
           window.location.reload();
         } catch (error) {
           alert(error.response?.data?.error || '구매 실패');
@@ -50,18 +51,23 @@ const PointShop = () => { //user.profile : 사용중 / user.item : 보유중
 
     return (
         <div className='shop'>
-          <h3 className='shop__title'>포인트샵</h3>
+          <h3 className='shop__title'>숲의 친구</h3>
           <div className="shop__point"> 
-              <i class="bi bi-p-circle-fill fs-5 shop__point-logo"/>
-              <p className="shop__point-text">보유 포인트 : </p>
-              <p className="shop__point-text">{user?.point}</p>
+              {/* <i class="bi bi-p-circle-fill fs-5 shop__point-logo"/> */}
+              <img src={`/apple.png`} alt={`열매`} style={{
+                  width: '1rem',
+                  height: '1rem',
+                  objectFit: 'cover',
+              }}/>
+              <p className="shop__point-text">보유 열매 : </p>
+              <p className="shop__point-text">{user?.point}개</p>
           </div>
 
           <div className="shop__grid">
             {product.map((a) => (
               <div key={a} className="card shop__card" onClick={() => {clickCard(a)}}>
                 <div className="card-body d-flex flex-column align-items-center">
-                  <Profile id={a} size={110} />
+                  <Profile id={a} size={110} square={true}/>
                   <h5 className="card-title mt-2">{Characters.find(c => c?.number === a)?.name}</h5>
                   <p className="card-text">
                     {Characters.find(c => c?.number === a)?.type}
@@ -74,7 +80,7 @@ const PointShop = () => { //user.profile : 사용중 / user.item : 보유중
                     }}
                     disabled={user?.item.includes(a)}
                   >
-                    {user?.item.includes(a) ? '보유중' : `구매 (${profilePrices[a]}P)`}
+                    {user?.item.includes(a) ? '아는 사이' : `소개하기 (${profilePrices[a]}개)`}
                   </button>
                 </div>
               </div>
@@ -90,11 +96,10 @@ const PointShop = () => { //user.profile : 사용중 / user.item : 보유중
                     <div className='modal-content'>
                         <div className='modal-header shop__modal-header'>
                         <button className='shop__modal-hidden'>X</button>
-                            <h5 className='modal-title shop__modal-title'>소개</h5>
+                            <h5 className='modal-title shop__modal-title'>숲의 친구 소개</h5>
                             <button className='shop__modal-close' onClick={() => {setShowModal(false)}}>X</button>
                         </div>
                         <div className='modal-body shop__modal-content'>
-                          <br />
                           <Profile id={selectedCharacter.number} size={150} square={true}/>
                           <p className='shop__modal-name'>{selectedCharacter.name}</p>
                           <p className='shop__modal-type'>{selectedCharacter.type}</p>

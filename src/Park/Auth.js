@@ -17,7 +17,8 @@ const Auth = () => {
       <section className={`auth ${isActive ? "auth-active" : ""}`}>
         {/* 좌측, 회원가입 */}
         <div className="auth__left">
-          <img className='auth__img' src="//unsplash.it/600" alt="" />
+          {/* <img className='auth__img' src="//unsplash.it/600" alt="" /> */}
+          <img className='auth__img' src="/logo_all.png" alt="" />
           <div className='auth__content'>
             <Register />
             <p className='auth__text'>
@@ -31,7 +32,8 @@ const Auth = () => {
 
         {/* 우측, 로그인 */}
         <div className="auth__right">
-          <img className='auth__img' src="//unsplash.it/600" alt="" />
+          {/* <img className='auth__img' src="//unsplash.it/600" alt="" /> */}
+          <img className='auth__img' src="/logo_all.png" alt="" />
           <div className='auth__content'>
             <Login />
             <p className='auth__text'>

@@ -9,6 +9,7 @@ import Profile from "./Profile";
 // import '../App.scss';
 import './Park.scss'
 import CheckDiary from '../Lee/CheckDiary';
+import { right } from "@popperjs/core";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -48,7 +49,7 @@ const Header = () => {
         return (
             <div style={{position:'relative'}}>
                 {!isMobile && <div className="login-container" onClick={() => setShowDropdown(!showDropdown)}>
-                    <Profile id={user?.profile} size={40}/>
+                    <Profile id={user?.profile} size={40} bgcolor={true}/>
                 </div>}
 
                 {showDropdown && (
@@ -59,8 +60,13 @@ const Header = () => {
                         </div>
 
                         <div className="header-dropdown-point" onClick={() => navigate('/PointShop')}> 
-                            <i class="bi bi-p-circle-fill fs-5" />
-                            <p className="header-dropdown-text">보유 포인트 : {user?.point}P</p>
+                            {/* <i class="bi bi-p-circle-fill fs-5" /> */}
+                            <img src={`/apple.png`} alt={`열매`} style={{
+                                width: '1rem',
+                                height: '1rem',
+                                objectFit: 'cover',
+                            }}/>
+                            <p className="header-dropdown-text">보유 열매 : {user?.point}개</p>
                         </div>
 
                         <div> 
@@ -83,10 +89,17 @@ const Header = () => {
 
     const [loadingTarget, setLoadingTarget] = useState(null);
 
-    return ( //navbar navbar-expand-lg bg-body-tertiary
+    return (
     <nav class="navbar navbar-expand-lg header-style">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/" style={{color:'#75472f', fontWeight:'900'}}>사이트이름</a>
+            <a class="navbar-brand header-title" href="/">
+            <img src={`/logo_only-Image.png`} alt={`Logo`} style={{
+                width: '2.2rem',
+                height: '2.2rem',
+                objectFit: 'cover',
+                marginRight: '0.3rem'
+            }}/>
+            마음숲</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -100,7 +113,7 @@ const Header = () => {
                         to="/HandDiary"
                         className={`nav-link header-top-button ${currentPath === "/HandDiary" ? 'active-link' : ''}`}
                     >
-                        손 일기
+                        자유 일기
                     </CheckDiary>
                     </li>
                     <li className="nav-item">
@@ -110,7 +123,7 @@ const Header = () => {
                         to="/AiDiary"
                         className={`nav-link header-top-button ${currentPath === "/AiDiary" ? 'active-link' : ''}`}
                     >
-                        AI 일기
+                        마법 일기
                     </CheckDiary>
                     </li>
 

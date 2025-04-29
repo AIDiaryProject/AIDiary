@@ -36,6 +36,13 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     height: 4rem;
   }
 
+  .header-title { //사이트 제목 부분
+    color: $갈색 !important;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+
   .header-top-button { //직접 쓴 일기, AI 일기 버튼
     color: $진회색;
     font-weight: bold !important;
@@ -59,7 +66,6 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
   .login-container { //Header의 사용자 정보
   padding: 0.2rem;
   // border: 1px solid black;
-  width: 10rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -538,7 +544,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     }
 
     .card-body { //카드 내부 패딩
-      padding: 1rem;
+      padding: 1.2rem 0.3rem;
     }
 
     .card-title { //카드 이름
@@ -632,6 +638,11 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
   display: flex;
   overflow: hidden;
   border-radius: 10px;
+
+  .auth__img {
+    width: 100%;
+    object-fit: cover;
+  }
 
   &-active { //로그인, 회원가입 창 전환
     .auth__left {

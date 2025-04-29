@@ -133,11 +133,11 @@ router.patch('/change-profile', authMiddleware, async (req, res) => {
     }
 
     if (!userItem.includes(newProfile)) { // 선택한 프로필이 보유한 아이템인지 확인
-      return res.status(400).json({ error: '선택한 프로필은 보유한 항목이 아닙니다.' });
+      return res.status(400).json({ error: '선택한 친구는 아는 친구가 아닙니다.' });
     }
 
     await db.execute('UPDATE users SET profile = ? WHERE id = ?', [newProfile, userId]); // 프로필 변경
-    res.json({ message: '프로필이 성공적으로 변경되었습니다.' });
+    res.json({ message: '새로운 친구와 동행합니다.' });
 
   } catch (err) {
     console.error('프로필 변경 오류:', err);
@@ -160,11 +160,11 @@ router.post('/buy-profile', authMiddleware, async (req, res) => {
     const currentPoint = user.point;
 
     if (itemArray.includes(profileId)) { // 2. 이미 보유 중인지 확인
-      return res.status(400).json({ error: '이미 보유 중인 프로필입니다.' });
+      return res.status(400).json({ error: '이미 알고 있는 친구입니다.' });
     }
 
     if (currentPoint < price) { // 3. 포인트 부족 시
-      return res.status(400).json({ error: '포인트가 부족합니다.' });
+      return res.status(400).json({ error: '보유 열매가 부족합니다.' });
     }
 
     const newItemArray = [...itemArray, profileId]; // 4. 새로운 item 배열 구성
@@ -198,7 +198,7 @@ router.patch('/add-point', async (req, res) => {
 
   try {
     await db.execute('UPDATE users SET point = point + ? WHERE id = ?', [finalAmount, userId]);
-    res.json({ message: `포인트가 ${type === 'plus' ? '추가' : '차감'}되었습니다.` });
+    res.json({ message: `열매가 ${type === 'plus' ? '추가' : '차감'}되었습니다.` });
   } catch (err) {
     console.error('포인트 처리 오류:', err);
     res.status(500).json({ error: '포인트 처리 실패' });

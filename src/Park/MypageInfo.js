@@ -72,11 +72,11 @@ const MypageInfo = () => {
                 }
             });
     
-            alert('프로필이 변경되었습니다.');
+            alert('새로운 친구와 동행합니다.');
             window.location.reload(); // 새로고침으로 변경 사항 반영
         } catch (err) {
             console.error('프로필 변경 실패:', err);
-            alert(err.response?.data?.error || '프로필 변경 중 오류가 발생했습니다.');
+            alert(err.response?.data?.error || '변경 중 오류가 발생했습니다.');
         }
     };
 
@@ -118,10 +118,10 @@ const MypageInfo = () => {
                     <div className='info__row__space'/>
                 </div>
                 <div className="info__row">
-                    <div className="info__row__label">일기 친구</div>
+                    <div className="info__row__label">친구</div>
                     <div className="info__row__value">
                     <div className='info__row__value__profile'>
-                        <Profile id={user?.profile} size={60} />
+                        <Profile id={user?.profile} size={60} bgcolor={true}/>
                         <p className='info__row__value__profile__name'>{Characters.find(c => c?.number === user?.profile)?.name}</p>
                     </div>
                     <button className="info__row__change-button" onClick={() => setProfileModal(true)}>변경</button>
@@ -202,7 +202,7 @@ const MypageInfo = () => {
                     <div className='modal-content'>
                         <div className='modal-header info__modal-header'>
                         <button className='info__hidden'>X</button>
-                            <h5 className='modal-title info__modal-title'>당신의 친구</h5>
+                            <h5 className='modal-title info__modal-title'>숲의 친구 선택</h5>
                             <button className='info__modal-close' onClick={() => {setProfileModal(false)}}>X</button>
                         </div>
                         <div className='modal-body info__modal-content'>
@@ -221,7 +221,7 @@ const MypageInfo = () => {
                                     onClick={() => handleProfileChange(profileId)} 
                                     disabled={isCurrent}
                                     >
-                                    {isCurrent ? '동행 중' : '함께하기'}
+                                    {isCurrent ? '동행 중' : '동행하기'}
                                     </button>
                                 </div>
                                 );
