@@ -198,7 +198,7 @@ router.patch('/add-point', async (req, res) => {
 
   try {
     await db.execute('UPDATE users SET point = point + ? WHERE id = ?', [finalAmount, userId]);
-    res.json({ message: `열매가 ${type === 'plus' ? '추가' : '차감'}되었습니다.` });
+    //res.json({ message: `열매가 ${type === 'plus' ? '추가' : '차감'}되었습니다.` });
   } catch (err) {
     console.error('포인트 처리 오류:', err);
     res.status(500).json({ error: '포인트 처리 실패' });
