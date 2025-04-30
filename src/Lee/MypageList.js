@@ -6,6 +6,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import './Lee.scss';
 import { useDiaryContext } from "../Lee/DiaryContext";
+import Characters from './Characters';
+import Profile from "../Park/Profile";
+import { CSSTransition, SwitchTransition } from "react-transition-group";
+import { useRef } from 'react';
 
 const MypageList = () => {
     const { diaryList, refresh } = useDiaryContext();
@@ -80,21 +84,49 @@ const MypageList = () => {
         return pagedData.findIndex(item => item === selectedItem);
     };
     
-    // 이전 아이템 보기
-    const handlePrev = () => {
-        const currentIndex = getSelectedItemIndex();
-        if (currentIndex > 0) {
-        setSelectedItem(pagedData[currentIndex - 1]);
-        }
-    };
+    // // 이전 아이템 보기
+    // const handlePrev = () => {
+    //     const currentIndex = getSelectedItemIndex();
+    //     if (currentIndex > 0) {
+    //     setSelectedItem(pagedData[currentIndex - 1]);
+    //     }
+    // };
     
-    // 다음 아이템 보기
-    const handleNext = () => {
-        const currentIndex = getSelectedItemIndex();
-        if (currentIndex < pagedData.length - 1) {
-        setSelectedItem(pagedData[currentIndex + 1]);
-        }
+    // // 다음 아이템 보기
+    // const handleNext = () => {
+    //     const currentIndex = getSelectedItemIndex();
+    //     if (currentIndex < pagedData.length - 1) {
+    //     setSelectedItem(pagedData[currentIndex + 1]);
+    //     }
+    // };
+
+
+    const getCharacterName = (number) => {
+        const found = Characters.find((char) => char.number === Number(number));
+        return found ? found.name : "알 수 없음";
     };
+
+    const nodeRef = useRef(null);
+    const [direction, setDirection] = useState("forward"); // 'forward' | 'backward'
+
+    const handleNext = () => {
+    const currentIndex = getSelectedItemIndex();
+    if (currentIndex < pagedData.length - 1) {
+        setDirection("forward");
+        setSelectedItem(pagedData[currentIndex + 1]);
+    }
+    };
+
+    const handlePrev = () => {
+    const currentIndex = getSelectedItemIndex();
+    if (currentIndex > 0) {
+        setDirection("backward");
+        setSelectedItem(pagedData[currentIndex - 1]);
+    }
+    };
+
+    const transitionClass = direction === "forward" ? "slide" : "slide-reverse";
+
 
     return (
         <div className='info'>
@@ -193,34 +225,52 @@ const MypageList = () => {
                         onClick={(e) => e.stopPropagation()}
                     >
                         <div className='modal-content'>
-                        <div className='modal-header'>
-                            <h1 className='modal-title'>{selectedItem.title}</h1>
-                            <button 
+                        <div className="modal-header">
+                        <div className="modal-title-block">
+                            <h1 className="modal-title">{selectedItem.title}</h1>
+                            <p className="date-text">
+                            {selectedItem.date.slice(0, 10)} | 기분: {selectedItem.emotionLabel} 
+                            {selectedItem.weather && ` | 날씨: ${selectedItem.weather}`}
+                            </p>
+                        </div>
+                        <button 
                             type="button" 
                             className="btn-close" 
                             aria-label="Close" 
                             onClick={handleClose}
-                            />
+                        />
                         </div>
-
-                        <div className="modal-body">
+                        <SwitchTransition mode="out-in">
+                        <CSSTransition
+                            key={selectedItem.id}
+                            nodeRef={nodeRef} // 🔥 여기가 핵심
+                            classNames={direction === 'forward' ? 'slide' : 'slide-reverse'}
+                            timeout={300}
+                            >
+                        <div ref={nodeRef} className="modal-body">
                             <div className="modal-diary">
-                            <h2>{selectedItem.date.slice(0,10)}</h2>
-                            {selectedItem.weather && <h2>날씨: {selectedItem.weather}</h2>}
-                            <h2>기분: {selectedItem.emotionLabel}</h2>
                             {selectedItem.content.split('\n').map((line, index) => (
-                                <h2 key={index}>
+                                <p key={index}>
                                 {line}
-                                </h2>
+                                </p>
                             ))}
                             </div>
 
                             {selectedItem.comment && (
                             <div className="modal-comment">
-                                <h2>{selectedItem.commenter}의 코멘트: {selectedItem.comment}</h2>
+                                <div className="bubble-block">
+                                    <div className='speech-bubble'>
+                                        <h2>{getCharacterName(selectedItem.commenter)}의 코멘트: {selectedItem.comment}</h2>
+                                    </div>
+                                    <div className='comment-profile'>
+                                        <Profile id={selectedItem.commenter} size={300} />
+                                    </div>
+                                </div>
                             </div>
                             )}
                         </div>
+                        </CSSTransition>
+                        </SwitchTransition>
 
                         {/* 🔥 추가된 부분: 모달 Footer (이전/다음/현재표시) */}
                         <div className='modal-footer d-flex justify-content-between align-items-center'>
