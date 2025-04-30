@@ -217,7 +217,7 @@ const MypageList = () => {
 
                             {selectedItem.comment && (
                             <div className="modal-comment">
-                                <h2>코멘트: {selectedItem.comment}</h2>
+                                <h2>{selectedItem.commenter}의 코멘트: {selectedItem.comment}</h2>
                             </div>
                             )}
                         </div>

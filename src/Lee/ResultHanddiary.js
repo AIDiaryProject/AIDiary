@@ -32,6 +32,7 @@ const ResultHanddiary = () => {
                 user_id: user?.id,
                 emotionLabel,
                 emotionScore,
+                commenter: number,
             });
             alert('자유일기가 마음숲에 저장 되었어요!');
             navigate("/Mypagelist", { state: { refresh: true } });

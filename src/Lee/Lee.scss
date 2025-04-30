@@ -159,7 +159,6 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
   }
   
   .custom-modal-size {
-    padding: 1.5rem;
     width: 50vw;
     height: 80vh;
     max-width: none;
@@ -175,17 +174,19 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     display: flex;
     flex-direction: column;
     height: 100%; // 전체 높이 확보
-    margin: 0 1rem 1rem 0.5rem; // 오른쪽 패딩 제거
+
 
     .modal-diary{
       color: $진회색;
+      padding: 2rem;
+
     }
 
     .modal-header{
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 1.5rem;
+      padding: 1rem;
       border-bottom: 1px solid #ccc;
     }
 
@@ -193,7 +194,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 1.5rem;
+      padding: 1rem;
       border-top: 1px solid #ccc;
     }
     
@@ -226,9 +227,8 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
       }
           
       .modal-comment {
-        padding-top: 1rem;
+        padding: 1rem;
         border-top: 1px solid #ccc;
-        flex-shrink: 0;
       }
     }
   } 
