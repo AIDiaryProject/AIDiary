@@ -50,12 +50,23 @@ const App = () => { //라우터 설정
     );
   };
 
+  const MainLayout = ({ children }) => { //로그인 불필요 페이지 레이아웃
+    return (
+      <DiaryProvider>
+        <Header />
+        <div style={{ padding: '1rem 20%', backgroundColor:'#F5F7FA' }}>
+          {children}
+        </div>
+      </DiaryProvider>
+    );
+  };
+
 
   return (
     <BrowserRouter>
       <Routes>
         {/* 로그인 불필요 컴포넌트 */}
-        <Route path="/" element={<PublicPage><MainPage /></PublicPage>} />
+        <Route path="/" element={<MainLayout><MainPage /></MainLayout>} />
         <Route path="/auth" element={<PublicPage><Auth /></PublicPage>} />
         <Route path="/register" element={<PublicPage><Register /></PublicPage>} />
         <Route path="/login" element={<PublicPage><Login /></PublicPage>} />

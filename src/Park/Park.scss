@@ -30,6 +30,144 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     justify-content: center;
   }
 
+// MainPage.js ==============================================================
+@keyframes floatUpDown { //메인 이미지 애니메이션
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px); // 위로 살짝 이동
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.floating-image {
+  animation: floatUpDown 3s ease-in-out infinite;
+}
+
+.main { //최외곽
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0rem 0rem 0rem;
+
+  &__top-div { //최상단 div
+    display: flex;
+    flex-direction: row;
+    // align-items: center;
+    align-items: stretch;
+    justify-content: space-between;
+    padding: 1rem 3rem;
+    // background-color: skyblue;
+  }
+
+  &__top-left-div { //최상단 좌측 div
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__top-left-text { //최상단 좌측 텍스트 모음
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  &__sub-title { //부제목
+    font-size: $소제목;
+    font-weight: bold;
+    color: $갈색;
+    margin: 0 1rem 0.5rem 0;
+  }
+
+  &__short-text { //메인 글귀
+    font-size: $강조글씨;
+    font-weight: bold;
+    color: $연갈색;
+    margin: 0.2rem 0rem;
+  }  
+
+  &__top-button-div { //최상단 좌측 버튼 div
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 1rem 0rem;
+  }
+
+  &__top-button {
+    background-color: $노랑색;
+    color: $진회색;
+    font-weight: bold;
+    font-size: $강조글씨;
+    border-radius: 5px;
+    border: 0px solid;
+    margin: 0 1.2rem 0rem 0rem;
+    padding: 0.3rem 1rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $연갈색;
+      color: white;
+    }
+  }
+  
+  &__grid { //카드 그리드 설정
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    padding: 0.5rem 0;
+    width: 100%;
+  }
+
+  &__card { //각 카드 디자인
+    width: 30%;
+    border: 1px solid white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    border-radius: 10px;
+    transition: transform 0.2s;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+    }
+
+    .card-body { //카드 내부 패딩
+      padding: 1.2rem 0.3rem;
+    }
+
+    .card-title { //카드 이름
+      font-size: $강조글씨;
+      font-weight: bold;
+    }
+
+    .card-text { //카드 타입
+      font-size: $참고글씨;
+      color: $진회색;
+      font-weight: bold;
+      margin: 0.5rem 0;
+    }
+  }
+
+  &__des-div { //기능 설명 div
+    border: 1px solid black;
+    width: 90%;
+    margin: 1rem;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+}
+
 // Header.js ==============================================================
 .header-style {
     background-color: $연보라;
