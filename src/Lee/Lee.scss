@@ -311,7 +311,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 
 .slide-enter {
   opacity: 0;
-  transform: translateX(-100%);
+  transform: translateX(100%);
 }
 
 .slide-enter-active {
@@ -333,7 +333,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 
 .slide-reverse-enter {
   opacity: 0;
-  transform: translateX(100%);
+  transform: translateX(-100%);
 }
 
 .slide-reverse-enter-active {
@@ -483,6 +483,23 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 .info {
   margin: 2rem 1rem;
   width: 100%;
+
+  .search-label{
+    background-color: $연보라;
+    font-weight: bold;
+  }
+
+  .page-button {
+    background-color: $노랑색;
+    border-color: $배경색;
+    color: black;
+
+    &:hover{
+      background-color: $연갈색;
+      border-color: $배경색;
+      color: white;
+    }
+  }
 
   .list-group{
     h1{

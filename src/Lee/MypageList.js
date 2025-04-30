@@ -145,7 +145,7 @@ const MypageList = () => {
             {/* 검색 */}
             <div className="input-group mb-3">
                 <label 
-                    className="input-group-text" 
+                    className="input-group-text search"
                     htmlFor="searchType"
                     style={{ width: "10%" }}
                 >
@@ -179,7 +179,7 @@ const MypageList = () => {
                 />
                 {/* 검색 아이콘 */}
                 <button
-                    className="btn btn-outline-secondary"
+                    className="btn btn-outline-secondary page-button"
                     onClick={() => setSearchTerm(searchInput)}
                     title="검색"
                     style={{ width: "5%" }}
@@ -188,7 +188,7 @@ const MypageList = () => {
                 </button>
                 {/* 취소 아이콘 */}
                 <button
-                    className="btn btn-outline-secondary"
+                    className="btn btn-outline-secondary page-button"
                     onClick={() => {setSearchTerm(''); setSearchInput("");}}
                     title="검색"
                     style={{ width: "5%" }}
@@ -244,7 +244,7 @@ const MypageList = () => {
                         <CSSTransition
                             key={selectedItem.id}
                             nodeRef={nodeRef} // 🔥 여기가 핵심
-                            classNames={direction === 'forward' ? 'slide' : 'slide-reverse'}
+                            classNames={transitionClass}
                             timeout={300}
                             >
                         <div ref={nodeRef} className="modal-body">
@@ -275,7 +275,7 @@ const MypageList = () => {
                         {/* 🔥 추가된 부분: 모달 Footer (이전/다음/현재표시) */}
                         <div className='modal-footer d-flex justify-content-between align-items-center'>
                             <button 
-                            className='btn btn-secondary' 
+                            className='btn btn-secondary page-button' 
                             onClick={handlePrev}
                             disabled={getSelectedItemIndex() === 0}
                             >
@@ -288,7 +288,7 @@ const MypageList = () => {
                             </div>
 
                             <button 
-                            className='btn btn-secondary' 
+                            className='btn btn-secondary page-button' 
                             onClick={handleNext}
                             disabled={getSelectedItemIndex() === pagedData.length - 1}
                             >
@@ -358,7 +358,7 @@ const MypageList = () => {
                 <ul className="pagination justify-content-center">
                 {pageNumbers.map((num) => (
                     <li key={num} className={`page-item ${num === currentPage ? 'active' : ''}`}>
-                    <button className="page-link" onClick={() => setCurrentPage(num)}>{num}</button>
+                    <button className="page-link page-button" onClick={() => setCurrentPage(num)}>{num}</button>
                     </li>
                 ))}
                 </ul>
