@@ -23,7 +23,7 @@ const ResultHanddiary = () => {
     const dbSave = async () => {
         try {
             setSaving(true);
-            await axios.post('https://aidiary.onrender.com/diaryDB/diarysave', {
+            const response = await axios.post('https://aidiary.onrender.com/diaryDB/diarysave', {
                 title,
                 content,
                 weather,
@@ -34,11 +34,10 @@ const ResultHanddiary = () => {
                 emotionScore,
                 commenter: number,
             });
-            alert('자유일기가 마음숲에 저장 되었어요!');
-            navigate("/Mypagelist", { state: { refresh: true } });
+            return response;
         } catch (err) {
             console.error(err);
-            alert('자유일기를 마음숲에 저장하는데 실패 했어요...');
+            throw err;
         } finally {
             setSaving(false);
         }
@@ -51,9 +50,7 @@ const ResultHanddiary = () => {
             amount,
             type,
             });
-        
             alert(response.data.message);
-            window.location.reload();
         } catch (error) {
             console.error(error);
             alert('포인트 처리 실패');
@@ -61,12 +58,30 @@ const ResultHanddiary = () => {
     };
     
     const handleSaveAndAddPoints = async () => {
-    try {
-        await dbSave(); // DB 저장 먼저
-        await addPoints(user?.id, 100, 'plus'); // DB 저장 성공했을 때만 포인트 추가
-    } catch (error) {
-        console.error("저장 또는 포인트 추가 중 에러 발생:", error);
-    }
+        try {
+            const res = await dbSave();
+            if (res.status === 201 || res.status === 200) {
+                let pointAdded = false;
+    
+                try {
+                    await addPoints(user?.id, 100, 'plus');
+                    pointAdded = true;
+                } catch (pointErr) {
+                    console.error("포인트 추가 실패:", pointErr);
+                    // 이 부분에서 alert는 addPoints 내부에도 있지만, 명확하게 별도 메시지 추가 가능
+                    alert("일기는 저장되었지만, 포인트를 지급하는 데 실패했어요.");
+                }
+    
+                // 저장은 성공했으므로 공통 안내
+                if (pointAdded) {
+                    alert("자유일기가 마음숲에 저장 되었어요! 포인트도 지급되었어요 🍎");
+                }
+                navigate("/Mypagelist", { state: { refresh: true } });
+            }
+        } catch (error) {
+            console.error("저장 또는 포인트 추가 중 에러 발생:", error);
+            alert('자유일기를 마음숲에 저장하는데 실패 했어요...');
+        }
     };
 
     return (

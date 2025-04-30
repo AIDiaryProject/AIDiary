@@ -5,21 +5,21 @@ const authMiddleware = require('./authMiddleware');
 
 // DB저장
 router.post('/diarysave', async (req, res) => {
-    const { title, content, weather, date, comment, user_id, emotionLabel, emotionScore, commenter } = req.body;
+  const { title, content, weather, date, comment, user_id, emotionLabel, emotionScore, commenter } = req.body;
 
-    try {
-      console.log('요청된 title, content, weather, date, comment, user_id, emotionLabel, emotionScore, commenter 값 : \n', title, content, weather, date, comment, user_id, emotionLabel, emotionScore, commenter);
-  
-      const [result] = await db.execute(
-        'INSERT INTO diaryDB (title, content, weather, date, comment, user_id, emotionLabel, emotionScore) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        [title, content, weather, date, comment, user_id, emotionLabel, emotionScore, commenter]
-      );
-      res.status(201).json({ message: '일기 저장 성공', userId: result.insertId });
-    } catch (err) {
-      console.error('DB저장 에러', err);
-      res.status(500).json({ error: 'DB저장 실패' });
-    }
-  });
+  try {
+    console.log('요청된 title, content, weather, date, comment, user_id, emotionLabel, emotionScore, commenter 값 : \n', title, content, weather, date, comment, user_id, emotionLabel, emotionScore, commenter);
+
+    const [result] = await db.execute(
+      'INSERT INTO diaryDB (title, content, weather, date, comment, user_id, emotionLabel, emotionScore, commenter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [title, content, weather, date, comment, user_id, emotionLabel, emotionScore, commenter]
+    );
+    res.status(201).json({ message: '일기 저장 성공', userId: result.insertId });
+  } catch (err) {
+    console.error('DB저장 에러', err);
+    res.status(500).json({ error: 'DB저장 실패' });
+  }
+});
 
 // 일기 데이터 조회
 router.get('/', async (req, res) => {
