@@ -11,7 +11,7 @@ router.post('/diarysave', async (req, res) => {
       console.log('요청된 title, content, weather, date, comment, user_id, emotionLabel, emotionScore, commenter 값 : \n', title, content, weather, date, comment, user_id, emotionLabel, emotionScore, commenter);
   
       const [result] = await db.execute(
-        'INSERT INTO diaryDB (title, content, weather, date, comment, user_id, emotionLabel, emotionScore) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        'INSERT INTO diaryDB (title, content, weather, date, comment, user_id, emotionLabel, emotionScore) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
         [title, content, weather, date, comment, user_id, emotionLabel, emotionScore, commenter]
       );
       res.status(201).json({ message: '일기 저장 성공', userId: result.insertId });
