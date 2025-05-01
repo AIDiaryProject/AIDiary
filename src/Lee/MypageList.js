@@ -24,6 +24,10 @@ const MypageList = () => {
     const [currentPage, setCurrentPage] = useState(1); //페이지
     const itemsPerPage = 10; // 한 페이지당 보여줄 게시물 수
 
+    const [filterType, setFilterType] = useState("all"); //전체보기, 자유일기, 마법일기
+
+    const [showScrollTop, setShowScrollTop] = useState(false); //스크롤
+
     const handleItemClick = (item) => {
         setSelectedItem(item);
         setShowModal(true);
@@ -34,35 +38,42 @@ const MypageList = () => {
 
     const formatYMD = (date) => { //toISOString()은 UTC 기준이라 하루 밀리는 문제가 생길 수 있음
         return date.getFullYear() + '-' +
-        String(date.getMonth() + 1).padStart(2, '0') + '-' + //getMonth()는 0 부터 시작
-        String(date.getDate()).padStart(2, '0');
+            String(date.getMonth() + 1).padStart(2, '0') + '-' + //getMonth()는 0 부터 시작
+            String(date.getDate()).padStart(2, '0');
     };
-      
+
     const DateFilteredData = diaryList
-    .filter(item => {
-        const matchesDate = !startDate || formatYMD(startDate) === item.date.slice(0, 10);
+        .filter(item => {
+            const matchesDate = !startDate || formatYMD(startDate) === item.date.slice(0, 10);
 
-        // 검색어 필터
-        const term = searchTerm.toLowerCase();
-        const title = item.title.toLowerCase();
-        const content = item.content.toLowerCase();
-    
-        let matchesSearch = true;
-        if (term) {
-        if (searchType === "title") {
-            matchesSearch = title.includes(term);
-        } else if (searchType === "content") {
-            matchesSearch = content.includes(term);
-        } else if (searchType === "both") {
-            matchesSearch = title.includes(term) || content.includes(term);
-        }
-        }
-    
-        return matchesDate && matchesSearch;
-    })
-    .sort((a, b) => new Date(b.date) - new Date(a.date)); //최근 날짜 순 정렬
+            // 검색어 필터
+            const term = searchTerm.toLowerCase();
+            const title = item.title.toLowerCase();
+            const content = item.content.toLowerCase();
 
-    
+            let matchesSearch = true;
+            if (term) {
+                if (searchType === "title") {
+                    matchesSearch = title.includes(term);
+                } else if (searchType === "content") {
+                    matchesSearch = content.includes(term);
+                } else if (searchType === "both") {
+                    matchesSearch = title.includes(term) || content.includes(term);
+                }
+            }
+
+            let matchesFilter = true;
+            if (filterType === "hand") {
+                matchesFilter = !!item.comment;
+            } else if (filterType === "ai") {
+                matchesFilter = !item.comment;
+            }
+
+            return matchesDate && matchesSearch && matchesFilter;
+        })
+        .sort((a, b) => new Date(b.date) - new Date(a.date)); //최근 날짜 순 정렬
+
+
     useEffect(() => { //검색시 페이지 1로 초기화
         setCurrentPage(1);
     }, [startDate, searchTerm, searchType]);
@@ -81,25 +92,8 @@ const MypageList = () => {
 
     // 현재 선택된 아이템의 인덱스 찾기
     const getSelectedItemIndex = () => {
-        return pagedData.findIndex(item => item === selectedItem);
+        return DateFilteredData.findIndex(item => item === selectedItem);
     };
-    
-    // // 이전 아이템 보기
-    // const handlePrev = () => {
-    //     const currentIndex = getSelectedItemIndex();
-    //     if (currentIndex > 0) {
-    //     setSelectedItem(pagedData[currentIndex - 1]);
-    //     }
-    // };
-    
-    // // 다음 아이템 보기
-    // const handleNext = () => {
-    //     const currentIndex = getSelectedItemIndex();
-    //     if (currentIndex < pagedData.length - 1) {
-    //     setSelectedItem(pagedData[currentIndex + 1]);
-    //     }
-    // };
-
 
     const getCharacterName = (number) => {
         const found = Characters.find((char) => char.number === Number(number));
@@ -110,28 +104,71 @@ const MypageList = () => {
     const [direction, setDirection] = useState("forward"); // 'forward' | 'backward'
 
     const handleNext = () => {
-    const currentIndex = getSelectedItemIndex();
-    if (currentIndex < pagedData.length - 1) {
-        setDirection("forward");
-        setSelectedItem(pagedData[currentIndex + 1]);
-    }
+        const currentIndex = getSelectedItemIndex();
+        if (currentIndex < DateFilteredData.length - 1) {
+            setDirection("forward");
+            setSelectedItem(DateFilteredData[currentIndex + 1]);
+        }
     };
 
     const handlePrev = () => {
-    const currentIndex = getSelectedItemIndex();
-    if (currentIndex > 0) {
-        setDirection("backward");
-        setSelectedItem(pagedData[currentIndex - 1]);
-    }
+        const currentIndex = getSelectedItemIndex();
+        if (currentIndex > 0) {
+            setDirection("backward");
+            setSelectedItem(DateFilteredData[currentIndex - 1]);
+        }
     };
 
     const transitionClass = direction === "forward" ? "slide" : "slide-reverse";
 
+    const scrollToTop = () => {
+        if (nodeRef.current) {
+            nodeRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
+
+    useEffect(() => {
+        const current = nodeRef.current;
+        if (!current) return;
+
+        const isScrollable = current.scrollHeight > current.clientHeight;
+        if (!isScrollable) {
+            setShowScrollTop(false);
+            return;
+        }
+
+        setShowScrollTop(current.scrollTop > 50);
+
+        const handleScroll = () => {
+            setShowScrollTop(current.scrollTop > 50);
+        };
+
+        current.addEventListener("scroll", handleScroll);
+        return () => current.removeEventListener("scroll", handleScroll);
+    }, [selectedItem]);
+
+    const attachScrollListener = () => {
+        const current = nodeRef.current;
+        if (!current) return;
+
+        const isScrollable = current.scrollHeight > current.clientHeight;
+        setShowScrollTop(current.scrollTop > 100 && isScrollable);
+
+        const handleScroll = () => {
+            setShowScrollTop(current.scrollTop > 100);
+        };
+
+        current.addEventListener("scroll", handleScroll);
+
+        return () => {
+            current.removeEventListener("scroll", handleScroll);
+        };
+    };
 
     return (
         <div className='info'>
             <h1 className='info__title'>일기 목록</h1>
-            <hr/>
+            <hr />
             {/* 날짜 검색 */}
             <DatePicker
                 selected={startDate}
@@ -144,7 +181,7 @@ const MypageList = () => {
             />
             {/* 검색 */}
             <div className="input-group mb-3">
-                <label 
+                <label
                     className="input-group-text search"
                     htmlFor="searchType"
                     style={{ width: "10%" }}
@@ -171,15 +208,15 @@ const MypageList = () => {
                     value={searchInput}
                     onChange={(e) => setSearchInput(e.target.value)}
                     onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                        setSearchTerm(searchInput); // 실제 검색어에 반영
-                    }
+                        if (e.key === 'Enter') {
+                            setSearchTerm(searchInput); // 실제 검색어에 반영
+                        }
                     }}
                     style={{ width: "65%" }}
                 />
                 {/* 검색 아이콘 */}
                 <button
-                    className="btn btn-outline-secondary page-button"
+                    className="btn btn-outline-secondary"
                     onClick={() => setSearchTerm(searchInput)}
                     title="검색"
                     style={{ width: "5%" }}
@@ -188,25 +225,36 @@ const MypageList = () => {
                 </button>
                 {/* 취소 아이콘 */}
                 <button
-                    className="btn btn-outline-secondary page-button"
-                    onClick={() => {setSearchTerm(''); setSearchInput("");}}
+                    className="btn btn-outline-secondary"
+                    onClick={() => { setSearchTerm(''); setSearchInput(""); }}
                     title="검색"
                     style={{ width: "5%" }}
                 >
                     <i className="bi bi-x"></i>
                 </button>
             </div>
+
+            <select
+                className="form-select mb-3"
+                value={filterType}
+                onChange={(e) => setFilterType(e.target.value)}
+            >
+                <option value="all">전체보기</option>
+                <option value="hand">자유일기</option>
+                <option value="ai">마법일기</option>
+            </select>
+
             {/* 게시글 목록 */}
             <ul className="list-group">
                 {pagedData.map((item, index) => (
-                    <li 
+                    <li
                         key={index}
                         className='list-group-item list-group-item-action'
-                        onClick={() => handleItemClick(item)}    
+                        onClick={() => handleItemClick(item)}
                     >
                         <div className='list-each'>
                             <h1>{item.title}</h1>
-                            <p>{item.date.slice(0,10)}</p>
+                            <p>{item.date.slice(0, 10)}</p>
                         </div>
                     </li>
                 ))}
@@ -214,134 +262,96 @@ const MypageList = () => {
             {/* 게시글 모달 */}
             {showModal && selectedItem && (
                 <div className='modal-wrapper'>
-                    <div 
-                    className='modal-overlay'
-                    tabIndex='-1'
-                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
-                    onClick={handleClose}
-                    >
-                    <div 
-                        className='modal-dialog custom-modal-size'
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <div className='modal-content'>
-                        <div className="modal-header">
-                        <div className="modal-title-block">
-                            <h1 className="modal-title">{selectedItem.title}</h1>
-                            <p className="date-text">
-                            {selectedItem.date.slice(0, 10)} | 기분: {selectedItem.emotionLabel} 
-                            {selectedItem.weather && ` | 날씨: ${selectedItem.weather}`}
-                            </p>
-                        </div>
-                        <button 
-                            type="button" 
-                            className="btn-close" 
-                            aria-label="Close" 
-                            onClick={handleClose}
-                        />
-                        </div>
-                        <SwitchTransition mode="out-in">
-                        <CSSTransition
-                            key={selectedItem.id}
-                            nodeRef={nodeRef} // 🔥 여기가 핵심
-                            classNames={transitionClass}
-                            timeout={300}
-                            >
-                        <div ref={nodeRef} className="modal-body">
-                            <div className="modal-diary">
-                            {selectedItem.content.split('\n').map((line, index) => (
-                                <p key={index}>
-                                {line}
-                                </p>
-                            ))}
-                            </div>
-
-                            {selectedItem.comment && (
-                            <div className="modal-comment">
-                                <div className="bubble-block">
-                                    <div className='speech-bubble'>
-                                        <h2>{getCharacterName(selectedItem.commenter)}의 코멘트: {selectedItem.comment}</h2>
-                                    </div>
-                                    <div className='comment-profile'>
-                                        <Profile id={selectedItem.commenter} size={300} />
-                                    </div>
-                                </div>
-                            </div>
-                            )}
-                        </div>
-                        </CSSTransition>
-                        </SwitchTransition>
-
-                        {/* 🔥 추가된 부분: 모달 Footer (이전/다음/현재표시) */}
-                        <div className='modal-footer d-flex justify-content-between align-items-center'>
-                            <button 
-                            className='btn btn-secondary page-button' 
-                            onClick={handlePrev}
-                            disabled={getSelectedItemIndex() === 0}
-                            >
-                            이전 일기
-                            </button>
-
-                            {/* 현재 인덱스 / 전체 */}
-                            <div>
-                            {getSelectedItemIndex() + 1} / {pagedData.length}
-                            </div>
-
-                            <button 
-                            className='btn btn-secondary page-button' 
-                            onClick={handleNext}
-                            disabled={getSelectedItemIndex() === pagedData.length - 1}
-                            >
-                            다음 일기
-                            </button>
-                        </div>
-
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            )}
-
-            {/* 
-            {showModal && selectedItem && (
-                <div className='modal-wrapper'>
-                    <div 
+                    <div
                         className='modal-overlay'
                         tabIndex='-1'
                         style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
                         onClick={handleClose}
                     >
-                        <div 
+                        <div
                             className='modal-dialog custom-modal-size'
                             onClick={(e) => e.stopPropagation()}
                         >
                             <div className='modal-content'>
-                                <div className='modal-header'>
-                                    <h1 className='modal-title'>{selectedItem.title}</h1>
-                                    <button 
-                                        type="button" 
-                                        className="btn-close" 
-                                        aria-label="Close" 
+                                <div className="modal-header">
+                                    <div className="modal-title-block">
+                                        <h1 className="modal-title">{selectedItem.title}</h1>
+                                        <p className="date-text">
+                                            {selectedItem.date.slice(0, 10)} | 기분: {selectedItem.emotionLabel}
+                                            {selectedItem.weather && ` | 날씨: ${selectedItem.weather}`}
+                                            {selectedItem.comment ? (` | 자유 일기`) : (` | 마법 일기`)}
+                                        </p>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        className="btn-close"
+                                        aria-label="Close"
                                         onClick={handleClose}
                                     />
                                 </div>
-                                <div className="modal-body">
-                                    <div className="modal-diary">
-                                        <h2>{selectedItem.date.slice(0,10)}</h2>
-                                        {selectedItem.weather && <h2>날씨 {selectedItem.weather}</h2>}
-                                        <h2>기분: {selectedItem.emotionLabel}</h2>
-                                        {selectedItem.content.split('\n').map((line, index) => (
-                                            <h2 key={index}>
-                                                {line}
-                                            </h2>
-                                        ))}
+                                <SwitchTransition mode="out-in">
+                                    <CSSTransition
+                                        key={selectedItem.id}
+                                        nodeRef={nodeRef} // 🔥 여기가 핵심
+                                        classNames={transitionClass}
+                                        timeout={300}
+                                        onEntered={attachScrollListener}
+                                    >
+                                        <div ref={nodeRef} className="modal-body" >
+                                            <div className="modal-diary">
+                                                {selectedItem.content.split('\n').map((line, index) => (
+                                                    <p key={index}>
+                                                        {line}
+                                                    </p>
+                                                ))}
+                                            </div>
+
+                                            {selectedItem.comment && (
+                                                <div className="modal-comment">
+                                                    <div className="bubble-block">
+                                                        <div className='speech-bubble'>
+                                                            <h2>{getCharacterName(selectedItem.commenter)}의 코멘트: {selectedItem.comment}</h2>
+                                                        </div>
+                                                        <div className='comment-profile'>
+                                                            <Profile id={selectedItem.commenter} size={300} />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
+
+
+                                        </div>
+                                    </CSSTransition>
+                                </SwitchTransition>
+                                {/* 위로가기 버튼 */}
+                                {showScrollTop && (
+                                    <button className="scroll-top-btn" onClick={scrollToTop}>
+                                        ⬆ 맨 위로
+                                    </button>
+                                )}
+
+                                {/* 🔥 추가된 부분: 모달 Footer (이전/다음/현재표시) */}
+                                <div className='modal-footer d-flex justify-content-between align-items-center'>
+                                    <button
+                                        className='btn btn-secondary page-button'
+                                        onClick={handlePrev}
+                                        disabled={getSelectedItemIndex() === 0}
+                                    >
+                                        이전 일기
+                                    </button>
+
+                                    {/* 현재 인덱스 / 전체 */}
+                                    <div>
+                                        {getSelectedItemIndex() + 1} / {DateFilteredData.length}
                                     </div>
 
-                                    {selectedItem.comment && (
-                                        <div className="modal-comment">
-                                            <h2>코멘트: {selectedItem.comment}</h2>
-                                        </div>
-                                    )}
+                                    <button
+                                        className='btn btn-secondary page-button'
+                                        onClick={handleNext}
+                                        disabled={getSelectedItemIndex() === DateFilteredData.length - 1}
+                                    >
+                                        다음 일기
+                                    </button>
                                 </div>
 
                             </div>
@@ -349,18 +359,15 @@ const MypageList = () => {
                     </div>
                 </div>
             )}
-            */}
-
-            
 
             {/* 페이지 버튼 */}
             <nav className="mt-3">
                 <ul className="pagination justify-content-center">
-                {pageNumbers.map((num) => (
-                    <li key={num} className={`page-item ${num === currentPage ? 'active' : ''}`}>
-                    <button className="page-link page-button" onClick={() => setCurrentPage(num)}>{num}</button>
-                    </li>
-                ))}
+                    {pageNumbers.map((num) => (
+                        <li key={num} className={`page-item ${num === currentPage ? 'active' : ''}`}>
+                            <button className="page-link page-button" onClick={() => setCurrentPage(num)}>{num}</button>
+                        </li>
+                    ))}
                 </ul>
             </nav>
         </div>

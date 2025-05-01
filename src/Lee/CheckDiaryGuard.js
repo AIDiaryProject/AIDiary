@@ -37,7 +37,7 @@ const DiaryCheckGuard = ({ children }) => {
 
   if (checking) { // ❗검사 중이면 로딩
     return (
-      <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+      <div style={{ textAlign: 'center', marginTop: '3rem', minHeight: '90vh' }}>
         <div className="spinner" />
         <p>일기 작성 여부 확인 중...</p>
       </div>

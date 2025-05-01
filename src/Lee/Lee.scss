@@ -16,66 +16,67 @@ $노랑색 : #ffd768; //버튼1 배경색
 $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 
 // Diary.js ==============================================================
-.diary-wrapper{
+.diary-wrapper {
   background-color: white;
   padding: 1rem;
   border-radius: 10px;
 
-  div{
+  div {
     margin: 0 0 1rem;
   }
 
-  h2{
+  h2 {
     font-size: $소제목;
     margin: 0 0 1rem;
     color: $연갈색;
     font-weight: bold;
   }
 
-  label{
+  label {
     font-size: $소소제목;
     color: $진회색;
   }
 
-  p{
+  p {
     color: $진회색;
   }
 
-  .diary-text{
+  .diary-text {
     font-size: $일반글씨;
     margin-left: 1rem;
   }
-  .diary-input-weather{
+
+  .diary-input-weather {
     width: 20rem;
     margin: 0 1rem;
   }
 
-  .diary-input-keyword{
+  .diary-input-keyword {
     min-width: 0;
     width: 25rem;
   }
 
-  .diary-input{
+  .diary-input {
     width: 20rem;
     margin-right: 1rem;
     margin-bottom: 1rem;
   }
 
-  .flex-div{
+  .flex-div {
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .button-group{
+  .button-group {
     padding-top: 0.9rem;
   }
 
-  button{
+  button {
     margin-right: 0.3rem;
   }
 
-  .diary-button{
+  .diary-button {
     width: 8rem;
     white-space: nowrap;
     min-width: fit-content;
@@ -83,7 +84,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     color: $진회색;
     border-color: $배경색;
     font-weight: bold;
-    
+
     &:hover {
       border-color: $배경색;
       color: white;
@@ -94,34 +95,39 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     display: flex;
     flex-direction: column;
     gap: 1rem;
-  
+
     .emotion-label {
       font-weight: bold;
       margin-bottom: 0.25rem;
       font-size: $일반글씨;
     }
+
     .emotion-button-group {
       display: inline-flex;
       flex-wrap: nowrap;
 
-      .btn-check:checked + .emotion-label {
-        background-color: $분홍색;
+      .btn-check:checked+.emotion-label {
+        //background-color: #f384dc;
+        background-color: $갈색;
         border-color: $배경색;
+        color: white;
+        scale: 1.1;
+        border-radius: 10px;
       }
-    
-      .btn-check:disabled + .emotion-label {
+
+      .btn-check:disabled+.emotion-label {
         opacity: 0.6;
         pointer-events: none;
       }
     }
-  
+
     .emotion-label {
-      background-color: $연보라;
-      color: black;
+      //background-color: #ffb4c7;
+      background-color: $연갈색;
+      color: white;
       border-color: $배경색;
-      
+
       &:hover {
-        background-color: $연보라;
         border-color: $배경색;
         color: white;
       }
@@ -137,8 +143,8 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 }
 
 // MypageList.js modal ==============================================================
-.modal-wrapper{
-  h1{
+.modal-wrapper {
+  h1 {
     font-size: $소제목;
     font-weight: bold;
     color: $연갈색;
@@ -150,14 +156,14 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1050;
     padding: 5vh 15vw;
   }
-  
+
   .custom-modal-size {
     width: 50vw;
     height: 80vh;
@@ -169,30 +175,29 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     display: flex;
     flex-direction: column;
   }
-  
+
   .modal-content {
     display: flex;
     flex-direction: column;
     height: 100%; // 전체 높이 확보
+    position: relative;
 
     .modal-diary {
-      background: repeating-linear-gradient(
-        to bottom,
-        #f7f7f7,
-        #f7f7f7 1.8rem,
-        #e0e0e0 1.8rem,
-        #e0e0e0 1.9rem
-      );
+      background: repeating-linear-gradient(to bottom,
+          #f7f7f7,
+          #f7f7f7 1.8rem,
+          #e0e0e0 1.8rem,
+          #e0e0e0 1.9rem);
       background-size: 100% 2.3rem;
       background-position-y: 1.5rem; // ← 이게 포인트!
       background-repeat: repeat-y;
-    
+
       line-height: 2.3rem; // 줄과 정확히 맞춤
       font-size: 1.2rem;
       font-family: 'Nanum Gothic', sans-serif;
       padding: 1.2rem 2rem 2rem 2rem;
       margin-left: 0.8rem;
-    
+
       p {
         margin: 0;
         padding: 0;
@@ -222,33 +227,33 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
       }
     }
 
-    .modal-footer{
+    .modal-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem;
       border-top: 1px solid #ccc;
     }
-    
+
     .modal-body {
       flex: 1;
       overflow-y: auto;
-
       scrollbar-gutter: stable;
       box-sizing: border-box;
-
       scrollbar-width: thin;
       //scrollbar-color: $연보라 #f0f0f0;
-    
+
+      position: relative;
+
       &::-webkit-scrollbar {
         width: 10px;
       }
-    
+
       &::-webkit-scrollbar-thumb {
         background-color: $연보라;
         border-radius: 10px;
       }
-    
+
       &::-webkit-scrollbar-track {
         background-color: #f0f0f0;
       }
@@ -258,11 +263,11 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
         line-height: 1.6;
       }
 
-      .speech-bubble h2{
+      .speech-bubble h2 {
         font-size: $소소제목;
         padding-bottom: 0.5rem;
       }
-          
+
       .modal-comment {
         padding-left: 0.8rem;
         margin: 1rem;
@@ -278,6 +283,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
           align-items: center; // 중요: 말풍선, 캐릭터 모두 수직 중앙 정렬
           position: relative;
         }
+
         .speech-bubble {
           background-color: $연보라;
           padding: 1rem 1.2rem;
@@ -285,7 +291,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
           position: relative;
           color: #333;
           align-self: center;
-      
+
           &::after {
             content: '';
             position: absolute;
@@ -299,15 +305,39 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
             border-top: 1rem solid $연보라;
           }
         }
-      
+
         .comment-profile {
           margin-top: 1rem;
           margin-left: 0.5rem;
         }
       }
     }
-  } 
+  }
+
+  .scroll-top-btn {
+    position: fixed;
+    bottom: 8rem;
+    right: calc(15vw - 2.5rem);
+    background-color: $노랑색;
+    color: $진회색;
+    border: none;
+    border-radius: 30px;
+    padding: 0.5rem 1rem;
+    font-size: $일반글씨;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2001;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: $연갈색;
+      color: white;
+    }
+  }
 }
+
+
 
 .slide-enter {
   opacity: 0;
@@ -373,19 +403,19 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     min-width: 33vw;
     max-width: 100vw;
 
-    div{
+    div {
       margin-bottom: 1rem;
     }
 
-    h1{
+    h1 {
       font-size: $소제목;
     }
 
-    h2{
+    h2 {
       font-size: $소소제목;
     }
 
-    p{
+    p {
       font-size: $일반글씨;
     }
 
@@ -397,7 +427,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
       margin-bottom: 1rem;
     }
 
-    .result-button{
+    .result-button {
       width: 8rem;
       white-space: nowrap;
       min-width: fit-content;
@@ -405,7 +435,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
       color: $진회색;
       border-color: $배경색;
       font-weight: bold;
-      
+
       &:hover {
         border-color: $배경색;
         color: white;
@@ -421,45 +451,47 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 }
 
 // DustInfo.js WeatherInfo.js ======================================================
-.info-wrapper{
+.info-wrapper {
   border: 1px solid #ccc; // ✅ 회색 테두리 추가
-  border-radius: 8px;     // ✅ 모서리 둥글게
-  padding: 1rem;          // ✅ 안쪽 여백
-  margin-bottom: 1rem;    // ✅ 컴포넌트 간 간격
+  border-radius: 8px; // ✅ 모서리 둥글게
+  padding: 1rem; // ✅ 안쪽 여백
+  margin-bottom: 1rem; // ✅ 컴포넌트 간 간격
   width: 100%;
   max-width: auto;
   min-width: 30rem;
 
-  p{
+  p {
     font-size: $일반글씨;
   }
 
-  h2{
+  h2 {
     font-size: $소소제목;
   }
 
-  .info-select{
+  .info-select {
     margin: 0 0.5rem;
   }
 }
 
 // CheckDiary.js CheckDiaryGuard.js ==============================================
-.header-top-button { //직접 쓴 일기, AI 일기 버튼
+.header-top-button {
+  //직접 쓴 일기, AI 일기 버튼
   color: $진회색;
   font-weight: bold !important;
   margin: 0 0.5rem 0 0.5rem;
-  
+
   &:hover {
     color: black;
   }
+
   &.active-link {
     background-color: $갈색;
     color: white;
     border-radius: 10px;
 
     &:hover {
-     color:white;
-     background-color: $연갈색; 
+      color: white;
+      background-color: $연갈색;
     }
   }
 }
@@ -475,8 +507,13 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 // StatsData.js, MypageList.js =================================================
@@ -484,7 +521,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
   margin: 2rem 1rem;
   width: 100%;
 
-  .search-label{
+  .search-label {
     background-color: $연보라;
     font-weight: bold;
   }
@@ -494,34 +531,34 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     border-color: $배경색;
     color: black;
 
-    &:hover{
+    &:hover {
       background-color: $연갈색;
       border-color: $배경색;
       color: white;
     }
   }
 
-  .list-group{
-    h1{
+  .list-group {
+    h1 {
       font-size: $소소제목;
       font-weight: bold;
       color: $진회색;
       margin-bottom: 0;
     }
 
-    p{
+    p {
       font-size: $일반글씨;
       margin-bottom: 0;
     }
 
-    .list-each{
+    .list-each {
       display: flex;
       justify-content: space-between;
       align-items: space-between;
       padding: 0.7rem;
     }
 
-    :hover{
+    :hover {
       cursor: pointer;
     }
   }
@@ -533,12 +570,66 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     margin-bottom: 1rem;
   }
 
-  &__card {
+  .info__card {
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     padding: 0.7rem;
     margin-bottom: 1rem;
-    // width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: scale(1.03); // 살짝 확대
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1); // 그림자 강조
+    }
+
+    &.expanded {
+      z-index: 10;
+      position: relative;
+      transform: scale(1.03);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+      border: 2px solid $연보라;
+    }
+  }
+
+  .chart-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); // 어두운 배경
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+  }
+
+  .chart-modal-content {
+    background-color: white;
+    width: 90%;
+    max-width: 800px;
+    padding: 2rem;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 0.1rem;
+    right: 0.1rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #999;
+
+    &:hover {
+      color: black;
+    }
   }
 }
