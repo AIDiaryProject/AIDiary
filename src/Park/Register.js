@@ -105,9 +105,12 @@ const Register = () => {
       <div className='register__item-div'>
         <input //아이디 입력란
           type="text"
-          placeholder="아이디"
+          placeholder="아이디 (4자 ~ 16자)"
           value={id}
           className='register__input'
+          minLength="4"
+          maxlength="16"
+
           onChange={(e) => {
             const value = e.target.value;
             const regex = /^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/; //정규식
@@ -127,9 +130,16 @@ const Register = () => {
       <div className='register__item-div'>
         <input //비밀번호 입력란
           type={showPassword ? "text" : "password"}
-          placeholder="비밀번호"
+          placeholder="비밀번호 (8자 ~ 20자)"
+          minLength="8"
+          maxlength="20"
           value={password}
           className='register__input'
+          onKeyDown={(e) => {
+            if (e.key === ' ') {
+              e.preventDefault();
+            }
+          }}
           onChange={(e) => {
             const value = e.target.value;
             const regex = /^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/; //정규식
@@ -153,6 +163,8 @@ const Register = () => {
         <input //비밀번호 확인란
           type="password"
           placeholder="비밀번호 확인"
+          minLength="8"
+          maxlength="20"
           value={passwordCheck}
           onChange={(e) => setPasswordCheck(e.target.value)}
           className='register__input'
@@ -163,8 +175,15 @@ const Register = () => {
         <input //닉네임 입력란
           type="text"
           placeholder="닉네임"
+          minLength="1"
+          maxlength="10"
           value={nickname}
           className='register__input'
+          onKeyDown={(e) => { //공백(스페이스바) 차단
+            if (e.key === ' ') {
+              e.preventDefault();
+            }
+          }}
           onChange={(e) => {
             const value = e.target.value;
             const specialCharRegex  = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;

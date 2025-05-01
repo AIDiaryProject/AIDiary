@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Login from './Login';
@@ -8,8 +8,20 @@ import "./Park.scss";
 const Auth = () => {
   const [isActive, setIsActive] = useState(false); //로그인, 회원가입 전환 토글
 
+    // 초기 hash 체크
+    useEffect(() => {
+      const hash = window.location.hash;
+      if (hash === '#register') {
+        setIsActive(true);
+      } else {
+        setIsActive(false);
+      }
+    }, []);
+
   const toggle = () => {
-    setIsActive((prev) => !prev);
+    const nextActive = !isActive;
+    setIsActive(nextActive);
+    window.location.hash = nextActive ? 'register' : 'login';
   };
 
   return (

@@ -19,13 +19,20 @@ import PointShop from "./Park/PointShop";
 import MypageSideMenu from "./Park/MypageSideMenu";
 import { DiaryProvider } from "./Lee/DiaryContext";
 import CheckDiaryGuard from "./Lee/CheckDiaryGuard";
+import Tail from "./Park/Tail";
 
 const App = () => { //라우터 설정
 
   const Layout = ({ children }) => { //공통 레이아웃
     return (
-      <div style={{ padding: '1rem 25%', backgroundColor:'#F5F7FA' }}>
-        {children}
+      <div style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column'
+      }}> 
+        <div style={{ padding: '1rem 25%', paddingTop: '6rem' }}>
+          {children}
+        </div>
       </div>
     );
   };
@@ -36,6 +43,7 @@ const App = () => { //라우터 설정
         <DiaryProvider>
         <Header />
         <Layout>{children}</Layout>
+        <Tail />
         </DiaryProvider>
       </PrivateRoute>
     );
@@ -46,6 +54,7 @@ const App = () => { //라우터 설정
       <DiaryProvider>
         <Header />
         <Layout>{children}</Layout>
+        <Tail />
       </DiaryProvider>
     );
   };
@@ -54,15 +63,17 @@ const App = () => { //라우터 설정
     return (
       <DiaryProvider>
         <Header />
-        <div style={{ padding: '1rem 20%', backgroundColor:'#F5F7FA' }}>
+        <div style={{ padding: '1rem 20%', paddingTop: '4rem' }}>
           {children}
         </div>
+        <Tail />
       </DiaryProvider>
     );
   };
 
 
   return (
+    <div style={{ minHeight: '100vh', backgroundColor: '#F5F7FA' }}>
     <BrowserRouter>
       <Routes>
         {/* 로그인 불필요 컴포넌트 */}
@@ -121,6 +132,7 @@ const App = () => { //라우터 설정
         } />
       </Routes>
     </BrowserRouter>
+    </div>
   );
 };
 
