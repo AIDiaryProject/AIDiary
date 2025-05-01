@@ -63,8 +63,14 @@ const App = () => { //라우터 설정
     return (
       <DiaryProvider>
         <Header />
-        <div style={{ padding: '1rem 20%', paddingTop: '4rem' }}>
-          {children}
+          <div style={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column'
+          }}> 
+          <div style={{ padding: '1rem 20%', paddingTop: '4rem' }}>
+            {children}
+          </div>
         </div>
         <Tail />
       </DiaryProvider>
