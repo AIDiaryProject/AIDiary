@@ -5,6 +5,7 @@ import axios from 'axios';
 import ClipLoader from "react-spinners/ClipLoader";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Characters from '../Lee/Characters';
+import './Park.scss'
 
 const MypageInfo = () => {
     const { user, loading } = LoginUser();
@@ -103,7 +104,7 @@ const MypageInfo = () => {
         <div className='info'>
             <h1 className='info__title'>회원 정보</h1>
             
-            <div className="info__card">
+            <div className="info__card-div">
                 <div className="info__row">
                     <div className="info__row__label">아이디</div>
                     <div className="info__row__value">{user?.id}</div>

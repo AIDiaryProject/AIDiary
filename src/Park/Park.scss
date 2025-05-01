@@ -530,7 +530,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     margin-bottom: 1rem;
   }
 
-  &__card { //흰바탕, 외곽선
+  &__card-div { //흰바탕, 외곽선
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
