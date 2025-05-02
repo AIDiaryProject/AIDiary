@@ -8,7 +8,7 @@ import LoginUser from "./LoginUser";
 import Profile from "./Profile";
 import './Park.scss'
 import CheckDiary from '../Lee/CheckDiary';
-import Test from "./Test";
+import useWidth from "./useWidth";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -20,6 +20,7 @@ const Header = () => {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 991);
     
     const currentPath = location.pathname;
+    const width = useWidth();
 
     useEffect(() => {
         const handleResize = () => {
@@ -99,7 +100,7 @@ const Header = () => {
                 marginRight: '0.3rem'
             }}/>
             {/* 마음숲</a> */}
-            <Test /></a>
+            {width}</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
