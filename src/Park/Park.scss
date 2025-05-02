@@ -1,3 +1,56 @@
+// 반응형 디자인 ==============================================================
+$breakpoint-pc: 991px;
+$breakpoint-tablet: 767px;
+$breakpoint-mobile: 0px;
+
+@mixin pc-mid { //PC 디자인 중간
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin pc-small { //PC 디자인 작음
+  @media (min-width: 992px) and (max-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin tablet { //테블릿 디자인
+  @media (min-width: 768px) and (max-width: 991px) {
+    @content;
+  }
+}
+
+@mixin mobile { //모바일 디자인
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+
+// 반응형 디자인 적용 예시(익숙해지면 삭제) ==============================================================
+.test-name { //적용 예시, PC 디자인 디폴트값
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 1rem;
+
+  @include pc-mid { //중간 크기의 PC 화면일 때
+    font-size: 1.4rem;
+  }
+
+  @include pc-small { //작은 크기의 PC 화면일 때
+    font-size: 1.3rem;
+  }
+
+  @include tablet { //테블릿 화면일 때때
+    font-size: 1.2rem;
+  }
+
+  @include mobile { //모바일 화면일 때
+    font-size: 1rem;
+  }
+}
+
 // 공통값 변수 ==============================================================
 $소제목 : 1.7rem;
 $소소제목 : 1.4rem;
