@@ -1082,6 +1082,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
   display: flex;
   overflow: hidden;
   border-radius: 10px;
+  background-color: white;
 
   .auth__img {
     width: 100%;
@@ -1106,7 +1107,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     }
 
     .auth__left {
-      transform: translateY(400px);
+      transform: translateY(800px);
     }
 
     &-active {
@@ -1122,8 +1123,8 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
   &__left,
   &__right { //로그인 및 회원가입 입력창
     width: 400px;
-    height: 800px;
-    background: white;
+    height: 400px;
+    // background: white;
     display: flex;
     flex-direction: column;
     transition: 1s;
@@ -1143,6 +1144,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     color: $진회색;
     font-weight: bold;
     text-align: center;
+    height: 30px;
   }
 
   &__login-link {
@@ -1158,15 +1160,15 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 }
 
 // Login.js ==============================================================
-.login { //회원가입
-  flex: 1;
+.login { //로그인
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 1rem 1rem 0 1rem;
+  height: 370px;
 
-  &__title { //회원가입 텍스트 출력
+  &__title { //로그인 텍스트 출력
     font-size: $소제목;
     font-weight: bold;
     color: $갈색;
@@ -1233,12 +1235,12 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 
 // Register.js ==============================================================
 .register { //회원가입
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 1rem 1rem 0 1rem;
+  height: 370px;
 
   &__title { //회원가입 텍스트 출력
     font-size: $소제목;
