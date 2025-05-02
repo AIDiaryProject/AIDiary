@@ -82,13 +82,11 @@ const MainPage = () => {
                     </div>
                     {login ? 
                     <div className='main__top-button-div'>
-                        {/* 비로그인이면 로그인, 회원가입 버튼 / 로그인이면 자유일기, 마법일기 버튼 */}
                         <button className='main__top-button' onClick={() => {navigate('/HandDiary')}}>자유일기</button>
                         <button className='main__top-button' onClick={() => {navigate('/AiDiary')}}>마법일기</button>
                     </div>
                     :
                     <div className='main__top-button-div'>
-                        {/* 비로그인이면 로그인, 회원가입 버튼 / 로그인이면 자유일기, 마법일기 버튼 */}
                         <button className='main__top-button' onClick={() => {navigate('/auth#login')}}>로그인</button>
                         <button className='main__top-button' onClick={() => {navigate('/auth#register')}}>회원가입</button>
                     </div>
@@ -115,43 +113,13 @@ const MainPage = () => {
                 ))}
             </div>
 
-            {/* { */}
-            {/* des ? */}
             <div className='main__comment'>
                 <div className='main__comment__bubble-block'>
                     {printDes()}
                 </div>
             </div>
-            {/* :
-            <div className='main__comment'>
-                <div className='main__comment__bubble-block'>
-                    <div className='main__comment__none-bubble'>
-                        '{user?.nickname}'님, 환영합니다.
-                    </div>
-                </div>
-            </div> */}
-            {/* } */}
         </div>
     );
 };
 
 export default MainPage;
-
-{/* <CheckDiary to="/HandDiary">손 일기</CheckDiary>
-<CheckDiary to="/AiDiary">AI 일기</CheckDiary>
-<button onClick={() => {navigate('/register')}}>회원가입</button>
-<button onClick={() => {navigate('/login')}}>로그인</button>
-<button onClick={() => {navigate('/userlist')}}>회원목록</button>
-<button onClick={() => {navigate('/Mypagelist')}}>글목록</button>
-<button onClick={() => {navigate('/StatsData')}}>통계</button>
-<button onClick={() => {navigate('/PointShop')}}>포인트샵</button> */}
-
-{/* {des ?
-<div className='main__des-div'>
-    {des}
-</div>
-:
-<div className='main__des-div'>
-    '{user?.nickname}'님, 환영합니다.
-</div>
-} */}

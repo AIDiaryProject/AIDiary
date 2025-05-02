@@ -4,7 +4,7 @@ $breakpoint-tablet: 767px;
 $breakpoint-mobile: 0px;
 
 @mixin pc-mid { //PC 디자인 중간
-  @media (min-width: 1200px) {
+  @media (min-width: 1200px) and (max-width: 1600px){
     @content;
   }
 }
@@ -99,9 +99,10 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
   &__layout-space {
     padding: 1rem 25%;
     padding-top: 6rem;
-    
+
     @include pc-mid { //중간 크기의 PC 화면일 때
       padding: 1rem 18%;
+      padding-top: 6rem;
     }
   
     @include pc-small { //작은 크기의 PC 화면일 때
@@ -123,18 +124,22 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 
     @include pc-mid { //중간 크기의 PC 화면일 때
       padding: 1rem 18%;
+      padding-top: 4rem;
     }
   
     @include pc-small { //작은 크기의 PC 화면일 때
       padding: 1rem 15%;
+      padding-top: 4rem;
     }
   
     @include tablet { //테블릿 화면일 때때
       padding: 1rem 10%;
+      padding-top: 4rem;
     }
   
     @include mobile { //모바일 화면일 때
       padding: 1rem 0%;
+      padding-top: 4rem;
     }
   }
 }
