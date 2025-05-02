@@ -341,7 +341,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
       }
 
       .speech-bubble h2 {
-        font-size: $소소제목;
+        font-size: $강조글씨;
         padding-bottom: 0.5rem;
 
       
@@ -358,7 +358,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
         flex-direction: column;
         align-items: center;
         position: relative;
-      
+
         .bubble-block {
           display: flex;
           flex-direction: column;
@@ -612,7 +612,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
   .page-button {
     background-color: $노랑색;
     border-color: $배경색;
-    color: black;
+    color: $진회색;
 
     &:hover {
       background-color: $연갈색;
@@ -627,6 +627,14 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
       font-weight: bold;
       color: $진회색;
       margin-bottom: 0;
+
+      @include tablet { //테블릿 화면일 때때
+        font-size: $강조글씨;
+      }
+    
+      @include mobile { //모바일 화면일 때
+        font-size: $강조글씨;
+      }
     }
 
     p {
@@ -639,6 +647,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
       justify-content: space-between;
       align-items: space-between;
       padding: 0.7rem;
+      color: $진회색;
     }
 
     :hover {
