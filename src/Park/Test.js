@@ -10,11 +10,13 @@ const Test = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  return (
-    <div style={{ padding: '20px', fontSize: '18px' }}>
-      현재 창 너비: <strong>{width}px</strong>
-    </div>
-  );
+  return width;
+
+  // return (
+  //   <div style={{ padding: '20px', fontSize: '18px' }}>
+  //     현재 창 너비: <strong>{width}px</strong>
+  //   </div>
+  // );
 }
 
 export default Test;

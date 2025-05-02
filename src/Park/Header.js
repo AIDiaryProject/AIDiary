@@ -6,10 +6,9 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import LoginUser from "./LoginUser";
 import Profile from "./Profile";
-// import '../App.scss';
 import './Park.scss'
 import CheckDiary from '../Lee/CheckDiary';
-import { right } from "@popperjs/core";
+import Test from "./Test";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -99,7 +98,8 @@ const Header = () => {
                 objectFit: 'cover',
                 marginRight: '0.3rem'
             }}/>
-            마음숲</a>
+            {/* 마음숲</a> */}
+            <Test /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

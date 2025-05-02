@@ -20,17 +20,14 @@ import MypageSideMenu from "./Park/MypageSideMenu";
 import { DiaryProvider } from "./Lee/DiaryContext";
 import CheckDiaryGuard from "./Lee/CheckDiaryGuard";
 import Tail from "./Park/Tail";
+import './Park/Park.scss';
 
 const App = () => { //라우터 설정
 
   const Layout = ({ children }) => { //공통 레이아웃
     return (
-      <div style={{
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column'
-      }}> 
-        <div style={{ padding: '1rem 25%', paddingTop: '6rem' }}>
+      <div className="app__layout-div"> 
+        <div className="app__layout-space">
           {children}
         </div>
       </div>
@@ -63,12 +60,8 @@ const App = () => { //라우터 설정
     return (
       <DiaryProvider>
         <Header />
-          <div style={{
-          minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column'
-          }}> 
-          <div style={{ padding: '1rem 20%', paddingTop: '4rem' }}>
+          <div className="app__layout-div"> 
+          <div className="app__layout-space-main">
             {children}
           </div>
         </div>
@@ -79,7 +72,7 @@ const App = () => { //라우터 설정
 
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#F5F7FA' }}>
+    <div className="app__all-div">
     <BrowserRouter>
       <Routes>
         {/* 로그인 불필요 컴포넌트 */}

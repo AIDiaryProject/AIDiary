@@ -83,6 +83,62 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     justify-content: center;
   }
 
+// App.js ==============================================================
+.app {
+  &__all-div {
+    min-height: 100vh;
+    background-color: #F5F7FA;
+  }
+
+  &__layout-div {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__layout-space {
+    padding: 1rem 25%;
+    padding-top: 6rem;
+    
+    @include pc-mid { //중간 크기의 PC 화면일 때
+      padding: 1rem 18%;
+    }
+  
+    @include pc-small { //작은 크기의 PC 화면일 때
+      padding: 1rem 15%;
+    }
+  
+    @include tablet { //테블릿 화면일 때때
+      padding: 1rem 10%;
+    }
+  
+    @include mobile { //모바일 화면일 때
+      padding: 1rem 0%;
+    }
+  }
+
+  &__layout-space-main {
+    padding: 1rem 20%;
+    padding-top: 4rem;
+
+    @include pc-mid { //중간 크기의 PC 화면일 때
+      padding: 1rem 18%;
+    }
+  
+    @include pc-small { //작은 크기의 PC 화면일 때
+      padding: 1rem 15%;
+    }
+  
+    @include tablet { //테블릿 화면일 때때
+      padding: 1rem 10%;
+    }
+  
+    @include mobile { //모바일 화면일 때
+      padding: 1rem 0%;
+    }
+  }
+}
+
 // MainPage.js ==============================================================
 @keyframes floatUpDown { //메인 이미지 애니메이션
   0% {
