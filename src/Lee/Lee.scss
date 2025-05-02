@@ -474,28 +474,6 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 }
 
 // CheckDiary.js CheckDiaryGuard.js ==============================================
-.header-top-button {
-  //직접 쓴 일기, AI 일기 버튼
-  color: $진회색;
-  font-weight: bold !important;
-  margin: 0 0.5rem 0 0.5rem;
-
-  &:hover {
-    color: black;
-  }
-
-  &.active-link {
-    background-color: $갈색;
-    color: white;
-    border-radius: 10px;
-
-    &:hover {
-      color: white;
-      background-color: $연갈색;
-    }
-  }
-}
-
 .spinner {
   border: 4px solid #f3f3f3;
   border-top: 4px solid #75472f;

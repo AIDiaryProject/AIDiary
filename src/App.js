@@ -92,7 +92,7 @@ const App = () => { //라우터 설정
         {/* 마이페이지 */}
         <Route path="/mypageinfo" element={
           <ProtectedPage>
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div className="app__mypage-div">
               <MypageSideMenu />
               <MypageInfo />
             </div>
@@ -101,7 +101,7 @@ const App = () => { //라우터 설정
 
         <Route path="/mypagelist" element={
           <ProtectedPage>
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div className="app__mypage-div">
               <MypageSideMenu />
               <EnvProvider>
               <DiaryProvider>
@@ -114,7 +114,7 @@ const App = () => { //라우터 설정
 
         <Route path="/statsdata" element={
           <ProtectedPage>
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div className="app__mypage-div">
               <MypageSideMenu />
               <StatsData />
             </div>
@@ -123,7 +123,7 @@ const App = () => { //라우터 설정
 
         <Route path="/pointshop" element={
           <ProtectedPage>
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div className="app__mypage-div">
               <MypageSideMenu />
               <PointShop />
             </div>

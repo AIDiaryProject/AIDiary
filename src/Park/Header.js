@@ -7,7 +7,6 @@ import ClipLoader from "react-spinners/ClipLoader";
 import LoginUser from "./LoginUser";
 import Profile from "./Profile";
 import './Park.scss'
-import CheckDiary from '../Lee/CheckDiary';
 import useWidth from "./useWidth";
 
 const Header = () => {
@@ -106,26 +105,22 @@ const Header = () => {
             </button>
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul className="navbar-nav me-auto mb-2 mb-lg-0 header-button-div">
                     <li className="nav-item">
-                    {/* <a className={`nav-link header-top-button ${currentPath==='/HandDiary' ? 'active-link' : ''}`} 
-                    style={currentPath === '/HandDiary' ? { pointerEvents: 'none' } : {}} href="/HandDiary">직접 쓴 일기</a> */}
-                    <CheckDiary
-                        to="/HandDiary"
+                    <button
+                        onClick={() => {navigate('/HandDiary')}}
                         className={`nav-link header-top-button ${currentPath === "/HandDiary" ? 'active-link' : ''}`}
                     >
                         자유 일기
-                    </CheckDiary>
+                    </button>
                     </li>
                     <li className="nav-item">
-                    {/* <a className={`nav-link header-top-button ${currentPath==='/AiDiary' ? 'active-link' : ''}`} 
-                    style={currentPath === '/AiDiary' ? { pointerEvents: 'none' } : {}} href="/AiDiary">AI 일기</a> */}
-                    <CheckDiary
-                        to="/AiDiary"
+                    <button
+                        onClick={() => {navigate('/AiDiary')}}
                         className={`nav-link header-top-button ${currentPath === "/AiDiary" ? 'active-link' : ''}`}
                     >
                         마법 일기
-                    </CheckDiary>
+                    </button>
                     </li>
 
                     {login && (

@@ -3,12 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import LoginUser from './Park/LoginUser';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Park/Park.scss'
+import useWidth from './Park/useWidth';
 
 const MainPage = () => {
     const navigate = useNavigate();
     const { user, login } = LoginUser();
     const [loadingTarget, setLoadingTarget] = useState(null);
     const [des, setDes] = useState(null);
+
+    const width = useWidth();
 
     const introduce = [
         {
@@ -92,12 +95,7 @@ const MainPage = () => {
                     </div>
                     }
                 </div>
-                <img src={`/profile/test2.png`} alt={`all`} className="floating-image" style={{
-                    width: '50%',
-                    height: 'auto',
-                    aspectRatio: '1',  // 정사각형 유지
-                    objectFit: 'cover',
-                }}/>
+                <img src={`/profile/test2.png`} alt={`all`} className="floating-image"/>
             </div>
             
             <div className="main__grid">

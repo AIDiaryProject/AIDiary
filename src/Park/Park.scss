@@ -106,7 +106,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
       padding-top: 6rem;
     }
   
-    @include tablet { //테블릿 화면일 때때
+    @include tablet { //테블릿 화면일 때
       padding: 1rem 10%;
       padding-top: 6rem;
     }
@@ -141,6 +141,19 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
       padding-top: 4rem;
     }
   }
+
+  &__mypage-div {
+    display: flex;
+    flex-direction: row;
+
+    @include tablet { //테블릿 화면일 때때
+      flex-direction: column;
+    }
+  
+    @include mobile { //모바일 화면일 때
+      flex-direction: column;
+    }
+  }
 }
 
 // MainPage.js ==============================================================
@@ -158,6 +171,20 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 
 .floating-image {
   animation: floatUpDown 3s ease-in-out infinite;
+  width: 50%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+
+  @include tablet { //테블릿 화면일 때
+    width: 100%;
+    height: auto;
+  }
+
+  @include mobile { //모바일 화면일 때
+    width: 100%;
+    height: auto;
+  }
 }
 
 .main { //최외곽
@@ -175,6 +202,14 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     justify-content: space-between;
     padding: 1rem 3rem;
     // background-color: skyblue;
+
+      @include tablet { //테블릿 화면일 때
+        flex-direction: column-reverse;
+      }
+
+      @include mobile { //모바일 화면일 때
+        flex-direction: column-reverse;
+      }
   }
 
   &__top-left-div { //최상단 좌측 div
@@ -377,14 +412,25 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     align-items: center;
   }
 
+  .header-button-div { //두 버튼 포함한 div
+    background-color: $연보라;
+
+    @include tablet { //테블릿 화면일 때
+      margin-top: 0.8rem;
+      background-color: $배경색;
+    }
+
+    @include mobile { //모바일 화면일 때
+      margin-top: 1rem;
+      background-color: $배경색;
+    }
+  }
+
   .header-top-button { //직접 쓴 일기, AI 일기 버튼
     color: $진회색;
     font-weight: bold !important;
     margin: 0 0.5rem 0 0.5rem;
-    
-    &:hover {
-      color: black;
-    }
+
     &.active-link {
       background-color: $갈색;
       color: white;
@@ -394,6 +440,16 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
        color:white;
        background-color: $연갈색; 
       }
+    }
+
+    @include tablet { //테블릿 화면일 때
+      width: 100%;
+      margin: 0;
+    }
+
+    @include mobile { //모바일 화면일 때
+      width: 100%;
+      margin: 0;
     }
   }
 
@@ -418,6 +474,10 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
   box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
   padding: 1rem 0.7rem 0.3rem 0.7rem;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .header-dropdown-nickname { //드롭다운 메뉴 닉네임
@@ -449,7 +509,6 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
   color: darkslategray;
   &:hover {
     color: $연갈색;
-    // color: steelblue;
   }
 }
 
