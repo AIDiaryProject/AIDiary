@@ -87,7 +87,9 @@ const ResultHanddiary = () => {
     return (
         <div className='result-wrapper'>
             <div className="content-container">
-                <div className='main-content'>
+                <div className='main-content mb-3'>
+                    <h2>자유롭게 작성하는 나의 일기</h2>
+                    <hr/>
                     <h1><strong>제목:</strong> {title}</h1>
                     <p><strong>날짜:</strong> {date}</p>
                     {weather && <p><strong>날씨:</strong> {weather}</p>}

@@ -166,8 +166,8 @@ const MypageList = () => {
     };
 
     return (
-        <div className='info'>
-            <h1 className='info__title'>일기 목록</h1>
+        <div className='myPageList'>
+            <h1 className='myPageList__title'>일기 목록</h1>
             <hr />
             {/* 날짜 검색 */}
             <DatePicker
@@ -184,17 +184,15 @@ const MypageList = () => {
                 <label
                     className="input-group-text search"
                     htmlFor="searchType"
-                    style={{ width: "10%" }}
                 >
                     검색 기준
                 </label>
                 {/* 제목, 내용, 제목+내용 선택 */}
                 <select
-                    className="form-select"
+                    className="form-select search-select-width"
                     id="searchType"
                     value={searchType}
                     onChange={(e) => setSearchType(e.target.value)}
-                    style={{ width: "15%" }}
                 >
                     <option value="title">제목</option>
                     <option value="content">내용</option>
@@ -212,14 +210,12 @@ const MypageList = () => {
                             setSearchTerm(searchInput); // 실제 검색어에 반영
                         }
                     }}
-                    style={{ width: "65%" }}
                 />
                 {/* 검색 아이콘 */}
                 <button
                     className="btn btn-outline-secondary"
                     onClick={() => setSearchTerm(searchInput)}
                     title="검색"
-                    style={{ width: "5%" }}
                 >
                     <i className="bi bi-search"></i>
                 </button>
@@ -228,7 +224,6 @@ const MypageList = () => {
                     className="btn btn-outline-secondary"
                     onClick={() => { setSearchTerm(''); setSearchInput(""); }}
                     title="검색"
-                    style={{ width: "5%" }}
                 >
                     <i className="bi bi-x"></i>
                 </button>
@@ -265,7 +260,6 @@ const MypageList = () => {
                     <div
                         className='modal-overlay'
                         tabIndex='-1'
-                        style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
                         onClick={handleClose}
                     >
                         <div

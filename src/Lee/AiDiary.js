@@ -139,6 +139,47 @@ const AiDiary = () => {
         />
       </div>
 
+      <div>
+        {keywords.map((keyword, index) => (
+          <div key={index} className="flex-div">
+            <input
+              className="form-control diary-input-keyword"
+              value={keyword}
+              onChange={(e) => handleKeywordChange(index, e.target.value)}
+              placeholder={`주문 키워드 ${index + 1}`}
+              disabled={loading || isGenerated}
+            />
+            
+            {/* 버튼 그룹 */}
+            <div className="button-group">
+              {/* 추가 버튼은 "마지막 키워드"에만 표시 (단, 최대 5개까지만) */}
+              {index === keywords.length - 1 && keywords.length < 5 && (
+                <button
+                  type="button"
+                  className="btn btn-primary btn-sm"
+                  onClick={() => addKeywordInputAfter(index)}
+                  disabled={loading || isGenerated}
+                >
+                  추가
+                </button>
+              )}
+
+              {/* 삭제 버튼은 2번째부터 항상 표시 */}
+              {keywords.length > 1 && (
+                <button
+                  type="button"
+                  className="btn btn-danger btn-sm"
+                  onClick={() => removeKeyword(index)}
+                  disabled={loading || isGenerated}
+                >
+                  삭제
+                </button>
+              )} 
+            </div>
+          </div>
+        ))}
+      </div>  
+
       <div className="form-check flex-div">
         <label className="form-check-label diary-text" htmlFor="checkDefault">
           <input
@@ -196,47 +237,6 @@ const AiDiary = () => {
           ))}
         </div>
       </div>
-
-      <div>
-        {keywords.map((keyword, index) => (
-          <div key={index} className="flex-div">
-            <input
-              className="form-control diary-input-keyword"
-              value={keyword}
-              onChange={(e) => handleKeywordChange(index, e.target.value)}
-              placeholder={`주문 키워드 ${index + 1}`}
-              disabled={loading || isGenerated}
-            />
-            
-            {/* 버튼 그룹 */}
-            <div className="button-group">
-              {/* 삭제 버튼은 2번째부터 항상 표시 */}
-              {keywords.length > 1 && (
-                <button
-                  type="button"
-                  className="btn btn-danger btn-sm"
-                  onClick={() => removeKeyword(index)}
-                  disabled={loading || isGenerated}
-                >
-                  삭제
-                </button>
-              )}
-
-              {/* 추가 버튼은 "마지막 키워드"에만 표시 (단, 최대 5개까지만) */}
-              {index === keywords.length - 1 && keywords.length < 5 && (
-                <button
-                  type="button"
-                  className="btn btn-primary btn-sm"
-                  onClick={() => addKeywordInputAfter(index)}
-                  disabled={loading || isGenerated}
-                >
-                  추가
-                </button>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>   
 
       <div>
         <button 

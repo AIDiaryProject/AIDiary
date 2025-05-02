@@ -71,7 +71,7 @@ const WeatherInfo = () => {
     <div className='info-wrapper'>
       <p>
         <h2>{formatTimeLabel(selectedTime)}</h2>
-        <label htmlFor="time">날씨 시간 선택:</label>
+        <label htmlFor="time"><strong>날씨 시간 선택:</strong></label>
         <select
           id="time"
           className='info-select'
@@ -90,10 +90,9 @@ const WeatherInfo = () => {
         <p>🔄 불러오는 중...</p>
       ) : weather && (
         <div>
-          
           {uniqueItems.map((item, idx) => (
             <p key={idx}>
-              {getKoreanLabel(item.category)}:{" "}
+              <strong>{getKoreanLabel(item.category)}:</strong>{" "}
               {getWeatherDescription(item.category, item.obsrValue || item.fcstValue)}
             </p>
           ))}

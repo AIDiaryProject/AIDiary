@@ -1,3 +1,52 @@
+// 반응형 디자인 ==============================================================
+@mixin pc-mid { //PC 디자인 중간
+  @media (min-width: 1200px) and (max-width: 1600px){
+    @content;
+  }
+}
+
+@mixin pc-small { //PC 디자인 작음
+  @media (min-width: 992px) and (max-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin tablet { //테블릿 디자인
+  @media (min-width: 768px) and (max-width: 991px) {
+    @content;
+  }
+}
+
+@mixin mobile { //모바일 디자인
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+
+// 반응형 디자인 적용 예시(익숙해지면 삭제) ==============================================================
+.test-name { //적용 예시, PC 디자인 디폴트값
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 1rem;
+
+  @include pc-mid { //중간 크기의 PC 화면일 때
+    font-size: 1.4rem;
+  }
+
+  @include pc-small { //작은 크기의 PC 화면일 때
+    font-size: 1.3rem;
+  }
+
+  @include tablet { //테블릿 화면일 때때
+    font-size: 1.2rem;
+  }
+
+  @include mobile { //모바일 화면일 때
+    font-size: 1rem;
+  }
+}
+
 // 공통값 변수 ==============================================================
 $소제목 : 1.7rem;
 $소소제목 : 1.4rem;
@@ -20,6 +69,15 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
   background-color: white;
   padding: 1rem;
   border-radius: 10px;
+  min-height: 55rem;
+
+  @include tablet { //테블릿 화면일 때때
+    min-height: 35rem;
+  }
+
+  @include mobile { //모바일 화면일 때
+    min-height: 35rem;
+  }
 
   div {
     margin: 0 0 1rem;
@@ -53,11 +111,9 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 
   .diary-input-keyword {
     min-width: 0;
-    width: 25rem;
   }
 
   .diary-input {
-    width: 20rem;
     margin-right: 1rem;
     margin-bottom: 1rem;
   }
@@ -66,10 +122,13 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    white-space: nowrap;
   }
 
   .button-group {
+    display: flex;
     padding-top: 0.9rem;
+    white-space: nowrap;
   }
 
   button {
@@ -174,6 +233,14 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     overflow: hidden;
     display: flex;
     flex-direction: column;
+
+    @include tablet { //테블릿 화면일 때
+      width: 100vw;
+    }
+  
+    @include mobile { //모바일 화면일 때
+      width: 100vw;
+    }
   }
 
   .modal-content {
@@ -193,10 +260,18 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
       background-repeat: repeat-y;
 
       line-height: 2.3rem; // 줄과 정확히 맞춤
-      font-size: 1.2rem;
+      font-size: $강조글씨;
       font-family: 'Nanum Gothic', sans-serif;
       padding: 1.2rem 2rem 2rem 2rem;
       margin-left: 0.8rem;
+
+      @include tablet { //테블릿 화면일 때
+        font-size: $일반글씨;
+      }
+    
+      @include mobile { //모바일 화면일 때
+        font-size: $일반글씨;
+      }
 
       p {
         margin: 0;
@@ -213,6 +288,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
       .modal-title-block {
         display: flex;
         flex-direction: column;
+        flex-wrap: nowrap;
 
         h1.modal-title {
           font-size: 2rem;
@@ -233,6 +309,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
       align-items: center;
       padding: 1rem;
       border-top: 1px solid #ccc;
+      flex-wrap: nowrap;
     }
 
     .modal-body {
@@ -266,6 +343,11 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
       .speech-bubble h2 {
         font-size: $소소제목;
         padding-bottom: 0.5rem;
+
+      
+        @include mobile { //모바일 화면일 때
+          font-size: $일반글씨;
+        }
       }
 
       .modal-comment {
@@ -276,7 +358,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
         flex-direction: column;
         align-items: center;
         position: relative;
-
+      
         .bubble-block {
           display: flex;
           flex-direction: column;
@@ -385,17 +467,22 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 
 // Result.js ==============================================================
 .result-wrapper {
-  margin: 2rem;
   background-color: white;
   padding: 1rem;
   border-radius: 10px;
 
   .content-container {
-    display: flex;
     align-items: flex-start;
     justify-content: space-between;
     gap: 1rem;
     flex-wrap: wrap;
+  }
+
+  h2 {
+    font-size: $소제목;
+    margin: 0 0 1rem;
+    color: $연갈색;
+    font-weight: bold;
   }
 
   .main-content {
@@ -409,10 +496,6 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 
     h1 {
       font-size: $소제목;
-    }
-
-    h2 {
-      font-size: $소소제목;
     }
 
     p {
@@ -457,8 +540,6 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
   padding: 1rem; // ✅ 안쪽 여백
   margin-bottom: 1rem; // ✅ 컴포넌트 간 간격
   width: 100%;
-  max-width: auto;
-  min-width: 30rem;
 
   p {
     font-size: $일반글씨;
@@ -495,9 +576,33 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 }
 
 // StatsData.js, MypageList.js =================================================
-.info {
+.myPageList {
   margin: 2rem 1rem;
   width: 100%;
+  
+  @include tablet { //테블릿 화면일 때때
+    padding-right: 2rem;
+  }
+
+  @include mobile { //모바일 화면일 때
+    padding-right: 2rem;
+  }
+
+  .search-select-width {
+    max-width: 12vw;
+
+    @include pc-small { //작은 크기의 PC 화면일 때
+      max-width: 14vw;
+    }
+
+    @include tablet { //테블릿 화면일 때때
+      max-width: 18vw;
+    }
+  
+    @include mobile { //모바일 화면일 때
+      max-width: 27vw;
+    }
+  }
 
   .search-label {
     background-color: $연보라;

@@ -72,7 +72,9 @@ const ResultAiDiary = () => {
   return (
     <div className="result-wrapper">
       <div className="content-container">
-        <div className="main-content">
+        <div className="main-content mb-3">
+          <h2>숲의 마법으로 작성하는 나의 일기</h2>
+          <hr/>
           <h1>{title}</h1>
           <p>🗓️ {date}</p>
           {weather && <p>☀️ 날씨: {weather}</p>}
