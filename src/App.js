@@ -61,15 +61,28 @@ const App = () => { //라우터 설정
       <DiaryProvider>
         <Header />
           <div className="app__layout-div"> 
-          <div className="app__layout-space-main">
-            {children}
+            <div className="app__layout-space-main">
+              {children}
+            </div>
           </div>
-        </div>
         <Tail />
       </DiaryProvider>
     );
   };
 
+  const AuthLayout = ({ children }) => { //로그인 불필요 페이지 레이아웃
+    return (
+      <DiaryProvider>
+        <Header />
+          <div className="app__layout-div"> 
+            <div style={{paddingTop: '2.5rem'}}>
+              {children}
+            </div>
+          </div>
+        <Tail />
+      </DiaryProvider>
+    );
+  };
 
   return (
     <div className="app__all-div">
@@ -77,7 +90,7 @@ const App = () => { //라우터 설정
       <Routes>
         {/* 로그인 불필요 컴포넌트 */}
         <Route path="/" element={<MainLayout><MainPage /></MainLayout>} />
-        <Route path="/auth" element={<PublicPage><Auth /></PublicPage>} />
+        <Route path="/auth" element={<AuthLayout><Auth /></AuthLayout>} />
         <Route path="/register" element={<PublicPage><Register /></PublicPage>} />
         <Route path="/login" element={<PublicPage><Login /></PublicPage>} />
         <Route path="/userlist" element={<UserList />} />
