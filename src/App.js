@@ -56,7 +56,7 @@ const App = () => { //라우터 설정
     );
   };
 
-  const MainLayout = ({ children }) => { //로그인 불필요 페이지 레이아웃
+  const MainLayout = ({ children }) => { //메인화면 전용 레이아웃
     return (
       <DiaryProvider>
         <Header />
@@ -70,7 +70,7 @@ const App = () => { //라우터 설정
     );
   };
 
-  const AuthLayout = ({ children }) => { //로그인 불필요 페이지 레이아웃
+  const AuthLayout = ({ children }) => { //로그인 및 회원가입 전용 레이아웃
     return (
       <DiaryProvider>
         <Header />

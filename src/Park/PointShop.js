@@ -16,8 +16,8 @@ const PointShop = () => { //user.profile : 사용중 / user.item : 보유중
 
     // 프로필별 가격 설정
     const profilePrices = {
-        1: 100, 2: 100, 3: 100, 4: 200, 5: 200,
-        6: 200, 7: 300, 8: 300, 9: 300
+        1: 100, 2: 100, 3: 100, 4: 300, 5: 300,
+        6: 300, 7: 500, 8: 500, 9: 500
     };
 
     const buyProfile = async (profileId) => {

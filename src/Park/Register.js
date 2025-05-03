@@ -82,7 +82,7 @@ const Register = () => {
         password,
         nickname,
         profile : 1,
-        point : 0,
+        point : 300,
         item : [1,2,3],
       });
       alert('회원가입 성공!');

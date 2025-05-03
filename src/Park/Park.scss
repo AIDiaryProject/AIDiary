@@ -38,7 +38,7 @@
     font-size: 1.3rem;
   }
 
-  @include tablet { //테블릿 화면일 때때
+  @include tablet { //테블릿 화면일 때
     font-size: 1.2rem;
   }
 
@@ -148,10 +148,14 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 
     @include tablet { //테블릿 화면일 때때
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
   
     @include mobile { //모바일 화면일 때
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
   }
 }
@@ -272,6 +276,10 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     padding: 0.5rem 0;
     width: 100%;
     margin-top: 3rem;
+
+    @media (max-width: 500px) {
+      gap: 0.7rem
+    }
   }
 
   &__card { //각 카드 디자인
@@ -290,11 +298,19 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 
     .card-body { //카드 내부 패딩
       padding: 1.2rem 0.3rem;
+
+      @media (max-width: 500px) {
+        padding: 0.8rem 0.15rem;
+      }
     }
 
     .card-title { //카드 이름
       font-size: $강조글씨;
       font-weight: bold;
+
+      @media (max-width: 500px) {
+        font-size: 0.9rem;
+      }
     }
 
     .card-text { //카드 타입
@@ -302,6 +318,10 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
       color: $진회색;
       font-weight: bold;
       margin: 0.5rem 0;
+
+      @media (max-width: 500px) {
+        font-size: 0.6rem;
+      }
     }
   }
 
@@ -592,6 +612,16 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 }
 
 // MypageSideMenu.js ==============================================================
+.sidemenu-all {
+  @include tablet {
+    width: 100%;
+  }
+
+  @include mobile {
+    width: 100%;
+  }
+}
+
 .side-title { //좌측 상단 마이페이지 출력
   font-size: $소소제목;
   color: $연갈색;
@@ -599,6 +629,17 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 }
 
 .sidemenu { //사이드메뉴 최외곽
+  display: flex;
+  flex-direction: column;
+
+  // @include tablet {
+  //   flex-direction: row;
+  // }
+
+  // @include mobile() {
+  //   flex-direction: row;
+  // }
+
   &__profile-box {
     border: 1px solid $진회색;
     display: flex;
@@ -609,12 +650,12 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     margin: 0 1rem 0 0;
 
     background: linear-gradient(
-    to bottom,
-    $연갈색 0%,
-    $연갈색 25%,
-    white 25%,
-    white 100%
-  );
+      to bottom,
+      $연갈색 0%,
+      $연갈색 25%,
+      white 25%,
+      white 100%
+    );
   }
 
   &__nickname { //닉네임 출력
@@ -622,6 +663,15 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     font-size: $소소제목;
     font-weight: bold;
     color: $갈색;
+
+    @include tablet {
+      margin: 0;
+      color: white;
+    }
+    @include mobile {
+      margin: 0;
+      color: white;
+    }
   }
 
   &__id { //닉네임 아래 아이디 출력
@@ -651,8 +701,8 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
   }
 
   &__menu-box { //하단 메뉴 외곽 박스
-    border-left: 1px solid $진회색;
-    border-right: 1px solid $진회색;
+    // border-left: 1px solid $진회색;
+    // border-right: 1px solid $진회색;
     margin: 0.5rem 1rem 0 0;
     display: flex;
     flex-direction: column;
@@ -663,7 +713,8 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 
   &__menu-item { //각 메뉴
     cursor: pointer;
-    border-top: 1px solid $진회색;
+    border: 1px solid $진회색;
+    border-bottom: 0;
     width: 100%;
     text-align: center;
     padding: 0.7rem;
@@ -690,6 +741,102 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
   }
 }
 
+.mobilemenu { //모바일 전환 시 디자인
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  &__container { //둥근 모서리 컨테이너
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    background-color: white;
+    width: 95%;
+    border: 1px solid $진회색;
+    overflow: hidden;
+
+    background: linear-gradient(
+      to bottom,
+      $연갈색 0%,
+      $연갈색 25%,
+      white 25%,
+      white 100%
+    );
+  }
+
+  &__top-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 0.5rem;
+    margin-left: 2rem;
+    // background-color: skyblue;
+  }
+
+  &__button-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5rem;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  &__button {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem 0.5rem 0.3rem 0.5rem;
+    // border-right: 2px solid $진회색;
+    background-color: white;
+    cursor: pointer;
+
+    &:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 25%; // 세로 위치 조정 (예: 상단에서 30%)
+      height: 60%; // 선의 길이
+      width: 1px;
+      background-color: $진회색;
+    }
+
+    &:last-child {
+      border-right: 0;
+    }
+
+    &:hover {
+      background-color: $배경색;
+      // color: $연갈색;
+      // .mobilemenu__button-text {
+      //   color: $연갈색;
+      // }
+    }
+  }
+
+  &__button-text {
+    font-size: $참고글씨;
+    font-weight: bold;
+    color: $진회색;
+    margin: 0;
+  }
+}
+
 // MypageInfo.js ==============================================================
 .info { //회원정보 최외곽
   margin: 2rem 1rem;
@@ -707,7 +854,10 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     padding: 0.7rem;
-    // width: 100%;
+    
+    @include mobile{
+      margin: 0 0.5rem;
+    }
   }
 
   &__row { //각각 행
