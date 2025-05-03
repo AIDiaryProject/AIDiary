@@ -86,8 +86,6 @@ const Header = () => {
         window.location.reload(); //페이지 새로고침
     };
 
-    const [loadingTarget, setLoadingTarget] = useState(null);
-
     return (
     <nav class="navbar navbar-expand-lg header-style">
         <div class="container-fluid">
@@ -122,6 +120,14 @@ const Header = () => {
                         마법 일기
                     </button>
                     </li>
+                    {!login && <li className="nav-item">
+                    <button
+                        onClick={() => {navigate('/auth')}}
+                        className={`nav-link header-top-button`}
+                    >
+                        로그인
+                    </button>
+                    </li>}
 
                     {login && (
                     <li className="nav-item d-lg-none"> {/* 모바일 전용 로그인 메뉴 */}
@@ -137,7 +143,7 @@ const Header = () => {
                     login ? (
                     <div className="d-none d-lg-block">{LoginMenu()}</div>
                     ) : (
-                    <a className="nav-link header-top-button" href="/auth">로그인</a>
+                        <a className="nav-link header-login-button" href="/auth">로그인</a>
                     )
                 )}
             </div>

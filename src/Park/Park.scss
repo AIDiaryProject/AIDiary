@@ -413,7 +413,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
 }
 
 // Header.js ==============================================================
-.header-style {
+  .header-style {
     background-color: $연보라;
     height: 4rem;
 
@@ -436,13 +436,27 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     background-color: $연보라;
 
     @include tablet { //테블릿 화면일 때
-      margin-top: 0.8rem;
-      background-color: $배경색;
+      margin-top: 0.7rem;
+      background-color: white;
     }
 
     @include mobile { //모바일 화면일 때
-      margin-top: 1rem;
-      background-color: $배경색;
+      margin-top: 0.7rem;
+      background-color: white;
+    }
+  }
+
+  .header-login-button { //로그인 버튼
+    color: $진회색;
+    font-weight: bold !important;
+    margin: 0 0.5rem 0 0.5rem;
+
+    @include tablet { //테블릿 화면일 때
+      display: none;
+    }
+
+    @include mobile { //모바일 화면일 때
+      display: none;
     }
   }
 
@@ -465,11 +479,17 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     @include tablet { //테블릿 화면일 때
       width: 100%;
       margin: 0;
+      &:hover {
+        color:$연갈색;
+       }
     }
 
     @include mobile { //모바일 화면일 때
       width: 100%;
       margin: 0;
+      &:hover {
+        color:$연갈색;
+       }
     }
   }
 
