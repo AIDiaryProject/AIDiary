@@ -107,7 +107,7 @@ router.post('/login', async (req, res) => {
 });
 
 // 회원 정보 조회
-router.get('/', async (req, res) => {
+router.get('/', authMiddleware, async (req, res) => {
     try {
         const [rows] = await db.execute('SELECT * FROM users');
         res.json(rows);
@@ -186,7 +186,7 @@ router.post('/buy-profile', authMiddleware, async (req, res) => {
 });
 
 // 포인트 추가
-router.patch('/add-point', async (req, res) => {
+router.patch('/add-point', authMiddleware, async (req, res) => {
   const { userId, amount, type } = req.body;
 
   if (!userId || typeof amount !== 'number' || amount <= 0 || !['plus', 'minus'].includes(type)) {
