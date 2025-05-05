@@ -7,7 +7,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import LoginUser from "./LoginUser";
 import Profile from "./Profile";
 import './Park.scss'
-// import useWidth from "./useWidth";
+import useWidth from "./useWidth";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Header = () => {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 991);
     
     const currentPath = location.pathname;
-    // const width = useWidth();
+    const width = useWidth();
 
     useEffect(() => {
         const handleResize = () => {
@@ -120,7 +120,7 @@ const Header = () => {
                         마법 일기
                     </button>
                     </li>
-                    {!login && <li className="nav-item">
+                    {(!login && width<992) && <li className="nav-item">
                     <button
                         onClick={() => {navigate('/auth')}}
                         className={`nav-link header-top-button`}
