@@ -91,10 +91,10 @@ const App = () => { //라우터 설정
         {/* 로그인 불필요 컴포넌트 */}
         <Route path="/" element={<MainLayout><MainPage /></MainLayout>} />
         <Route path="/auth" element={<AuthLayout><Auth /></AuthLayout>} />
-        <Route path="/register" element={<PublicPage><Register /></PublicPage>} />
-        <Route path="/login" element={<PublicPage><Login /></PublicPage>} />
+        {/* <Route path="/register" element={<PublicPage><Register /></PublicPage>} /> */}
+        {/* <Route path="/login" element={<PublicPage><Login /></PublicPage>} /> */}
         <Route path="/userlist" element={<UserList />} />
-        <Route path="/test" element={<Test />} />
+        {/* <Route path="/test" element={<Test />} /> */}
 
         {/* 로그인 필수 컴포넌트 */}
         <Route path="/handdiary" element={<ProtectedPage><CheckDiaryGuard><HandDiary /></CheckDiaryGuard></ProtectedPage>} />

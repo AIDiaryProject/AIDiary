@@ -95,7 +95,7 @@ const MainPage = () => {
                     </div>
                     }
                 </div>
-                <img src={`/profile/test2.png`} alt={`all`} className="floating-image"/>
+                <img src={`/profile/main_all.png`} alt={`all`} className="floating-image"/>
             </div>
             
             <div className="main__grid">
