@@ -133,8 +133,8 @@ const MypageInfo = () => {
                     <div className="info__row__label">보유 포인트</div>
                     <div className="info__row__value">
                     {user?.point}P
-                    <button className="btn btn-sm btn-outline-success" style={{margin:'0rem 0.5rem'}} onClick={() => addPoints(user?.id, 100, 'plus')}>+100</button>
-                    <button className="btn btn-sm btn-outline-danger" onClick={() => addPoints(user?.id, 100, 'minus')}>-100</button>
+                    {/* <button className="btn btn-sm btn-outline-success" style={{margin:'0rem 0.5rem'}} onClick={() => addPoints(user?.id, 100, 'plus')}>+100</button>
+                    <button className="btn btn-sm btn-outline-danger" onClick={() => addPoints(user?.id, 100, 'minus')}>-100</button> */}
                     </div>
                     <div className='info__row__space'/>
                 </div>
