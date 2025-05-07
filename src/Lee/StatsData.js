@@ -33,6 +33,14 @@ const StatsData = () => {
         { id: 6, label: "최고" },
     ];
 
+    //통계 구분
+    const stats = [
+        { id: 0, label: "날짜별 감정" },
+        { id: 1, label: "감정별 빈도수" },
+        { id: 2, label: "요일별 작성 빈도" },
+        { id: 3, label: "작성율" },
+    ];
+
     //날짜별 감정
     const scores = data.map(item => item.emotionScore);
     const label = data.map(item => item.emotionLabel);
@@ -111,11 +119,11 @@ const StatsData = () => {
 
 
     return (
-        <div className='info'>
-            <h1 className='info__title'>통계</h1>
+        <div className='myPageList'>
+            <h1 className='myPageList__title'>통계</h1>
             <hr />
-            <p>날짜별 감정</p>
-            <div className={`info__card`} onClick={() => openChartModal('emotionLine')}>
+            <p>날짜별 감정{stats.id}</p>
+            <div className='myPageList__card' onClick={() => openChartModal('emotionLine')}>
                 <ResponsiveContainer width="100%" height={300}>
                     <LineChart data={chartData}>
                         <CartesianGrid strokeDasharray="3 3" />
@@ -126,10 +134,9 @@ const StatsData = () => {
                             domain={[0, 6]}
                             ticks={[0, 1, 2, 3, 4, 5, 6]}
                             tickFormatter={(value) => {
-                                const level = emotionLevels.find(level => level.value === value);
+                                const level = emotionLevels.find(level => level.id === value);
                                 return level?.label || '';
                             }}
-                            label={{ value: '감정 상태', angle: -90, position: 'insideLeft' }}
                         />
                         <Tooltip
                             formatter={(value, label, props) => [`감정: ${props.payload.label}`]}
@@ -146,7 +153,7 @@ const StatsData = () => {
             </div>
             <hr />
             <p>감정별 빈도수</p>
-            <div className='info__card' onClick={() => openChartModal('emotionPie')}>
+            <div className='myPageList__card' onClick={() => openChartModal('emotionPie')}>
                 <ResponsiveContainer width="100%" height={300}>
                     <PieChart>
                         <Pie
@@ -167,12 +174,12 @@ const StatsData = () => {
             </div>
             <hr />
             <p>요일별 작성 빈도</p>
-            <div className='info__card' onClick={() => openChartModal('weekBar')}>
+            <div className='myPageList__card' onClick={() => openChartModal('weekBar')}>
                 <ResponsiveContainer width="100%" height={300}>
                     <BarChart data={weekdayData}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name" label={{ value: '요일', position: 'insideBottom', offset: -5 }} />
-                        <YAxis allowDecimals={false} label={{ value: '작성 수', angle: -90, position: 'insideLeft' }} />
+                        <YAxis allowDecimals={false} />
                         <Tooltip
                             formatter={(value) => [`${value}회`, '']}
                         />
@@ -182,7 +189,7 @@ const StatsData = () => {
             </div>
             <hr />
             <p>작성율</p>
-            <div className='info__card' onClick={() => openChartModal('writeRate')}>
+            <div className='myPageList__card' onClick={() => openChartModal('writeRate')}>
                 <ResponsiveContainer width="100%" height={300}>
                     <PieChart>
                         <Pie
@@ -204,9 +211,25 @@ const StatsData = () => {
 
             {expandedChart && (
                 <div className="chart-modal-overlay" onClick={closeChartModal}>
-                    <div className="chart-modal-content" onClick={(e) => e.stopPropagation()}>
-                        <button className="close-button" onClick={closeChartModal}>×</button>
-
+                    <div className="chart-modal-content" onClick={closeChartModal}>
+                        <div className="modal-header">  
+                            <div className="modal-title-block">
+                                <h1 className="modal-title">
+                                {stats.find(stat => {
+                                    if (expandedChart === 'emotionLine') return stat.id === 0;
+                                    if (expandedChart === 'emotionPie') return stat.id === 1;
+                                    if (expandedChart === 'weekBar') return stat.id === 2;
+                                    if (expandedChart === 'writeRate') return stat.id === 3;
+                                    return false;
+                                })?.label}
+                                </h1>
+                            </div>
+                            <button
+                                type="button"
+                                className="btn-close"
+                                aria-label="Close"
+                            />
+                        </div>
                         {expandedChart === 'emotionLine' && (
                             <ResponsiveContainer width="100%" height={300}>
                                 <LineChart data={chartData}>
@@ -218,10 +241,9 @@ const StatsData = () => {
                                         domain={[0, 6]}
                                         ticks={[0, 1, 2, 3, 4, 5, 6]}
                                         tickFormatter={(value) => {
-                                            const level = emotionLevels.find(level => level.value === value);
+                                            const level = emotionLevels.find(level => level.id === value);
                                             return level?.label || '';
                                         }}
-                                        label={{ value: '감정 상태', angle: -90, position: 'insideLeft' }}
                                     />
                                     <Tooltip
                                         formatter={(value, label, props) => [`감정: ${props.payload.label}`]}

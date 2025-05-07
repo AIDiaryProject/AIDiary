@@ -662,7 +662,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     margin-bottom: 1rem;
   }
 
-  .info__card {
+  &__card {
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -685,6 +685,40 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     }
   }
 
+  .modal-header {
+    position: sticky; // 헤더 고정
+    top: 0;
+    z-index: 10;
+    background-color: white; // 배경색 추가
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+    .modal-title-block {
+      display: flex;
+      flex-direction: column;
+  
+      h1.modal-title {
+        font-size: $소제목;
+        font-weight: bold;
+        color: $연갈색;
+        margin: 0;
+      }
+    }
+  
+    .btn-close {
+      font-size: 1rem;
+      cursor: pointer;
+      color: $연갈색;
+  
+      &:hover {
+        color: black;
+      }
+    }
+  }
+
   .chart-modal-overlay {
     position: fixed;
     top: 0;
@@ -702,7 +736,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     background-color: white;
     width: 90%;
     max-width: 800px;
-    padding: 2rem;
+    padding: 0 1rem 2rem;
     border-radius: 12px;
     position: relative;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
