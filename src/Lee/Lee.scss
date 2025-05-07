@@ -580,14 +580,6 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
   margin: 2rem 1rem;
   width: 100%;
   
-  @include tablet { //테블릿 화면일 때때
-    padding-right: 2rem;
-  }
-
-  @include mobile { //모바일 화면일 때
-    padding-right: 2rem;
-  }
-
   .search-select-width {
     max-width: 12vw;
 
@@ -634,6 +626,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     
       @include mobile { //모바일 화면일 때
         font-size: $강조글씨;
+        padding-left: 1rem;
       }
     }
 
