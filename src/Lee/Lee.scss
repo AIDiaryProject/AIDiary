@@ -220,11 +220,11 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     align-items: center;
     justify-content: center;
     z-index: 1050;
-    padding: 5vh 15vw;
+    padding: 5vh 5vw;
   }
 
   .custom-modal-size {
-    width: 50vw;
+    width: 70vw;
     height: 80vh;
     max-width: none;
     max-height: 90%;
@@ -235,7 +235,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     flex-direction: column;
 
     @include tablet { //테블릿 화면일 때
-      width: 100vw;
+      width: 80vw;
     }
   
     @include mobile { //모바일 화면일 때
@@ -263,7 +263,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
       font-size: $강조글씨;
       font-family: 'Nanum Gothic', sans-serif;
       padding: 1.2rem 2rem 2rem 2rem;
-      margin-left: 0.8rem;
+      margin: 0 0.8rem;
 
       @include tablet { //테블릿 화면일 때
         font-size: $일반글씨;
@@ -351,7 +351,6 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
       }
 
       .modal-comment {
-        padding-left: 0.8rem;
         margin: 1rem;
         border-radius: 1rem;
         display: flex;
