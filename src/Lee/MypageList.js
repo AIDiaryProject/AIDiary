@@ -10,6 +10,7 @@ import Characters from './Characters';
 import Profile from "../Park/Profile";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 import { useRef } from 'react';
+import useWidth from '../Park/useWidth';
 
 const MypageList = () => {
     const { diaryList, refresh } = useDiaryContext();
@@ -27,6 +28,8 @@ const MypageList = () => {
     const [filterType, setFilterType] = useState("all"); //전체보기, 자유일기, 마법일기
 
     const [showScrollTop, setShowScrollTop] = useState(false); //스크롤
+
+    const width = useWidth();
 
     const handleItemClick = (item) => {
         setSelectedItem(item);
@@ -307,12 +310,11 @@ const MypageList = () => {
                                                             <h2>{getCharacterName(selectedItem.commenter)}의 코멘트: {selectedItem.comment}</h2>
                                                         </div>
                                                         <div className='comment-profile'>
-                                                            <Profile id={selectedItem.commenter} size={300} />
+                                                            {width < 992 ? <Profile id={selectedItem.commenter} size={150} /> : <Profile id={selectedItem.commenter} size={300} />}
                                                         </div>
                                                     </div>
                                                 </div>
                                             )}
-
 
                                         </div>
                                     </CSSTransition>
