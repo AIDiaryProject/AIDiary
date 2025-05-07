@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useEnv } from './EnvContext';
 
 const WeatherInfo = () => {
   const { weather, selectedTime, setSelectedTime } = useEnv();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (weather) {
+      const timer = setTimeout(() => {
+        setLoading(false); // ✅ 로딩 종료
+      }, 300); // 너무 짧으면 깜빡이니 300ms 정도 권장
+  
+      return () => clearTimeout(timer); // cleanup
+    }
+  }, [selectedTime, weather]);
 
   const CATEGORIES_TO_DISPLAY = {
     초단기실황: ["T1H", "RN1", "REH", "PTY"],
@@ -39,7 +50,7 @@ const WeatherInfo = () => {
     return labels[category] || category;
   };
 
-  const formatTimeLabel = (time) => `${time.slice(0, 2)}시 날씨 정보`;
+  const formatTimeLabel = (time) => `${time.slice(0, 2)}시 날씨`;
 
   const filtered = {};
   weather?.items
@@ -57,24 +68,31 @@ const WeatherInfo = () => {
   );
 
   return (
-    <div style={{ marginTop: "2rem" }}>
-      <label htmlFor="time">날씨 시간 선택: </label>
-      <select
-        id="time"
-        value={selectedTime}
-        onChange={(e) => setSelectedTime(e.target.value)}
-      >
-        {timeOptions.map((t) => (
-          <option key={t} value={t}>{t.slice(0, 2)}:00</option>
-        ))}
-      </select>
-
-      {weather && (
-        <div style={{ marginTop: "1rem", padding: "1rem", border: "1px solid #ccc", borderRadius: "8px" }}>
-          <h3>{formatTimeLabel(selectedTime)} ({weather.source})</h3>
+    <div className='info-wrapper'>
+      <p>
+        <h2>{formatTimeLabel(selectedTime)}</h2>
+        <label htmlFor="time"><strong>날씨 시간 선택:</strong></label>
+        <select
+          id="time"
+          className='info-select'
+          value={selectedTime}
+          onChange={(e) => {
+            setLoading(true); 
+            setSelectedTime(e.target.value);
+          }}
+        >
+          {timeOptions.map((t) => (
+            <option key={t} value={t}>{t.slice(0, 2)}:00</option>
+          ))}
+        </select>
+      </p>
+      {loading ? (
+        <p>🔄 불러오는 중...</p>
+      ) : weather && (
+        <div>
           {uniqueItems.map((item, idx) => (
             <p key={idx}>
-              <strong>{getKoreanLabel(item.category)}</strong>:{" "}
+              <strong>{getKoreanLabel(item.category)}:</strong>{" "}
               {getWeatherDescription(item.category, item.obsrValue || item.fcstValue)}
             </p>
           ))}

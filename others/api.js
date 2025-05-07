@@ -31,14 +31,14 @@ const getYesterday = () => {
 // ✅ GPT 코멘트 API
 router.post("/chat", async (req, res) => {
   try {
-    const { message, diary } = req.body;
+    const { message, prompt } = req.body;
     console.log("📦 req.body:", req.body);
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       store: true,
       messages: [
-        { role: "system", content: diary },
+        { role: "system", content: prompt },
         { role: "user", content: message },
       ],
     });

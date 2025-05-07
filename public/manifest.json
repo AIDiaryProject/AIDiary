@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "마음숲",
+  "name": "마음숲 : 마음의 숲에서 만나는 나의 이야기",
   "icons": [
     {
       "src": "favicon.ico",

@@ -1,0 +1,1512 @@
+// 반응형 디자인 ==============================================================
+@mixin pc-mid { //PC 디자인 중간
+  @media (min-width: 1200px) and (max-width: 1600px){
+    @content;
+  }
+}
+
+@mixin pc-small { //PC 디자인 작음
+  @media (min-width: 992px) and (max-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin tablet { //테블릿 디자인
+  @media (min-width: 768px) and (max-width: 991px) {
+    @content;
+  }
+}
+
+@mixin mobile { //모바일 디자인
+  @media (max-width: 767px) {
+    @content;
+  }
+}
+
+// 반응형 디자인 적용 예시(익숙해지면 삭제) ==============================================================
+.test-name { //적용 예시, PC 디자인 디폴트값
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 1rem;
+
+  @include pc-mid { //중간 크기의 PC 화면일 때
+    font-size: 1.4rem;
+  }
+
+  @include pc-small { //작은 크기의 PC 화면일 때
+    font-size: 1.3rem;
+  }
+
+  @include tablet { //테블릿 화면일 때
+    font-size: 1.2rem;
+  }
+
+  @include mobile { //모바일 화면일 때
+    font-size: 1rem;
+  }
+}
+
+// 공통값 변수 ==============================================================
+$소제목 : 1.7rem;
+$소소제목 : 1.4rem;
+$강조글씨 : 1.2rem;
+$일반글씨 : 1rem;
+$참고글씨 : 0.8rem;
+
+$연보라 : #cdb4db; //헤더 색상, 버튼2 선택색
+$갈색 : #75472f; //제목 색상(부엉이 색상)
+$연갈색 : #ba9378; //소제목 색상
+$배경색 : #F5F7FA; //배경 색상
+
+$진회색 : #5d576b; //버튼1 글씨색
+$노랑색 : #ffd768; //버튼1 배경색
+
+$분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
+
+// 공통 ==============================================================
+.column-center-container { //column 가운데 정렬 컨테이너
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .row-center-container { //row 가운데 정렬 컨테이너
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+// App.js ==============================================================
+.app {
+  &__all-div {
+    min-height: 100vh;
+    background-color: #F5F7FA;
+  }
+
+  &__layout-div {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__layout-space {
+    padding: 1rem 25%;
+    padding-top: 6rem;
+
+    @include pc-mid { //중간 크기의 PC 화면일 때
+      padding: 1rem 18%;
+      padding-top: 6rem;
+    }
+  
+    @include pc-small { //작은 크기의 PC 화면일 때
+      padding: 1rem 15%;
+      padding-top: 6rem;
+    }
+  
+    @include tablet { //테블릿 화면일 때
+      padding: 1rem 10%;
+      padding-top: 6rem;
+    }
+  
+    @include mobile { //모바일 화면일 때
+      padding: 1rem 0%;
+      padding-top: 6rem;
+    }
+  }
+
+  &__layout-space-main {
+    padding: 1rem 20%;
+    padding-top: 4rem;
+
+    @include pc-mid { //중간 크기의 PC 화면일 때
+      padding: 1rem 18%;
+      padding-top: 4rem;
+    }
+  
+    @include pc-small { //작은 크기의 PC 화면일 때
+      padding: 1rem 15%;
+      padding-top: 4rem;
+    }
+  
+    @include tablet { //테블릿 화면일 때때
+      padding: 1rem 10%;
+      padding-top: 4rem;
+    }
+  
+    @include mobile { //모바일 화면일 때
+      padding: 1rem 0%;
+      padding-top: 4rem;
+    }
+  }
+
+  &__mypage-div {
+    display: flex;
+    flex-direction: row;
+
+    @include tablet { //테블릿 화면일 때때
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    @include mobile { //모바일 화면일 때
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+// MainPage.js ==============================================================
+@keyframes floatUpDown { //메인 이미지 애니메이션
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px); // 위로 살짝 이동
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.floating-image {
+  animation: floatUpDown 3s ease-in-out infinite;
+  width: 50%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+
+  @include tablet { //테블릿 화면일 때
+    width: 100%;
+    height: auto;
+  }
+
+  @include mobile { //모바일 화면일 때
+    width: 100%;
+    height: auto;
+  }
+}
+
+.main { //최외곽
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0rem 0rem 0rem;
+
+  &__top-div { //최상단 div
+    display: flex;
+    flex-direction: row;
+    // align-items: center;
+    align-items: stretch;
+    justify-content: space-between;
+    padding: 1rem 3rem;
+    // background-color: skyblue;
+
+      @include tablet { //테블릿 화면일 때
+        flex-direction: column-reverse;
+      }
+
+      @include mobile { //모바일 화면일 때
+        flex-direction: column-reverse;
+      }
+  }
+
+  &__top-left-div { //최상단 좌측 div
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__top-left-text { //최상단 좌측 텍스트 모음
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  &__sub-title { //부제목
+    font-size: $소제목;
+    font-weight: bold;
+    color: $갈색;
+    margin: 0 1rem 0.5rem 0;
+  }
+
+  &__short-text { //메인 글귀
+    font-size: $강조글씨;
+    font-weight: bold;
+    color: $연갈색;
+    margin: 0.2rem 0rem;
+  }  
+
+  &__top-button-div { //최상단 좌측 버튼 div
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 1rem 0rem;
+  }
+
+  &__top-button {
+    background-color: $노랑색;
+    color: $진회색;
+    font-weight: bold;
+    font-size: $강조글씨;
+    border-radius: 5px;
+    border: 0px solid;
+    margin: 0 1.2rem 0rem 0rem;
+    padding: 0.3rem 1rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $연갈색;
+      color: white;
+    }
+  }
+  
+  &__grid { //카드 그리드 설정
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    padding: 0.5rem 0;
+    width: 100%;
+    margin-top: 3rem;
+
+    @media (max-width: 500px) {
+      gap: 0.7rem
+    }
+  }
+
+  &__card { //각 카드 디자인
+    width: 30%;
+    border: 1px solid white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    border-radius: 10px;
+    transition: transform 0.2s;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+    }
+
+    .card-body { //카드 내부 패딩
+      padding: 1.2rem 0.3rem;
+
+      @media (max-width: 500px) {
+        padding: 0.8rem 0.15rem;
+      }
+    }
+
+    .card-title { //카드 이름
+      font-size: $강조글씨;
+      font-weight: bold;
+
+      @media (max-width: 500px) {
+        font-size: 0.9rem;
+      }
+    }
+
+    .card-text { //카드 타입
+      font-size: $참고글씨;
+      color: $진회색;
+      font-weight: bold;
+      margin: 0.5rem 0;
+
+      @media (max-width: 500px) {
+        font-size: 0.6rem;
+      }
+    }
+  }
+
+  &__des-div { //기능 설명 div
+    border: 1px solid black;
+    width: 90%;
+    margin: 1rem;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__comment { //말풍선 ================
+    padding-left: 0.8rem;
+    margin: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 100%;
+
+    &__bubble-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center; // 중요: 말풍선, 캐릭터 모두 수직 중앙 정렬
+      position: relative;
+      width: 100%;
+    }
+
+    &__speech-bubble {
+      background-color: $연보라;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      position: relative;
+      color: $진회색;
+      font-weight: bold;
+      align-self: center;
+      width: 80%;
+      text-align: center;
+      margin-top: 0.5rem;
+  
+      &::after {
+        content: '';
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 1rem solid transparent;
+        border-right: 1rem solid transparent;
+        border-bottom: 1rem solid $연보라;
+      }
+
+      &.tail-center::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    
+      &.tail-left::after {
+        left: 4rem;
+        transform: none;
+      }
+    
+      &.tail-right::after {
+        right: 4rem;
+        left: auto;
+        transform: none;
+      }
+    }
+  
+    &__none-bubble {
+      background-color: $연보라;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      position: relative;
+      color: $진회색;
+      font-weight: bold;
+      align-self: center;
+      width: 80%;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+  }
+  
+}
+
+// Header.js ==============================================================
+  .header-style {
+    background-color: $연보라;
+    height: 4rem;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .header-title { //사이트 제목 부분
+    color: $갈색 !important;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+
+  .header-button-div { //두 버튼 포함한 div
+    background-color: $연보라;
+
+    @include tablet { //테블릿 화면일 때
+      margin-top: 0.7rem;
+      background-color: white;
+      border: 2px solid $연보라;
+      border-top: 0;
+    }
+
+    @include mobile { //모바일 화면일 때
+      margin-top: 0.7rem;
+      background-color: white;
+      border: 2px solid $연보라;
+      border-top: 0;
+    }
+  }
+
+  .header-login-button { //로그인 버튼
+    color: $진회색;
+    font-weight: bold !important;
+    margin: 0 0.5rem 0 0.5rem;
+
+    @include tablet { //테블릿 화면일 때
+      display: none;
+    }
+
+    @include mobile { //모바일 화면일 때
+      display: none;
+    }
+  }
+
+  .header-top-button { //직접 쓴 일기, AI 일기 버튼
+    color: $진회색;
+    font-weight: bold !important;
+    margin: 0 0.5rem 0 0.5rem;
+
+    &.active-link {
+      background-color: $갈색;
+      color: white;
+      border-radius: 10px;
+
+      &:hover {
+       color:white;
+       background-color: $연갈색; 
+      }
+    }
+
+    @include tablet { //테블릿 화면일 때
+      width: 100%;
+      margin: 0;
+      &:hover {
+        color:$연갈색;
+       }
+    }
+
+    @include mobile { //모바일 화면일 때
+      width: 100%;
+      margin: 0;
+      &:hover {
+        color:$연갈색;
+       }
+    }
+  }
+
+  .login-container { //Header의 사용자 정보
+  padding: 0.2rem;
+  // border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+
+.header-dropdown { //헤더 사용자 정보 클릭 시 드롭다운 메뉴 디자인
+  position: absolute;
+  top: 3rem;
+  right: 0;
+  width:20rem;
+  background-color: white;
+  border: 1px solid $진회색;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+  padding: 1rem 0.7rem 0.3rem 0.7rem;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-dropdown-nickname { //드롭다운 메뉴 닉네임
+  font-size: $강조글씨;
+  font-weight: bold;
+  margin: 0 0 0 0.7rem;
+  color: $갈색;
+}
+
+.header-dropdown-point { //드롭다운 포인트 정보
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 1.5rem 0 1rem 0;
+  cursor: pointer;
+}
+
+.header-dropdown-text { //드롭다운 메뉴 텍스트
+  margin: 0 0 0 0.5rem;
+  font-weight: bold;
+}
+
+.header-dropdown-menu { //드롭다운 메뉴 버튼
+  text-align: center;
+  margin: 0.7rem 0 0.7rem 0;
+  font-weight: bold;
+  cursor: pointer;
+  color: darkslategray;
+  &:hover {
+    color: $연갈색;
+  }
+}
+
+@media (max-width: 991px) { //반응형 디자인, 부트스트랩 nav bar에 맞춤
+  .login-container {
+    justify-content: center;
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .header-dropdown {
+    position: relative !important; // 작은 화면에선 absolute 대신
+    top: auto;
+    right: auto;
+    width: 100%;
+    // margin-top: 0.5rem;
+    border-radius: 0px;
+    border: 0;
+    border-top: 2px solid $연보라;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  .header-dropdown-point {
+    justify-content: flex-start;
+    padding-left: 0.5rem;
+  }
+
+  .header-dropdown-menu {
+    text-align: left;
+    padding-left: 0.5rem;
+  }
+}
+
+// Tail.js ==============================================================
+.tail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: $노랑색;
+  width: 100%;
+  height: 8rem;
+  margin: 1rem 0 0 0;
+  text-align: left;
+
+  &__sub-title {
+    color: gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  &__text2 {
+    color: gray;
+    font-size: 0.8rem;
+    margin: 0.5rem 0 0 0;
+  }
+
+  &__text3 {
+    color: gray;
+    font-size: 0.8rem;
+    margin: 0.3rem 0 0 0;
+  }
+
+  &__button {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: gray;
+    background-color: $노랑색;
+    border: 0px;
+    margin: 0.3rem 0 0 0.3rem;
+    cursor: pointer;
+
+    &:hover {
+    text-decoration: underline;
+    color: gray;
+    }
+  }
+}
+
+// MypageSideMenu.js ==============================================================
+.sidemenu-all {
+  @include tablet {
+    width: 100%;
+  }
+
+  @include mobile {
+    width: 100%;
+  }
+}
+
+.side-title { //좌측 상단 마이페이지 출력
+  font-size: $소소제목;
+  color: $연갈색;
+  font-weight: bold;
+}
+
+.sidemenu { //사이드메뉴 최외곽
+  display: flex;
+  flex-direction: column;
+
+  // @include tablet {
+  //   flex-direction: row;
+  // }
+
+  // @include mobile() {
+  //   flex-direction: row;
+  // }
+
+  &__profile-box {
+    border: 1px solid $진회색;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 2.5rem 1rem 2.5rem;
+    margin: 0 1rem 0 0;
+
+    background: linear-gradient(
+      to bottom,
+      $연갈색 0%,
+      $연갈색 25%,
+      white 25%,
+      white 100%
+    );
+  }
+
+  &__nickname { //닉네임 출력
+    margin: 1rem 0 0 0;
+    font-size: $소소제목;
+    font-weight: bold;
+    color: $갈색;
+
+    @include tablet {
+      margin: 0;
+      color: white;
+    }
+    @include mobile {
+      margin: 0;
+      color: white;
+    }
+  }
+
+  &__id { //닉네임 아래 아이디 출력
+    line-height: 1.2;
+    color: $진회색;
+    size: $참고글씨;
+    margin: 0.2rem 0 1rem 0;
+  }
+
+  &__point-shop { //로고, 보유 포인트 div
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &__point-text { //nP 숫자 출력
+    padding-left: 0.5rem;
+    margin: 0;
+    font-weight: bold;
+    color: $진회색;
+  }
+
+  &__point-logo { //P 로고
+    color: $진회색;
+  }
+
+  &__menu-box { //하단 메뉴 외곽 박스
+    // border-left: 1px solid $진회색;
+    // border-right: 1px solid $진회색;
+    margin: 0.5rem 1rem 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  &__menu-item { //각 메뉴
+    cursor: pointer;
+    border: 1px solid $진회색;
+    border-bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 0.7rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    color: $진회색;
+    background-color: white;
+
+    &:last-child {
+      border-bottom: 1px solid $진회색;
+    }
+
+    &:hover {
+      color: black;
+    }
+  }
+
+  &__arrow {
+    margin: 0rem;
+    font-weight: bold;
+  }
+}
+
+.mobilemenu { //모바일 전환 시 디자인
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  &__container { //둥근 모서리 컨테이너
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    background-color: white;
+    width: 95%;
+    border: 1px solid $진회색;
+    overflow: hidden;
+
+    background: linear-gradient(
+      to bottom,
+      $연갈색 0%,
+      $연갈색 25%,
+      white 25%,
+      white 100%
+    );
+  }
+
+  &__top-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 0.5rem;
+    margin-left: 2rem;
+    // background-color: skyblue;
+  }
+
+  &__button-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5rem;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  &__button {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem 0.5rem 0.3rem 0.5rem;
+    // border-right: 2px solid $진회색;
+    background-color: white;
+    cursor: pointer;
+
+    &:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 25%; // 세로 위치 조정 (예: 상단에서 30%)
+      height: 60%; // 선의 길이
+      width: 1px;
+      background-color: $진회색;
+    }
+
+    &:last-child {
+      border-right: 0;
+    }
+
+    &:hover {
+      background-color: $배경색;
+      // color: $연갈색;
+      // .mobilemenu__button-text {
+      //   color: $연갈색;
+      // }
+    }
+  }
+
+  &__button-text {
+    font-size: $참고글씨;
+    font-weight: bold;
+    color: $진회색;
+    margin: 0;
+  }
+}
+
+// MypageInfo.js ==============================================================
+.info { //회원정보 최외곽
+  margin: 2rem 1rem;
+  width: 100%;
+
+  &__title { //연갈색 소제목
+    font-size: $소제목;
+    font-weight: bold;
+    color: $연갈색;
+    margin-bottom: 1rem;
+  }
+
+  &__card-div { //흰바탕, 외곽선
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 0.7rem;
+    
+    @include mobile{
+      margin: 0 0.5rem;
+    }
+  }
+
+  &__row { //각각 행
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 1rem 0;
+
+    &__label { //행 제목
+      font-weight: bold;
+      width: 12rem;
+    }
+
+    &__value { //행 내용
+      color: $진회색;
+      width: 15rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      &__profile { //프로필 사진 및 프로필명 div
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        &__name { //프로필명 텍스트
+          margin: 0.2rem 0 0 0;
+          font-weight: bold;
+        }
+      }
+    }
+
+    &__space { //행별 좌우 균형 맞추기
+      flex: 1;
+      // width: 100%;
+    }
+
+    &__change-button { //변경 버튼
+      background-color: $노랑색;
+      color: $진회색;
+      font-weight: bold;
+      // font-size: $참고글씨;
+      border-radius: 5px;
+      border: 0px solid;
+      margin: 0 0 0 0.5rem;
+      padding: 0.2rem 0.8rem;
+      width: 4rem;
+      height: 1.8rem;
+
+      &:hover {
+        background-color: $연갈색;
+        color: white;
+      }
+    }
+  }
+
+  &__modal-header { //모달창 제목 div
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid $진회색;
+    // background-color: green;
+    padding: 0.3rem 0;
+  }
+
+  &__modal-content { //모달창 내용 div
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__modal-title { //모달창 제목 텍스트
+    font-size: $소소제목;
+    font-weight: bold;
+    color: $갈색;
+  }
+
+  &__modal-close { //모달창 닫기 버튼
+    border: 0px solid black;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem 0;
+    background-color: white;
+  }
+
+  &__hidden { //헤더 좌우 균형 맞추기
+    color: white;
+    border: 0px solid;
+    background-color: white;
+
+    &:hover{
+      cursor: default;
+    }
+  }
+
+  &__description-nickname { //'현재 닉네임' 텍스트
+    font-size: $참고글씨;
+    font-weight: bold;
+    color: $진회색;
+    margin: 0;
+  }
+
+  &__now-nickname { //현재 닉네임
+    font-size: $강조글씨;
+    font-weight: bold;
+    margin: 0;
+    color: $연갈색;
+  }
+
+  &__input-nickname { //닉네임 input
+    width: 65%;
+    margin: 1rem 0 0 0;
+    padding: 10px 14px;
+    font-size: 16px;
+    border: 1.5px solid $연갈색;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  
+    &::placeholder {
+      color: $진회색;
+    }
+  
+    &:focus {
+      border-color: $갈색;
+      box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
+      color: $갈색;
+      font-weight: bold;
+    }
+  }
+
+  &__nickname-error { //nickname error시 텍스트
+    margin: 0;
+    color: red;
+    font-size: $참고글씨;
+  }
+
+  &__modal-button-nickname { //닉네임 모달창 버튼
+    background-color: $노랑색;
+    color: $진회색;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 0px solid;
+    margin: 0 0 0 0.5rem;
+    padding: 0.2rem 0.8rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $연갈색;
+      color: white;
+    }
+    &:disabled {
+      background-color: #ddd;
+      color: #888;
+      cursor: default;
+    }
+  }
+
+  &__profile { //모달창 프로필 사진 출력
+    &__container { //div
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 1rem;
+      justify-content: center;
+      margin-top: 1rem;
+      max-width: 100%;
+    }
+  
+    &__item { //프로필 사진, 버튼이 1세트
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: calc(33.333% - 1rem);
+    }
+  }
+
+  &__modal-button-profile { //프로필 모달창 버튼
+    background-color: $노랑색;
+    color: $진회색;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 0px solid;
+    margin: 0.5rem 0 0 0;
+    padding: 0.2rem 0.8rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $연갈색;
+      color: white;
+    }
+
+    &:disabled {
+      background-color: #ddd;
+      color: #888;
+      cursor: default;
+    }
+  }
+}
+
+// PointShop.js ==============================================================
+.shop { //샵 최외곽
+  margin: 2rem 1rem;
+  width: 100%;
+
+  &__title { //연갈색 소제목
+    font-size: $소제목;
+    font-weight: bold;
+    color: $연갈색;
+    margin-bottom: 1rem;
+  }
+
+  &__point { //보유 포인트 출력 div
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5rem;
+    padding: 0 0 0.5rem 0;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+  }
+
+  &__point-text { //보유 포인트 텍스트
+    padding-left: 0.5rem;
+    margin: 0;
+    font-weight: bold;
+    color: $진회색;
+  }
+
+  &__point-logo { //P 로고
+    color: $진회색;
+  }
+
+  &__button { //구매 버튼
+    background-color: $노랑색;
+    color: $진회색;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 0px solid;
+    margin: 0.5rem 0 0 0;
+    padding: 0.2rem 0.8rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $연갈색;
+      color: white;
+    }
+
+    &:disabled {
+      background-color: #ddd;
+      color: #888;
+      cursor: default;
+    }
+  }
+
+  &__grid { //카드 그리드 설정
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+
+  &__card { //각 카드 디자인
+    width: 180px;
+    border: 1px solid white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    border-radius: 15px;
+    transition: transform 0.2s;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+    }
+
+    .card-body { //카드 내부 패딩
+      padding: 1.2rem 0.3rem;
+    }
+
+    .card-title { //카드 이름
+      font-size: $강조글씨;
+      font-weight: bold;
+    }
+
+    .card-text { //카드 타입
+      font-size: $참고글씨;
+      color: $진회색;
+      font-weight: bold;
+      margin: 0.5rem 0;
+    }
+  }
+
+  &__modal-header { //모달창 헤더 div
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid $진회색;
+    // background-color: green;
+    padding: 0.3rem 0;
+  }
+
+  &__modal-content { //모달창 내용 div
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__modal-title { //모달창 헤더 텍스트
+    font-size: $소소제목;
+    font-weight: bold;
+    color: $갈색;
+  }
+
+  &__modal-close { //모달창 닫기 버튼
+    border: 0px solid black;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem 0;
+    background-color: white;
+  }
+
+  &__modal-hidden { //모달창 헤더 좌우 균형
+    color: white;
+    border: 0px solid;
+    background-color: white;
+
+    &:hover{
+      cursor: default;
+    }
+  }
+
+  &__modal-name { //모달창 프로필 이름
+    font-size: $강조글씨;
+    font-weight: bold;
+    color: $갈색;
+    margin: 0.5rem 0 0 0;
+  }
+
+  &__modal-type { //모달창 프로필 타입
+    color: $연갈색;
+    font-size: $참고글씨;
+    font-weight: bold;
+    margin: 0 0 0.5rem 0;
+  }
+
+  &__modal-description { //모달창 프로필 설명
+    font-size: $참고글씨;
+    font-weight: bold;
+    color: $진회색;
+    margin: 0;
+    text-align: center;
+  }
+}
+
+// Auth.js ==============================================================
+.auth-wrapper { //최외곽
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 6rem); // 화면 전체 높이 기준 정렬
+}
+
+.auth { //로그인, 회원가입 카드
+  width: 800px;
+  height: 400px;
+  display: flex;
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: white;
+
+  .auth__img {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  &-active { //로그인, 회원가입 창 전환
+    .auth__left {
+      transform: translateY(-400px);
+    }
+    .auth__right {
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 820px) { //820 이하 : 그림 none, 전환 변경
+    width: 400px;
+    flex-direction: column;
+
+    .auth__img {
+      display: none;
+    }
+
+    .auth__left {
+      transform: translateY(800px);
+    }
+
+    &-active {
+      .auth__left {
+        transform: translateY(0);
+      }
+      .auth__right {
+        transform: translateY(-800px);
+      }
+    }
+  }
+
+  &__left,
+  &__right { //로그인 및 회원가입 입력창
+    width: 400px;
+    height: 400px;
+    // background: white;
+    display: flex;
+    flex-direction: column;
+    transition: 1s;
+  }
+
+  &__right { //우측(로그인)창만 추가 조정
+    transform: translateY(-400px);
+  }
+
+  &__content { //로그인 및 회원가입 입력창 내용
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  &__text {
+    color: $진회색;
+    font-weight: bold;
+    text-align: center;
+    height: 30px;
+  }
+
+  &__login-link {
+    color: $연갈색;
+    margin-left: 0.5rem;
+  }
+
+  &__register-link {
+    color: $갈색;
+    margin-left: 0.5rem;
+  }
+
+}
+
+// Login.js ==============================================================
+.login { //로그인
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1rem 0 1rem;
+  height: 370px;
+
+  &__title { //로그인 텍스트 출력
+    font-size: $소제목;
+    font-weight: bold;
+    color: $갈색;
+    margin: 0.2rem 0 2rem 0;
+  }
+
+  &__item-div { //행 디자인
+    width: 100%;
+    padding: 0;
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__input { //로그인 input
+    width: calc(100% - 7rem);
+    margin: 0;
+    padding: 5px 7px;
+    font-size: 16px;
+    border: 1.5px solid $갈색;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    color: $연갈색;
+    font-weight: bold;
+  
+    &::placeholder {
+      color: $갈색;
+    }
+  
+    &:focus {
+      border-color: $연갈색;
+      box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
+      color: $연갈색;
+      font-weight: bold;
+    }
+  }
+
+  &__button { //로그인 버튼
+    background-color: $갈색;
+    font-size: $강조글씨;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 0px solid;
+    margin: 0.5rem 0;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $연갈색;
+      color: white;
+    }
+
+    &:disabled {
+      background-color: #ddd;
+      color: #888;
+      cursor: default;
+    }
+  }
+}
+
+// Register.js ==============================================================
+.register { //회원가입
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1rem 0 1rem;
+  height: 370px;
+
+  &__title { //회원가입 텍스트 출력
+    font-size: $소제목;
+    font-weight: bold;
+    color: $연갈색;
+    margin: 0.2rem 0 1rem 0;
+  }
+
+  &__item-div { //행 디자인
+    width: 90%;
+    padding: 0;
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__button { //중복확인 버튼
+    background-color: $연갈색;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 0px solid;
+    margin: 0 0 0 0.5rem;
+    padding: 0.2rem 0.8rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $갈색;
+      color: white;
+    }
+
+    &:disabled {
+      background-color: #ddd;
+      color: #888;
+      cursor: default;
+    }
+  }
+
+  &__input { //회원가입 input
+    width: calc(100% - 7rem);
+    margin: 0;
+    padding: 5px 7px;
+    font-size: 16px;
+    border: 1.5px solid $연갈색;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    margin-left: 0.3rem;
+    color: $갈색;
+    font-weight: bold;
+  
+    &::placeholder {
+      color: $연갈색;
+    }
+  
+    &:focus {
+      border-color: $갈색;
+      box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
+      color: $갈색;
+      font-weight: bold;
+    }
+  }
+
+  &__error-text { //회원가입 에러 텍스트
+    margin: 0;
+    color: red;
+    font-size: $참고글씨;
+    width: 88%;
+  }
+
+  &__submit { //가입 버튼
+    background-color: $연갈색;
+    font-size: $강조글씨;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 0px solid;
+    margin: 0.5rem 0;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $갈색;
+      color: white;
+    }
+
+    &:disabled {
+      background-color: #ddd;
+      color: #888;
+      cursor: default;
+    }
+  }
+}

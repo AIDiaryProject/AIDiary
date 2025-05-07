@@ -34,31 +34,30 @@ const Login = () => {
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h2>로그인</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label>아이디:</label>
+    <form onSubmit={handleLogin} className='login'>
+      <h1 className='login__title'>로그인</h1>
+        <div className='login__item-div'>
           <input
             type="text"
+            placeholder="아이디"
             value={id}
+            className='login__input'
             onChange={(e) => setId(e.target.value)}
             required
           />
         </div>
-        <div>
-          <label>비밀번호:</label>
+        <div className='login__item-div'>
           <input
             type="password"
+            placeholder="비밀번호"
             value={password}
+            className='login__input'
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
-        <button type="submit">로그인</button>
-      </form>
-      <button onClick={() => {navigate('/register')}}>회원가입</button>
-    </div>
+        <button type="submit" className='login__button'>로그인</button>
+    </form>
   );
 };
 

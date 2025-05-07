@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-const Test = () => {
+function useWidth() {
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -11,12 +11,6 @@ const Test = () => {
   }, []);
 
   return width;
-
-  // return (
-  //   <div style={{ padding: '20px', fontSize: '18px' }}>
-  //     현재 창 너비: <strong>{width}px</strong>
-  //   </div>
-  // );
 }
 
-export default Test;
+export default useWidth;
