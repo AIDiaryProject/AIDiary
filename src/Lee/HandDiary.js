@@ -105,16 +105,16 @@ const HandDiary = () => {
     <div className="diary-wrapper">
       <h2>자유롭게 작성하는 나의 일기</h2>
       <hr/>
-      <label htmlFor="basic-url" className="form-label">제목</label>
+      <label htmlFor="basic-url" className="form-label">제목 </label>
+      <span>{title.length}/20</span>
       <input
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="제목을 입력하세요"
-        maxLength='10'
         className="form-control diary-input"
+        maxLength={20}
       />
-
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}

@@ -128,7 +128,8 @@ const AiDiary = () => {
       <h2>숲의 마법으로 작성하는 나의 일기</h2>
       <hr/>
       <div>
-        <label htmlFor="basic-url" className="form-label diary-title-label">제목</label>
+        <label htmlFor="basic-url" className="form-label diary-title-label">제목 </label>
+        <span>{title.length}/20</span>
         <input
           type="text" 
           className="form-control diary-input"
@@ -136,6 +137,7 @@ const AiDiary = () => {
           onChange={handleTitleChange}
           placeholder="제목을 입력하세요"
           disabled={loading || isGenerated}
+          maxLength={20}
         />
       </div>
 
