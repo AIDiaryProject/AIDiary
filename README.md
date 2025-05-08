@@ -18,8 +18,8 @@ ChatGPT 연동 일기 작성 웹사이트 <br>
 <img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
 
 ## :computer:주요화면
-### 블로그 게시글 상단
-![PostScreen](https://firebasestorage.googleapis.com/v0/b/parkdevblog.firebasestorage.app/o/portfolio%2FBlogDetail.png?alt=media&token=e94deb71-5a80-471f-b837-b895d4326ed8)
+### 회원가입, 로그인
+![LoginScreen](https://raw.githubusercontent.com/AIDiaryProject/AIDiary/refs/heads/main/public/gif/1_loginRegister.gif)
 
 ### 블로그 게시글 하단(댓글)
 ![CommentScreen](https://firebasestorage.googleapis.com/v0/b/parkdevblog.firebasestorage.app/o/portfolio%2FBlogComments.png?alt=media&token=3ee73895-6398-46d0-b732-463be6983877)
