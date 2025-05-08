@@ -40,6 +40,6 @@ ChatGPT 연동 일기 작성 웹사이트 <br>
 ![ShopScreen](https://raw.githubusercontent.com/AIDiaryProject/AIDiary/refs/heads/main/public/gif/7_shop.gif)
 
 ### 모바일 화면 (반응형 UI)
-작성 필요
+![MobileScreen](https://raw.githubusercontent.com/AIDiaryProject/AIDiary/refs/heads/main/public/gif/0_mobile.png)
 
 ## :notebook:비고
