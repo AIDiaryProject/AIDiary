@@ -53,7 +53,7 @@ const ResultHanddiary = () => {
             alert(response.data.message);
         } catch (error) {
             console.error(error);
-            alert('포인트 처리 실패');
+            alert('포인트 처리 실패~~~~~~~~~~~~~~~~~');
         }
     };
     
