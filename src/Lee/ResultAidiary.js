@@ -33,6 +33,7 @@ const ResultAiDiary = () => {
         user_id: user?.id,
         emotionLabel,
         emotionScore,
+        commenter: null,
       });
       alert('마법일기가 마음숲에 저장 되었어요!');
       navigate("/Mypagelist", { state: { refresh: true } });
@@ -50,6 +51,10 @@ const ResultAiDiary = () => {
         userId,
         amount,
         type,
+      },{
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
       });
   
       alert(response.data.message);
