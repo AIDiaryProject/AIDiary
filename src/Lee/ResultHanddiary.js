@@ -23,7 +23,7 @@ const ResultHanddiary = () => {
     const dbSave = async () => {
         try {
             setSaving(true);
-            const response = await axios.post('https://aidiary.onrender.com/diaryDB/diarysave', {
+            await axios.post('https://aidiary.onrender.com/diaryDB/diarysave', {
                 title,
                 content,
                 weather,
@@ -35,7 +35,8 @@ const ResultHanddiary = () => {
                 commenter: number,
             });
             alert('마법일기가 마음숲에 저장 되었어요!');
-            navigate("/Mypagelist", { state: { refresh: true } });
+            navigate("/Mypagelist", { replace: true, state: { refresh: true } });
+            window.location.reload();
         } catch (err) {
             console.error(err);
             alert('마법일기를 마음숲에 저장하는데 실패 했어요...');
