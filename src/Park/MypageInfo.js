@@ -158,8 +158,10 @@ const MypageInfo = () => {
                             <p className='info__now-nickname'>{user?.nickname}</p>
                             <input 
                             type="text"
-                            placeholder="변경할 닉네임 입력"
+                            placeholder="변경할 닉네임 입력(10자 이하)"
                             className='info__input-nickname'
+                            minLength="1"
+                            maxlength="10"
                             onChange={(e) => {
                                 const value = e.target.value;
                                 const specialCharRegex  = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;

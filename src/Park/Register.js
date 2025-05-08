@@ -174,7 +174,7 @@ const Register = () => {
       <div className='register__item-div'>
         <input //닉네임 입력란
           type="text"
-          placeholder="닉네임"
+          placeholder="닉네임(10자 이하)"
           minLength="1"
           maxlength="10"
           value={nickname}
