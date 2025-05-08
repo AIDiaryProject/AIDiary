@@ -1,7 +1,7 @@
 # <img src="https://raw.githubusercontent.com/AIDiaryProject/AIDiary/refs/heads/main/public/favicon.ico" width="40" height="40"/> 마음숲
 
 ## :bulb:프로젝트 소개
-![MainScreen](https://firebasestorage.googleapis.com/v0/b/parkdevblog.firebasestorage.app/o/portfolio%2FBlogHome.png?alt=media&token=0aa13b77-5541-4dc5-a4d9-04bea56b94d4)
+![MainScreen](https://raw.githubusercontent.com/AIDiaryProject/AIDiary/refs/heads/main/public/gif/0_main.png)
 
 **프로젝트 기간** : 2025.04 ~ 2025.05<br>
 **인원** : 2인 <br>
@@ -18,9 +18,6 @@ ChatGPT 연동 일기 작성 웹사이트 <br>
 <img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
 
 ## :computer:주요화면
-### 메인화면
-![MainScreen](https://raw.githubusercontent.com/AIDiaryProject/AIDiary/refs/heads/main/public/gif/0_main.png)
-
 ### 회원가입, 로그인
 ![LoginScreen](https://raw.githubusercontent.com/AIDiaryProject/AIDiary/refs/heads/main/public/gif/1_loginRegister.gif)
 
