@@ -3,17 +3,19 @@
 ## :bulb:프로젝트 소개
 ![MainScreen](https://firebasestorage.googleapis.com/v0/b/parkdevblog.firebasestorage.app/o/portfolio%2FBlogHome.png?alt=media&token=0aa13b77-5541-4dc5-a4d9-04bea56b94d4)
 
-**프로젝트 기간** : 2024.12 ~ 2025.01<br>
-**인원** : 1인 <br>
-공부 및 기록을 위해 직접 제작한 개인 블로그로,
-React와 Firebase, Github Pages를 이용하여 제작하였습니다. <br>
-**배포** : [블로그](https://hyeongjun513.github.io/blog)
+**프로젝트 기간** : 2025.04 ~ 2025.05<br>
+**인원** : 2인 <br>
+일기 작성, AI 일기, AI 코멘트.
+ChatGPT 연동 일기 작성 웹사이트 <br>
+**배포** : [마음숲](https://mindforest-app.vercel.app/)
 
 ## :clipboard:기술스택
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
-<img src="https://img.shields.io/badge/firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white">
-<img src="https://img.shields.io/badge/githubpages-181717?style=for-the-badge&logo=github&logoColor=white">
+<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+<img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white">
+<img src="https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white">
+<img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
 
 ## :computer:주요화면
 ### 블로그 게시글 상단
