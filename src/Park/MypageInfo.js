@@ -145,7 +145,6 @@ const MypageInfo = () => {
                 className='modal show fade d-block'  
                 tabIndex='-1'
                 style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
-                onClick={() => {setNicknameModal(false)}}
             >
                 <div className='modal-dialog modal-dialog-centered'>
                     <div className='modal-content'>
@@ -199,7 +198,6 @@ const MypageInfo = () => {
                 className='modal show fade d-block'  
                 tabIndex='-1'
                 style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
-                onClick={() => {setProfileModal(false)}}
             >
                 <div className='modal-dialog modal-dialog-centered'>
                     <div className='modal-content'>

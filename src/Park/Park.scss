@@ -1071,6 +1071,7 @@ $분홍색 : #f8b3d8; //버튼2 배경색, 버튼2 글씨색은 검정
     border: 0px solid;
     margin: 0.5rem 0 0 0;
     padding: 0.2rem 0.8rem;
+    min-width: 6rem;
     cursor: pointer;
 
     &:hover {

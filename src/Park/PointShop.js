@@ -91,7 +91,6 @@ const PointShop = () => { //user.profile : 사용중 / user.item : 보유중
                 className='modal show fade d-block'  
                 tabIndex='-1'
                 style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
-                onClick={() => {setShowModal(false)}}
             >
                 <div className='modal-dialog modal-dialog-centered'>
                     <div className='modal-content'>
