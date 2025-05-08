@@ -21,7 +21,7 @@ router.post('/register', async (req, res) => {
     res.status(201).json({ message: '회원가입 성공', userId: result.insertId }); //응답 데이터를 json 형식으로 반환. 201은 http 상태 코드(201: 요청 성공, 그 결과로 리소스 생성 및 반환)
   } catch (err) {
     console.error('회원가입 에러', err);
-    res.status(500).json({ error: '회원가입 실패' });
+    res.status(500).json({ error: '서버 오류 : 회원가입 실패' });
   }
 });
 
@@ -37,7 +37,7 @@ router.get('/check-id', async (req, res) => {
     }
   } catch (err) {
     console.error('ID 중복 확인 에러:', err);
-    res.status(500).json({ error: '서버 에러' });
+    res.status(500).json({ error: '서버 오류 : ID 중복 확인 실패' });
   }
 });
 
@@ -53,7 +53,7 @@ router.get('/check-nickname', async (req, res) => {
     }
   } catch (err) {
     console.error('닉네임 중복 확인 에러:', err);
-    res.status(500).json({ error: '서버 에러' });
+    res.status(500).json({ error: '서버 오류 : 닉네임 중복 확인 실패' });
   }
 });
 
@@ -73,7 +73,7 @@ router.patch('/change-nickname', authMiddleware, async (req, res) => {
     res.json({ message: '닉네임이 성공적으로 변경되었습니다.' });
   } catch (err) {
     console.error('닉네임 변경 오류:', err);
-    res.status(500).json({ error: '닉네임 변경 실패' });
+    res.status(500).json({ error: '서버 오류 : 닉네임 변경 실패' });
   }
 });
 
@@ -87,13 +87,13 @@ router.post('/login', async (req, res) => {
     const user = rows[0];
 
     if (!user) {
-      return res.status(401).json({ error: '존재하지 않는 ID입니다.' });
+      return res.status(401).json({ error: '서버 오류 : 존재하지 않는 ID입니다.' });
     }
 
     // 비밀번호 비교
     const isMatch = await bcrypt.compare(password, user.password); //password를 암호화하여 user.password와 비교.
     if (!isMatch) {
-      return res.status(401).json({ error: '비밀번호가 틀렸습니다.' });
+      return res.status(401).json({ error: '서버 오류 : 비밀번호가 틀렸습니다.' });
     }
 
     // JWT 토큰 발급
@@ -102,7 +102,7 @@ router.post('/login', async (req, res) => {
     res.json({ message: '로그인 성공', token });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: '로그인 실패' });
+    res.status(500).json({ error: '서버 오류 : 로그인 실패' });
   }
 });
 
@@ -112,8 +112,8 @@ router.get('/', authMiddleware, async (req, res) => {
         const [rows] = await db.execute('SELECT * FROM users');
         res.json(rows);
     } catch (err) {
-        console.error("DB 조회 중 에러 발생:", err); // 에러 로그 추가
-        res.status(500).json({ error: 'DB 조회 실패' });
+        console.error("서버 오류 : DB 조회 중 에러 발생:", err); // 에러 로그 추가
+        res.status(500).json({ error: '서버 오류 : DB 조회 실패' });
     }
 });
 
@@ -129,11 +129,11 @@ router.patch('/change-profile', authMiddleware, async (req, res) => {
     console.log('DB에서 읽어온 item:', userItem); // 배열 형태로 나와야 함
 
     if (!Array.isArray(userItem)) {
-      return res.status(500).json({ error: 'DB item 필드가 배열이 아닙니다.' });
+      return res.status(500).json({ error: '서버 오류 : DB item 필드가 배열이 아닙니다.' });
     }
 
     if (!userItem.includes(newProfile)) { // 선택한 프로필이 보유한 아이템인지 확인
-      return res.status(400).json({ error: '선택한 친구는 아는 친구가 아닙니다.' });
+      return res.status(400).json({ error: '서버 오류 : 선택한 친구는 아는 친구가 아닙니다.' });
     }
 
     await db.execute('UPDATE users SET profile = ? WHERE id = ?', [newProfile, userId]); // 프로필 변경
@@ -141,7 +141,7 @@ router.patch('/change-profile', authMiddleware, async (req, res) => {
 
   } catch (err) {
     console.error('프로필 변경 오류:', err);
-    res.status(500).json({ error: '프로필 변경 실패' });
+    res.status(500).json({ error: '서버 오류 : 프로필 변경 실패' });
   }
 });
 
@@ -154,17 +154,17 @@ router.post('/buy-profile', authMiddleware, async (req, res) => {
     const [rows] = await db.execute('SELECT item, point FROM users WHERE id = ?', [userId]); // 1. 사용자 정보 조회
     const user = rows[0];
 
-    if (!user) return res.status(404).json({ error: '사용자를 찾을 수 없습니다.' });
+    if (!user) return res.status(404).json({ error: '서버 오류 : 사용자를 찾을 수 없습니다.' });
 
     const itemArray = user.item || [];
     const currentPoint = user.point;
 
     if (itemArray.includes(profileId)) { // 2. 이미 보유 중인지 확인
-      return res.status(400).json({ error: '이미 알고 있는 친구입니다.' });
+      return res.status(400).json({ error: '서버 오류 : 이미 알고 있는 친구입니다.' });
     }
 
     if (currentPoint < price) { // 3. 포인트 부족 시
-      return res.status(400).json({ error: '보유 열매가 부족합니다.' });
+      return res.status(400).json({ error: '서버 오류 : 보유 열매가 부족합니다.' });
     }
 
     const newItemArray = [...itemArray, profileId]; // 4. 새로운 item 배열 구성
@@ -201,7 +201,7 @@ router.patch('/add-point', authMiddleware, async (req, res) => {
     //res.json({ message: `열매가 ${type === 'plus' ? '추가' : '차감'}되었습니다.` });
   } catch (err) {
     console.error('포인트 처리 오류:', err);
-    res.status(500).json({ error: '포인트 처리 실패' });
+    res.status(500).json({ error: '서버 오류로 열매 지급에 오류가 발생했습니다.' });
   }
 });
 
@@ -213,7 +213,7 @@ router.get('/me', authMiddleware, async (req, res) => {
     res.json(rows[0]);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: '사용자 정보 조회 실패' });
+    res.status(500).json({ error: '서버 오류 : 사용자 정보 조회 실패' });
   }
 });
 
