@@ -42,4 +42,11 @@ ChatGPT 연동 일기 작성 웹사이트 <br>
 ### 모바일 화면 (반응형 UI)
 ![MobileScreen](https://raw.githubusercontent.com/AIDiaryProject/AIDiary/refs/heads/main/public/gif/0_mobile.png)
 
+## :mag: 구조
+### - 흐름도
+![Flow](https://raw.githubusercontent.com/AIDiaryProject/AIDiary/refs/heads/main/public/gif/0_flow.png)
+
+### - Database ERD
+![ERD](https://raw.githubusercontent.com/AIDiaryProject/AIDiary/refs/heads/main/public/gif/0_erd.png)
+
 ## :notebook:비고
